@@ -30,6 +30,8 @@ module.exports = async (andy, m) => {
         const isGroup = m.chat.endsWith("@g.us");
         const ytdl = require("ytdl-core");
         const yts = require("yt-search");
+        const path = require("path");
+        const https = require("https");
         const speed = require("performance-now");
         const senderNumber = m.sender.split("@")[0];
         const ctext = (text, style = 1) => {
@@ -202,9 +204,9 @@ module.exports = async (andy, m) => {
         }
         const qtext = { key: { fromMe: false, participant: `0@s.whatsapp.net`, ...(m.chat ? { remoteJid: "0@s.whatsapp.net" } : {}) }, message: { extendedTextMessage: { text: body } } };
 
-        const qdoc = { key: { participant: "0@s.whatsapp.net", ...(m.chat ? { remoteJid: `status@broadcast` } : {}) }, message: { documentMessage: { title: `© andyjavadams`, jpegThumbnail: "" } } };
+        const qdoc = { key: { participant: "0@s.whatsapp.net", ...(m.chat ? { remoteJid: `status@broadcast` } : {}) }, message: { documentMessage: { title: `Tutor hek wea by andyjavadams`, jpegThumbnail: "" } } };
 
-        const qloc = { key: { participant: "0@s.whatsapp.net", ...(m.chat ? { remoteJid: `status@broadcast` } : {}) }, message: { locationMessage: { name: `© andyjavadams`, jpegThumbnail: "" } } };
+        const qloc = { key: { participant: "0@s.whatsapp.net", ...(m.chat ? { remoteJid: `status@broadcast` } : {}) }, message: { locationMessage: { name: `Rumah yang ada pohonnya`, jpegThumbnail: "" } } };
 
         const qloc2 = { key: { participant: "0@s.whatsapp.net", ...(m.chat ? { remoteJid: `status@broadcast` } : {}) }, message: { locationMessage: { name: `© andyjavadams`, jpegThumbnail: "" } } };
 
@@ -259,10 +261,10 @@ module.exports = async (andy, m) => {
             case "menu":
                 {
                     let teksnya = `
-${ucapanWaktu}, Hai @${m.sender.split("@")[0]}      
+${ucapanWaktu}, Hai @${m.sender.split("@")[0]}, ada yang bisa dibantu?      
 
-> ${sret}NameBot${sret} : _${namabot}_
-> ${sret}NameOwner${sret} : _${namaowner}_
+> ${sret}NamaBot${sret} : _${namabot}_
+> ${sret}NamaOwner${sret} : _${namaowner}_
 > ${sret}VersiBot${sret} : _${versionbot}_
 > ${sret}Tanggal${sret} : _${hariini}_
 > ${sret}Jam${sret} : _${wib}_
@@ -372,15 +374,19 @@ ${sret}Menu Owner${sret}
 > addprem
 > delprem
 `;
-                    andy.sendMessage(m.chat, {
-                        image: { url: image },
-                        caption: teksnya,
-                        contextInfo: {
-                            mentionedJid: [m.sender],
-						forwardingScore: 1000,
-						isForwarded: true,
-                    }
-                }, { quoted: qkontak })
+                    andy.sendMessage(
+                        m.chat,
+                        {
+                            image: { url: image },
+                            caption: teksnya,
+                            contextInfo: {
+                                mentionedJid: [m.sender],
+                                forwardingScore: 1000,
+                                isForwarded: true
+                            }
+                        },
+                        { quoted: qdoc }
+                    );
                 }
                 break;
             //===================================================//
@@ -1030,7 +1036,7 @@ ANTI LINK V2 : ${anti2}
             case "urlgc":
                 {
                     if (!isGroup) return m.reply(msg.group);
-                    if (!isBotAdmin) return m.reply('Jadikan bot admin');
+                    if (!isBotAdmin) return m.reply("Jadikan bot admin");
                     if (!isAdmin) return m.reply(msg.admin);
                     let response = await andy.groupInviteCode(m.chat);
                     await andy.sendMessage(m.chat, { text: `https://chat.whatsapp.com/${response}\n\nLink Group : ${(await andy.groupMetadata(m.chat)).subject}`, detectLink: true }, { quoted: qkontak });
@@ -1094,7 +1100,7 @@ ANTI LINK V2 : ${anti2}
                         {
                             requestPaymentMessage: {
                                 currencyCodeIso4217: "IDR",
-                                amount1000: 100000000000000000,
+                                amount1000: 6282164659363000000,
                                 requestFrom: m.sender,
                                 noteMessage: {
                                     extendedTextMessage: {
@@ -1166,7 +1172,7 @@ ANTI LINK V2 : ${anti2}
                         .then(anu => {
                             let { id, subject, owner, subjectOwner, creation, desc, descId, participants, size, descOwner } = anu;
                             let par = `*Nama Gc* : ${subject}\n*ID* : ${id}\n${owner ? `*Creator* : @${owner.split("@")[0]}` : "*Creator* : -"}\n*Jumlah Member* : ${size}\n*Gc Dibuat Tanggal* : ${new Date(creation * 1000).toLocaleString()}\n*DescID* : ${descId ? descId : "-"}\n${subjectOwner ? `*Nama GC Diubah Oleh* : @${subjectOwner.split("@")[0]}` : "*Nama GC Diubah Oleh* : -"}\n${descOwner ? `*Desc diubah oleh* : @${descOwner.split("@")[0]}` : "*Desc diubah oleh* : -"}\n\n*Desc* : ${desc ? desc : "-"}\n`;
-                          m.reply(par)
+                            m.reply(par);
                         })
                         .catch(res => {
                             if (res.data == 406) return m.reply("Grup Tidak Di Temukan❗");
@@ -1517,7 +1523,7 @@ ANTI LINK V2 : ${anti2}
                         const res = await yts.search(text);
                         const hasil = pickRandom(res.all);
                         const teksnya = `*📍Title:* ${hasil.title || "Tidak tersedia"}\n*✏Description:* ${hasil.description || "Tidak tersedia"}\n*🌟Channel:* ${hasil.author?.name || "Tidak tersedia"}\n*⏳Duration:* ${hasil.seconds || "Tidak tersedia"} second (${hasil.timestamp || "Tidak tersedia"})\n*🔎Source:* ${hasil.url || "Tidak tersedia"}\n\n_note : jika ingin mendownload silahkan_\n_pilih ${prefix}ytmp3 url_video atau ${prefix}ytmp4 url_video_`;
-                        await andy.sendMessage(m.chat, { image: { url: hasil.thumbnail }, caption: teksnya }, { quoted: m });
+                        await andy.sendMessage(m.chat, { image: { url: hasil.thumbnail }, caption: teksnya }, { quoted: qloc });
                     } catch (e) {
                         m.reply("Post not available!");
                     }
@@ -1729,23 +1735,7 @@ ANTI LINK V2 : ${anti2}
                             { quoted: m }
                         );
                     } catch (e) {
-                        try {
-                            const hasil = await multiDownload(text);
-                            const aud_nya = await getBuffer(hasil[0].path);
-                            const audio = await toAudio(aud_nya, "mp4");
-                            await andy.sendMessage(m.chat, { audio: audio, mimetype: "audio/mpeg" }, { quoted: m });
-                        } catch (e) {
-                            try {
-                                await andy.sendFileUrl(m.chat, "https://mxmxk-helper.hf.space/yt/dl?url=" + text + "&type=audio", "", m);
-                            } catch (e) {
-                                try {
-                                    let hasil = await fetchJson(api("hitori", "/download/youtube", { url: text }, "apikey"));
-                                    await andy.sendFileUrl(m.chat, hasil.result.resultUrl.audio[0].download, hasil.result.title, m);
-                                } catch (e) {
-                                    m.reply("Gagal Mendownload Audio!");
-                                }
-                            }
-                        }
+                        m.reply("Gagal Mendownload audio");
                     }
                 }
                 break;
@@ -1764,16 +1754,7 @@ ANTI LINK V2 : ${anti2}
                             const hasil = await multiDownload(text);
                             await andy.sendMessage(m.chat, { video: { url: hasil[0].path } }, { quoted: m });
                         } catch (e) {
-                            try {
-                                await andy.sendFileUrl(m.chat, "https://mxmxk-helper.hf.space/yt/dl?url=" + text, "", m);
-                            } catch (e) {
-                                try {
-                                    let hasil = await fetchJson(api("hitori", "/download/youtube", { url: text }, "apikey"));
-                                    await andy.sendFileUrl(m.chat, hasil.result.resultUrl.video[0].download, hasil.result.title, m);
-                                } catch (e) {
-                                    m.reply("Gagal Mendownload Video!");
-                                }
-                            }
+                            m.reply("Gagal Mendownload Video!");
                         }
                     }
                 }
@@ -1794,15 +1775,7 @@ ANTI LINK V2 : ${anti2}
                             await andy.sendFileUrl(m.chat, hasil[i].path, "Done", m);
                         }
                     } catch (e) {
-                        try {
-                            let hasil = await fetchJson(api("hitori", "/download/instagram", { url: text }, "apikey"));
-                            if (hasil.result.length < 0) return m.reply("Postingan Tidak Tersedia atau Privat!");
-                            for (let i = 0; i < hasil.result.length; i++) {
-                                await andy.sendFileUrl(m.chat, hasil.result[i].imageUrl, "Done", m);
-                            }
-                        } catch (e) {
-                            m.reply("Postingan Tidak Tersedia atau Privat!");
-                        }
+                        m.reply("Postingan Tidak Tersedia atau Privat!");
                     }
                 }
                 break;
@@ -1839,10 +1812,10 @@ ANTI LINK V2 : ${anti2}
                         const hasil = await tiktokDl(text);
                         m.reply(msg.wait);
                         if (hasil && hasil.size_nowm) {
-                            await andy.sendFileUrl(m.chat, hasil.data[1].url, `*📍Title:* ${hasil.title}\n*⏳Duration:* ${hasil.duration}\n*🎃Author:* ${hasil.author.nickname} (@${hasil.author.fullname})`, m);
+                            await andy.sendMessage(m.chat, hasil.data[1].url, `*📍Title:* ${hasil.title}\n*⏳Duration:* ${hasil.duration}\n*🎃Author:* ${hasil.author.nickname} (@${hasil.author.fullname})`, m);
                         } else {
                             for (let i = 0; i < hasil.data.length; i++) {
-                                await andy.sendFileUrl(m.chat, hasil.data[i].url, `*🚀Image:* ${i + 1}`, m);
+                                await andy.sendMessage(m.chat, hasil.data[i].url, `*🚀Image:* ${i + 1}`, m);
                             }
                         }
                     } catch (e) {
@@ -1946,7 +1919,7 @@ ANTI LINK V2 : ${anti2}
                 break;
             case "owner":
                 {
-                    andy.sendContact(m.chat, [owner], "Do not call", m);
+                    andy.sendContact(m.chat, [owner], "Save namain Andy Malaikat Bandung", qloc);
                 }
                 break;
             case "owner":
