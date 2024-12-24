@@ -221,7 +221,7 @@ module.exports = async (andy, m) => {
             },
             message: {
                 contactMessage: {
-                    displayName: `dyvsss`,
+                    displayName: `Andy Malaikat Bandung`,
                     vcard: `BEGIN:VCARD\nVERSION:3.0\nN:XL;ttname,;;;\nFN:ttname\nitem1.TEL;waid=6282164659362\nitem1.X-ABLabel:Ponsel\nEND:VCARD`,
                     sendEphemeral: true
                 }
@@ -272,11 +272,13 @@ ${ucapanWaktu}, Hai @${m.sender.split("@")[0]}, ada yang bisa dibantu?
 ${sret}Menu Main${sret}
 > hd
 > sticker
+> swm
 > smeme
 > trigger
 > emojimix
 > getexif
 > qc
+> brat
 
 ${sret}Ai Menu${sret}
 > simi
@@ -1219,6 +1221,30 @@ ANTI LINK V2 : ${anti2}
                     }
                 }
                 break;
+            case "stickerwm":
+            case "swm":
+            case "curi":
+            case "colong":
+            case "take":
+            case "stickergifwm":
+            case "sgifwm":
+                {
+                    if (!/image|video|webp/.test(mime)) return m.reply(example(`Kirim/reply gambar/video/gif dengan caption ${prefix + command}\nDurasi Image/Video/Gif 1-9 Detik\nContoh ${prefix + command} andy|js`));
+                    let media = await andy.downloadAndSaveMediaMessage(qmsg);
+                    let teks1 = text.split`|`[0] ? text.split`|`[0] : "";
+                    let teks2 = text.split`|`[1] ? text.split`|`[1] : "";
+                    if (/image|webp/.test(mime)) {
+                        m.reply(msg.wait);
+                        await andy.sendStimg(m.chat, media, m, { packname: teks1, author: teks2 });
+                    } else if (/video/.test(mime)) {
+                        if (qmsg.seconds > 11) return m.reply("Maksimal 10 detik!");
+                        m.reply(msg.wait);
+                        await andy.sendStimg(m.chat, media, m, { packname: teks1, author: teks2 });
+                    } else {
+                        m.reply(`Kirim/reply gambar/video/gif dengan caption ${prefix + command}\nDurasi Video/Gif 1-9 Detik`);
+                    }
+                }
+                break;
             case "smeme":
             case "stickmeme":
             case "stikmeme":
@@ -1323,6 +1349,21 @@ ANTI LINK V2 : ${anti2}
                     let { tts } = require("./all/tts");
                     let anu = await tts(text);
                     andy.sendMessage(m.chat, { audio: anu, ptt: true, mimetype: "audio/mpeg" }, { quoted: m });
+                }
+                break;
+            case "brat":
+                {
+                    await m.reply("Sedang diproses");
+                    if (!text && (!m.quoted || !m.quoted.text)) return m.reply(`Kirim/reply pesan *${prefix + command}* Teksnya`);
+                    try {
+                        await naze.sendMessage(m.chat, { image: { url: "https://brat.caliphdev.com/api/brat?text=" + (text || m.quoted.text) } }, { quoted: m });
+                    } catch (e) {
+                        try {
+                            await andy.sendMessage(m.chat, { image: { url: "https://mannoffc-x.hf.space/brat?q=" + (text || m.quoted.text) } }, { quoted: qkontak });
+                        } catch (e) {
+                            m.reply("Server Brat Sedang Offline!");
+                        }
+                    }
                 }
                 break;
             case "qc":
