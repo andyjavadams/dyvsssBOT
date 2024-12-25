@@ -286,7 +286,7 @@ ${sret}Ai Menu${sret}
 
 ${sret}Search Menu${sret}
 > google
-> ytsearch
+> fetch
 > pixiv
 > wallpaper
 > ringtone
@@ -298,10 +298,12 @@ ${sret}Search Menu${sret}
 ${sret}Menu Download${sret}
 > tiktokmp3
 > ytmp3
+> yts
 > ig
+> spotifydl
 
 ${sret}Fun Menu${sret}
-> bisakan
+> bisakah
 > apakah
 > kapan
 > kerangajaib
@@ -1356,7 +1358,7 @@ ANTI LINK V2 : ${anti2}
                     await m.reply("Sedang diproses");
                     if (!text && (!m.quoted || !m.quoted.text)) return m.reply(`Kirim/reply pesan *${prefix + command}* Teksnya`);
                     try {
-                        await naze.sendMessage(m.chat, { image: { url: "https://brat.caliphdev.com/api/brat?text=" + (text || m.quoted.text) } }, { quoted: m });
+                        await andy.sendMessage(m.chat, { image: { url: "https://brat.caliphdev.com/api/brat?text=" + (text || m.quoted.text) } }, { quoted: qloc });
                     } catch (e) {
                         try {
                             await andy.sendMessage(m.chat, { image: { url: "https://mannoffc-x.hf.space/brat?q=" + (text || m.quoted.text) } }, { quoted: qkontak });
@@ -1494,7 +1496,7 @@ ANTI LINK V2 : ${anti2}
                             m.reply(msg.wait);
                             let media = await quoted.download();
                             let anu = await UguuSe(media);
-                            await andy.sendFileUrl(m.chat, "https://some-random-api.com/canvas/wasted?avatar=" + anu.url, "Nih Bro", m);
+                            await andy.sendMessage(m.chat, "https://some-random-api.com/canvas/wasted?avatar=" + anu.url, "Nih Bro", m);
                         } else {
                             m.reply("Send Media yg ingin di Upload!");
                         }
@@ -1535,6 +1537,20 @@ ANTI LINK V2 : ${anti2}
                     await fs.unlinkSync(media);
                 }
                 break;
+                			case 'fetch': case 'get': {
+				if (!/^https?:\/\//.test(text)) return m.reply('Awali dengan http:// atau https://');
+				try {
+					const res = await axios.get(isUrl(text) ? isUrl(text)[0] : text)
+					if (!/text|json|html|plain/.test(res.headers['content-type'])) {
+						await m.reply(text)
+					} else {
+						m.reply(util.format(res.data))
+					}
+				} catch (e) {
+					m.reply(util.format(e))
+				}
+			}
+			break
             case "google":
                 {
                     if (!text) return m.reply(`Example: ${prefix + command} query`);
@@ -1937,6 +1953,7 @@ ANTI LINK V2 : ${anti2}
                 break;
             case "spotifydl":
                 {
+                    await m.reply(msg.wait);
                     if (!text) return m.reply(`Example: ${prefix + command} https://open.spotify.com/track/0JiVRyTJcJnmlwCZ854K4p`);
                     if (!isUrl(args[0]) && !args[0].includes("open.spotify.com/track")) return m.reply("Url Invalid!");
                     try {
@@ -1961,12 +1978,6 @@ ANTI LINK V2 : ${anti2}
             case "owner":
                 {
                     andy.sendContact(m.chat, [owner], "Save namain Andy Malaikat Bandung", qloc);
-                }
-                break;
-            case "owner":
-            case "creator":
-                {
-                    andy.sendContact(m.chat, [`${owner[0].split("@")[0]}`], "Developer Bot", m);
                 }
                 break;
 
