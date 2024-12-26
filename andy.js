@@ -336,6 +336,7 @@ ${sret}Menu Tools${sret}
 > readmore
 > cuaca
 > shortlink
+> tourl
 > git
 > ssweb
 > inspect
@@ -1122,6 +1123,22 @@ ANTI LINK V2 : ${anti2}
                     );
                 }
                 break;
+            case "tourl":
+                {
+                    try {
+                        if (/webp|video|sticker|audio|jpg|jpeg|png/.test(mime)) {
+                            m.reply(msg.wait);
+                            let media = await quoted.download();
+                            let anu = await UguuSe(media);
+                            m.reply("Url : " + anu.url);
+                        } else {
+                            m.reply("Send Media yg ingin di Upload!");
+                        }
+                    } catch (e) {
+                        m.reply("Server Uploader sedang offline!");
+                    }
+                }
+                break;
             case "tinyurl":
             case "shorturl":
             case "shortlink":
@@ -1537,20 +1554,22 @@ ANTI LINK V2 : ${anti2}
                     await fs.unlinkSync(media);
                 }
                 break;
-                			case 'fetch': case 'get': {
-				if (!/^https?:\/\//.test(text)) return m.reply('Awali dengan http:// atau https://');
-				try {
-					const res = await axios.get(isUrl(text) ? isUrl(text)[0] : text)
-					if (!/text|json|html|plain/.test(res.headers['content-type'])) {
-						await m.reply(text)
-					} else {
-						m.reply(util.format(res.data))
-					}
-				} catch (e) {
-					m.reply(util.format(e))
-				}
-			}
-			break
+            case "fetch":
+            case "get":
+                {
+                    if (!/^https?:\/\//.test(text)) return m.reply("Awali dengan http:// atau https://");
+                    try {
+                        const res = await axios.get(isUrl(text) ? isUrl(text)[0] : text);
+                        if (!/text|json|html|plain/.test(res.headers["content-type"])) {
+                            await m.reply(text);
+                        } else {
+                            m.reply(util.format(res.data));
+                        }
+                    } catch (e) {
+                        m.reply(util.format(e));
+                    }
+                }
+                break;
             case "google":
                 {
                     if (!text) return m.reply(`Example: ${prefix + command} query`);
