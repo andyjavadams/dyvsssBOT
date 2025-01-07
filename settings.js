@@ -31,7 +31,6 @@ global.namabot = "dyvsss" // bebas ubah
 global.versionbot = `Beta`
 global.saluran = "-" // bebas
 global.linkgc = 'https://chat.whatsapp.com/JR1bfYOUzIQ7GHyIW0ojDw' // bebas
-global.sret = "```" // jangan ubah
 global.packname = "andyjavadams" // bebas
 global.author = "dyvsss.me" // terserah
 
