@@ -269,6 +269,8 @@ module.exports = async (andy, m) => {
 ├ ${ucapanWaktu}, @${m.sender.split("@")[0]}
 ├ Tanggal : _${hariini}_
 ├ Jam : _${wib}_
+├ INFO : _Fitur download belum di fix_
+├ 📌 UPDATE INFO : _Fix bug - Penambahan Fitur Primbon_
 └─
 
 ┌─「 I N F O - B O T 」
