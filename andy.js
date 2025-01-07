@@ -264,6 +264,7 @@ module.exports = async (andy, m) => {
             //=======================================//
             case "menu":
                 {
+                    m.reply('Sedang Diproses')
                     let teksnya = `
 ${ucapanWaktu}, Hai @${m.sender.split("@")[0]}, ada yang bisa dibantu?      
 
@@ -426,7 +427,7 @@ ${sret}Menu Owner${sret}
                                 isForwarded: true
                             }
                         },
-                        { quoted: qdoc }
+                        { quoted: qkontak }
                     );
                 }
                 break;
