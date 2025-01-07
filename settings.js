@@ -35,14 +35,9 @@ global.sret = "```" // jangan ubah
 global.packname = "andyjavadams" // bebas
 global.author = "dyvsss.me" // terserah
 
-//========== Setting Event ==========//
-global.welcome = false
-global.autoread = false
-global.anticall = false 
-
 //========= Setting Url Foto =========//
-global.image = "https://raw.githubusercontent.com/andyjavadams/andyjavadams.github.io/refs/heads/main/assets/imgs/image.jpg" 
-global.makasi = "https://raw.githubusercontent.com/andyjavadams/andyjavadams.github.io/refs/heads/main/assets/imgs/image.jpg"
+global.image = "https://d.top4top.io/p_32942ilrn0.jpg" 
+global.makasi = "https://d.top4top.io/p_32942ilrn0.jpg"
 //========= Jangan Di Ubah =========//
 global.msg = {
 "error": "Sedang error",
