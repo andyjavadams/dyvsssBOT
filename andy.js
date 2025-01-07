@@ -264,7 +264,7 @@ module.exports = async (andy, m) => {
             //=======================================//
             case "menu":
                 {
-                    m.reply('Sedang Diproses')
+                    m.reply("Sedang Diproses");
                     let teksnya = `
 ${ucapanWaktu}, Hai @${m.sender.split("@")[0]}, ada yang bisa dibantu?      
 
@@ -1490,14 +1490,15 @@ Menyukai : ${gai}
                     }
                 }
                 break;
-            case 'q':
-            case 'quoted': {
-                if (!m.quoted) return m.reply('Reply Pesannya!!')
-                let wokwol = await andy.serializeM(await m.getQuotedObj())
-                if (!wokwol.quoted) return m.reply('Pesan Yang Anda Reply Tidak Mengandung Reply')
-                await wokwol.quoted.copyNForward(m.chat, true)
-            }
-            break
+            case "q":
+            case "quoted":
+                {
+                    if (!m.quoted) return m.reply("Reply Pesannya!!");
+                    let wokwol = await andy.serializeM(await m.getQuotedObj());
+                    if (!wokwol.quoted) return m.reply("Pesan Yang Anda Reply Tidak Mengandung Reply");
+                    await wokwol.quoted.copyNForward(m.chat, true);
+                }
+                break;
             case "emojimix":
                 {
                     if (!text) return m.reply(`Example: ${prefix + command} 😅+🤔`);
