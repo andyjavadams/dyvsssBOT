@@ -10,9 +10,13 @@ module.exports = async (andy, m) => {
         const cmd = prefix + command;
         const args = body.trim().split(/ +/).slice(1);
         const makeid = crypto.randomBytes(3).toString("hex");
-        const quoted = m.quoted ? m.quoted : m;
+        const fatkuns = m.quoted || m;
+        const axios = require("axios");
+        const quoted = fatkuns.mtype == "buttonsMessage" ? fatkuns[Object.keys(fatkuns)[1]] : fatkuns.mtype == "templateMessage" ? fatkuns.hydratedTemplate[Object.keys(fatkuns.hydratedTemplate)[1]] : fatkuns.mtype == "product" ? fatkuns[Object.keys(fatkuns)[0]] : m.quoted ? m.quoted : m;
         const mime = (quoted.msg || quoted).mimetype || "";
         const qmsg = quoted.msg || quoted;
+        const { Primbon } = require("scrape-primbon");
+        const primbon = new Primbon();
         const sekarang = new Date();
         const hari = sekarang.toLocaleDateString("id-ID", { weekday: "long" });
         const text = (q = args.join(" "));
@@ -263,9 +267,9 @@ module.exports = async (andy, m) => {
                     let teksnya = `
 ${ucapanWaktu}, Hai @${m.sender.split("@")[0]}, ada yang bisa dibantu?      
 
-> ${sret}NamaBot${sret} : _${namabot}_
-> ${sret}NamaOwner${sret} : _${namaowner}_
-> ${sret}VersiBot${sret} : _${versionbot}_
+> ${sret}Nama Bot${sret} : _${namabot}_
+> ${sret}Nama Bos${sret} : _${namaowner}_
+> ${sret}Versi Bot${sret} : _${versionbot}_
 > ${sret}Tanggal${sret} : _${hariini}_
 > ${sret}Jam${sret} : _${wib}_
 ͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏
@@ -300,17 +304,56 @@ ${sret}Menu Download${sret}
 > ytmp3
 > yts
 > ig
+> fb
 > spotifydl
+
+${sret}Primbon Menu${sret}
+> artimimpi
+> nomorhoki
+> ramalanjodoh
+> ramalanjodohbali
+> suamiistri
+> ramalancinta
+> artinama
+> kecocokannama
+> kecocokanpasangan
+> jadianpernikahan
+> sifatusaha
+> rezeki
+> pekerjaan
+> ramalannasib
+> potensipenyakit
+> artitarot
+> fengshui
+> haribaik
+> harisangar
+> harinaas
+> nagahari
+> arahrezeki
+> peruntungan
+> weton
+> sifat
+> Keberuntungan
+> memancing
+> masasubur
+> shio
 
 ${sret}Fun Menu${sret}
 > bisakah
 > apakah
 > kapan
 > kerangajaib
+> cekaku
+> bagaimanakah
 > cekmati
 > ceksifat
 > cnilai
 > fitnah
+> halah
+> hilih
+> huluh
+> heleh
+> holoh
 
 ${sret}Pengubah Suara${sret}
 > bass
@@ -340,12 +383,10 @@ ${sret}Menu Tools${sret}
 > git
 > ssweb
 > inspect
-> translate
 
 ${sret}Menu Group${sret}
 > addmember
 > antilink
-> antilinkV2
 > hidetag
 > tagall
 > delete
@@ -360,18 +401,13 @@ ${sret}Menu Group${sret}
 > leavegc2
 > demote
 > idgc
-> statusgc
-> welcome on/off
   
 ${sret}Menu Owner${sret}
 > clearsession
 > anticall
-> autoread
-> welcome
 > setpppanjang
 > setnamabot
 > setbiobot
-> statusbot
 > listpremium
 > listowner
 > addowner
@@ -458,7 +494,6 @@ ${sret}Menu Owner${sret}
                     } else m.reply("Only Support video/audio/image/text");
                 }
                 break;
-                break;
             case "delown":
             case "delowner":
                 {
@@ -500,7 +535,7 @@ ${sret}Menu Owner${sret}
                     if (users.filter(v => !zippokuy.includes(v)).length) return andy.sendMessage(m.chat, { text: `${users.map(v => `@${v.split("@")[0]}`).join(", ")} belum masuk ke list premium!`, mentions: users }, { quoted: m });
                     zippokuy = zippokuy.filter(v => !users.includes(v));
                     fs.writeFileSync(dbprem, JSON.stringify(zippokuy));
-                    m.reply("Successfully removed owner byandyjavadams");
+                    m.reply("Successfully removed owner by andyjavadams");
                 }
                 break;
 
@@ -567,28 +602,9 @@ ${sret}Menu Owner${sret}
                     } else return m.reply(example("dengan mengirim/reply foto"));
                 }
                 break;
-            case "autoread":
-                {
-                    if (!isOwner) return m.reply(msg.owner);
-                    if (!text) return m.reply(example("on/off\n\nKetik *.statusbot* Untuk Melihat Status Settingan Bot"));
-                    if (text.toLowerCase() == "on") {
-                        if (autoread) return m.reply("Autoread is now active");
-                        autoread = true;
-                        m.reply("Successfully turned on autoread byandyjavadams");
-                    } else if (text.toLowerCase() == "off") {
-                        if (!autoread) return m.reply("Autoread is now inactive");
-                        autoread = false;
-                        m.reply("Successfully turned off autoread byandyjavadams");
-                    } else {
-                        return m.reply(example("on/off\n\nKetik *.statusbot* Untuk Melihat Status Settingan Bot"));
-                    }
-                }
-                break;
             case "anticall":
-            case "seleb":
                 {
                     if (!isOwner) return m.reply(msg.owner);
-                    if (!text) return m.reply(example("on/off\n\nKetik *.statusbot* Untuk Melihat Status Settingan Bot"));
                     if (text.toLowerCase() == "on") {
                         if (anticall) return m.reply("Anticall is now active");
                         anticall = true;
@@ -600,20 +616,6 @@ ${sret}Menu Owner${sret}
                     } else {
                         return m.reply(example("on/off\n\nKetik *.statusbot* Untuk Melihat Status Settingan Bot"));
                     }
-                }
-                break;
-            case "setting":
-            case "settingbot":
-            case "option":
-            case "statusbot":
-                {
-                    if (!isOwner) return m.reply(msg.owner);
-                    var teks = `
-AUTO READ: ${global.autoread ? "*✅*" : "*❌*"}
-ANTI TELEPON: ${global.anticall ? "*✅*" : "*❌*"}
-SELAMAT DATANG: ${global.welcome ? "*✅*" : "*❌*"}
-`;
-                    m.reply(teks);
                 }
                 break;
             case "savekontak":
@@ -701,11 +703,295 @@ SELAMAT DATANG: ${global.welcome ? "*✅*" : "*❌*"}
                     } else if (args[0]) {
                         if (!num.includes(Number(args[0]) - 1)) return m.reply("Group not found");
                         let leav = Number(args[0]) - 1;
-                        await m.reply(`Successfully left the group byandyjavadams\nMessage : Adios..`);
+                        await m.reply(`Successfully left the group by andyjavadams\nMessage : Adios..`);
                         await andy.groupLeave(`${gcall[leav].id}`);
                     }
                 }
                 break;
+            //=======================================//
+            //=======================================//
+            //==============[ Menu Primbon ]===============//
+            //=======================================//
+            //=======================================//
+            case "artimimpi":
+            case "tafsirmimpi":
+                {
+                    if (!text) return m.reply(`Contoh : ${prefix + command} Mati`);
+                    let anu = await primbon.tafsir_mimpi(text);
+                    if (anu.status == false) return m.reply(anu.message);
+                    andy.sendText(m.chat, `• *Mimpi :* ${anu.message.mimpi}\n• *Arti :* ${anu.message.arti}\n• *Solusi :* ${anu.message.solusi}`, m);
+                }
+                break;
+            case "nomerhoki":
+            case "nomorhoki":
+                {
+                    if (!text) return m.reply(`Contoh : ${prefix + command} 62821xxxxx`);
+                    let anu = await primbon.nomer_hoki(Number(text));
+                    if (anu.status == false) return m.reply(anu.message);
+                    andy.sendText(m.chat, `• *Nomor HP :* ${anu.message.nomer_hp}\n• *Angka Shuzi :* ${anu.message.angka_shuzi}\n• *Energi Positif :*\n- Kekayaan : ${anu.message.energi_positif.kekayaan}\n- Kesehatan : ${anu.message.energi_positif.kesehatan}\n- Cinta : ${anu.message.energi_positif.cinta}\n- Kestabilan : ${anu.message.energi_positif.kestabilan}\n- Persentase : ${anu.message.energi_positif.persentase}\n• *Energi Negatif :*\n- Perselisihan : ${anu.message.energi_negatif.perselisihan}\n- Kehilangan : ${anu.message.energi_negatif.kehilangan}\n- Malapetaka : ${anu.message.energi_negatif.malapetaka}\n- Kehancuran : ${anu.message.energi_negatif.kehancuran}\n- Persentase : ${anu.message.energi_negatif.persentase}`, m);
+                }
+                break;
+            case "ramalanjodoh":
+            case "ramaljodoh":
+                {
+                    if (!text) return m.reply(`Contoh : ${prefix + command} Andy, 8, 1, 2008, Jamilah, 1, 1, 2004`);
+                    let [nama1, tgl1, bln1, thn1, nama2, tgl2, bln2, thn2] = text.split`,`;
+                    let anu = await primbon.ramalan_jodoh(nama1, tgl1, bln1, thn1, nama2, tgl2, bln2, thn2);
+                    if (anu.status == false) return m.reply(anu.message);
+                    andy.sendText(m.chat, `• *Nama Anda :* ${anu.message.nama_anda.nama}\n• *Lahir Anda :* ${anu.message.nama_anda.tgl_lahir}\n• *Nama Pasangan :* ${anu.message.nama_pasangan.nama}\n• *Lahir Pasangan :* ${anu.message.nama_pasangan.tgl_lahir}\n\n• *Hasil :* ${anu.message.result}\n\n• *Catatan :* ${anu.message.catatan}`, m);
+                }
+                break;
+            case "ramalanjodohbali":
+            case "ramaljodohbali":
+                {
+                    if (!text) return m.reply(`Contoh : ${prefix + command} Andy, 8, 1, 2008, Jamilah, 1, 1, 2004`);
+                    let [nama1, tgl1, bln1, thn1, nama2, tgl2, bln2, thn2] = text.split`,`;
+                    let anu = await primbon.ramalan_jodoh_bali(nama1, tgl1, bln1, thn1, nama2, tgl2, bln2, thn2);
+                    if (anu.status == false) return m.reply(anu.message);
+                    andy.sendText(m.chat, `• *Nama Anda :* ${anu.message.nama_anda.nama}\n• *Lahir Anda :* ${anu.message.nama_anda.tgl_lahir}\n• *Nama Pasangan :* ${anu.message.nama_pasangan.nama}\n• *Lahir Pasangan :* ${anu.message.nama_pasangan.tgl_lahir}\n\n• *Hasil :* ${anu.message.result}\n\n• *Catatan :* ${anu.message.catatan}`, m);
+                }
+                break;
+            case "suamiistri":
+                {
+                    if (!text) return m.reply(`Contoh : ${prefix + command} Andy, 8, 1, 2008, Jamilah, 1, 1, 2004`);
+                    let [nama1, tgl1, bln1, thn1, nama2, tgl2, bln2, thn2] = text.split`,`;
+                    let anu = await primbon.suami_istri(nama1, tgl1, bln1, thn1, nama2, tgl2, bln2, thn2);
+                    if (anu.status == false) return m.reply(anu.message);
+                    andy.sendText(m.chat, `• *Nama Suami :* ${anu.message.suami.nama}\n• *Lahir Suami :* ${anu.message.suami.tgl_lahir}\n• *Nama Istri :* ${anu.message.istri.nama}\n• *Lahir Istri :* ${anu.message.istri.tgl_lahir}\n\n• *Hasil :* ${anu.message.result}\n\n• *Catatan :* ${anu.message.catatan}`, m);
+                }
+                break;
+            case "ramalancinta":
+            case "ramalcinta":
+                {
+                    if (!text) return m.reply(`Contoh : ${prefix + command} Andy, 8, 1, 2008, Jamilah, 1, 1, 2004`);
+                    let [nama1, tgl1, bln1, thn1, nama2, tgl2, bln2, thn2] = text.split`,`;
+                    let anu = await primbon.ramalan_cinta(nama1, tgl1, bln1, thn1, nama2, tgl2, bln2, thn2);
+                    if (anu.status == false) return m.reply(anu.message);
+                    andy.sendText(m.chat, `• *Nama Anda :* ${anu.message.nama_anda.nama}\n• *Lahir Anda :* ${anu.message.nama_anda.tgl_lahir}\n• *Nama Pasangan :* ${anu.message.nama_pasangan.nama}\n• *Lahir Pasangan :* ${anu.message.nama_pasangan.tgl_lahir}\n• *Sisi Positif :* ${anu.message.sisi_positif}\n• *Sisi Negatif :* ${anu.message.sisi_negatif}\n\n• *Catatan :* ${anu.message.catatan}`, m);
+                }
+                break;
+            case "artinama":
+                {
+                    if (!text) return m.reply(`Contoh : ${prefix + command} Andy Javadam`);
+                    let anu = await primbon.arti_nama(text);
+                    if (anu.status == false) return m.reply(anu.message);
+                    andy.sendText(m.chat, `• *Nama :* ${anu.message.nama}\n• *Arti :* ${anu.message.arti}\n\n• *Catatan :* ${anu.message.catatan}`, m);
+                }
+                break;
+            case "kecocokannama":
+            case "cocoknama":
+                {
+                    if (!text) return m.reply(`Contoh : ${prefix + command} Andy, 8, 1, 2008`);
+                    let [nama, tgl, bln, thn] = text.split`,`;
+                    let anu = await primbon.kecocokan_nama(nama, tgl, bln, thn);
+                    if (anu.status == false) return m.reply(anu.message);
+                    andy.sendText(m.chat, `• *Nama :* ${anu.message.nama}\n• *Lahir :* ${anu.message.tgl_lahir}\n• *Life Path :* ${anu.message.life_path}\n• *Destiny :* ${anu.message.destiny}\n• *Destiny Desire :* ${anu.message.destiny_desire}\n• *Personality :* ${anu.message.personality}\n• *Persentase :* ${anu.message.persentase_kecocokan}`, m);
+                }
+                break;
+            case "kecocokanpasangan":
+            case "cocokpasangan":
+            case "pasangan":
+                {
+                    if (!text) return m.reply(`Contoh : ${prefix + command} Andy|Jamilah`);
+                    let [nama1, nama2] = text.split`|`;
+                    let anu = await primbon.kecocokan_nama_pasangan(nama1, nama2);
+                    if (anu.status == false) return m.reply(anu.message);
+                    andy.sendImage(m.chat, anu.message.gambar, `• *Nama Anda :* ${anu.message.nama_anda}\n• *Nama Pasangan :* ${anu.message.nama_pasangan}\n• *Sisi Positif :* ${anu.message.sisi_positif}\n• *Sisi Negatif :* ${anu.message.sisi_negatif}`, m);
+                }
+                break;
+            case "jadianpernikahan":
+            case "jadiannikah":
+                {
+                    if (!text) return m.reply(`Contoh : ${prefix + command} 8, 1, 2018`);
+                    let [tgl, bln, thn] = text.split`,`;
+                    let anu = await primbon.tanggal_jadian_pernikahan(tgl, bln, thn);
+                    if (anu.status == false) return m.reply(anu.message);
+                    andy.sendText(m.chat, `• *Tanggal Pernikahan :* ${anu.message.tanggal}\n• *karakteristik :* ${anu.message.karakteristik}`, m);
+                }
+                break;
+            case "sifatusaha":
+                {
+                    if (!text) return m.reply(`Contoh : ${prefix + command} 8, 8, 2022`);
+                    let [tgl, bln, thn] = text.split`,`;
+                    let anu = await primbon.sifat_usaha_bisnis(tgl, bln, thn);
+                    if (anu.status == false) return m.reply(anu.message);
+                    andy.sendText(m.chat, `• *Lahir :* ${anu.message.hari_lahir}\n• *Usaha :* ${anu.message.usaha}`, m);
+                }
+                break;
+            case "rejeki":
+            case "rezeki":
+                {
+                    if (!text) return m.reply(`Contoh : ${prefix + command} 8, 1, 2008`);
+                    let [tgl, bln, thn] = text.split`,`;
+                    let anu = await primbon.rejeki_hoki_weton(tgl, bln, thn);
+                    if (anu.status == false) return m.reply(anu.message);
+                    andy.sendText(m.chat, `• *Lahir :* ${anu.message.hari_lahir}\n• *Rezeki :* ${anu.message.rejeki}\n• *Catatan :* ${anu.message.catatan}`, m);
+                }
+                break;
+            case "pekerjaan":
+            case "kerja":
+                {
+                    if (!text) return m.reply(`Contoh : ${prefix + command} 8, 1, 2008`);
+                    let [tgl, bln, thn] = text.split`,`;
+                    let anu = await primbon.pekerjaan_weton_lahir(tgl, bln, thn);
+                    if (anu.status == false) return m.reply(anu.message);
+                    andy.sendText(m.chat, `• *Lahir :* ${anu.message.hari_lahir}\n• *Pekerjaan :* ${anu.message.pekerjaan}\n• *Catatan :* ${anu.message.catatan}`, m);
+                }
+                break;
+            case "ramalannasib":
+            case "ramalnasib":
+            case "nasib":
+                {
+                    if (!text) return m.reply(`Contoh : ${prefix + command} 8, 1, 2008`);
+                    let [tgl, bln, thn] = text.split`,`;
+                    let anu = await primbon.ramalan_nasib(tgl, bln, thn);
+                    if (anu.status == false) return m.reply(anu.message);
+                    andy.sendText(m.chat, `• *Analisa :* ${anu.message.analisa}\n• *Angka Akar :* ${anu.message.angka_akar}\n• *Sifat :* ${anu.message.sifat}\n• *Elemen :* ${anu.message.elemen}\n• *Angka Keberuntungan :* ${anu.message.angka_keberuntungan}`, m);
+                }
+                break;
+            case "potensipenyakit":
+            case "penyakit":
+                {
+                    if (!text) return m.reply(`Contoh : ${prefix + command} 8, 1, 2008`);
+                    let [tgl, bln, thn] = text.split`,`;
+                    let anu = await primbon.cek_potensi_penyakit(tgl, bln, thn);
+                    if (anu.status == false) return m.reply(anu.message);
+                    andy.sendText(m.chat, `• *Analisa :* ${anu.message.analisa}\n• *Sektor :* ${anu.message.sektor}\n• *Elemen :* ${anu.message.elemen}\n• *Catatan :* ${anu.message.catatan}`, m);
+                }
+                break;
+            case "artitarot":
+            case "tarot":
+                {
+                    if (!text) return m.reply(`Contoh : ${prefix + command} 8, 1, 2008`);
+                    let [tgl, bln, thn] = text.split`,`;
+                    let anu = await primbon.arti_kartu_tarot(tgl, bln, thn);
+                    if (anu.status == false) return m.reply(anu.message);
+                    andy.sendImage(m.chat, anu.message.image, `• *Lahir :* ${anu.message.tgl_lahir}\n• *Simbol Tarot :* ${anu.message.simbol_tarot}\n• *Arti :* ${anu.message.arti}\n• *Catatan :* ${anu.message.catatan}`, m);
+                }
+                break;
+            case "fengshui":
+                {
+                    if (!text) return m.reply(`Contoh : ${prefix + command} Andy, 1, 2008\n\nNote : ${prefix + command} Nama, gender, tahun lahir\nGender : 1 untuk laki-laki & 2 untuk perempuan`);
+                    let [nama, gender, tahun] = text.split`,`;
+                    let anu = await primbon.perhitungan_feng_shui(nama, gender, tahun);
+                    if (anu.status == false) return m.reply(anu.message);
+                    andy.sendText(m.chat, `• *Nama :* ${anu.message.nama}\n• *Lahir :* ${anu.message.tahun_lahir}\n• *Gender :* ${anu.message.jenis_kelamin}\n• *Angka Kua :* ${anu.message.angka_kua}\n• *Kelompok :* ${anu.message.kelompok}\n• *Karakter :* ${anu.message.karakter}\n• *Sektor Baik :* ${anu.message.sektor_baik}\n• *Sektor Buruk :* ${anu.message.sektor_buruk}`, m);
+                }
+                break;
+            case "haribaik":
+                {
+                    if (!text) return m.reply(`Contoh : ${prefix + command} 8, 1, 2008`);
+                    let [tgl, bln, thn] = text.split`,`;
+                    let anu = await primbon.petung_hari_baik(tgl, bln, thn);
+                    if (anu.status == false) return m.reply(anu.message);
+                    andy.sendText(m.chat, `• *Lahir :* ${anu.message.tgl_lahir}\n• *Kala Tinantang :* ${anu.message.kala_tinantang}\n• *Info :* ${anu.message.info}\n• *Catatan :* ${anu.message.catatan}`, m);
+                }
+                break;
+            case "harisangar":
+            case "taliwangke":
+                {
+                    if (!text) return m.reply(`Contoh : ${prefix + command} 8, 1, 2008`);
+                    let [tgl, bln, thn] = text.split`,`;
+                    let anu = await primbon.hari_sangar_taliwangke(tgl, bln, thn);
+                    if (anu.status == false) return m.reply(anu.message);
+                    andy.sendText(m.chat, `• *Lahir :* ${anu.message.tgl_lahir}\n• *Hasil :* ${anu.message.result}\n• *Info :* ${anu.message.info}\n• *Catatan :* ${anu.message.catatan}`, m);
+                }
+                break;
+            case "harinaas":
+            case "harisial":
+                {
+                    if (!text) return m.reply(`Contoh : ${prefix + command} 8, 1, 2008`);
+                    let [tgl, bln, thn] = text.split`,`;
+                    let anu = await primbon.primbon_hari_naas(tgl, bln, thn);
+                    if (anu.status == false) return m.reply(anu.message);
+                    andy.sendText(m.chat, `• *Hari Lahir :* ${anu.message.hari_lahir}\n• *Tanggal Lahir :* ${anu.message.tgl_lahir}\n• *Hari Naas :* ${anu.message.hari_naas}\n• *Info :* ${anu.message.catatan}\n• *Catatan :* ${anu.message.info}`, m);
+                }
+                break;
+            case "nagahari":
+            case "harinaga":
+                {
+                    if (!text) return m.reply(`Contoh : ${prefix + command} 8, 1, 2008`);
+                    let [tgl, bln, thn] = text.split`,`;
+                    let anu = await primbon.rahasia_naga_hari(tgl, bln, thn);
+                    if (anu.status == false) return m.reply(anu.message);
+                    andy.sendText(m.chat, `• *Hari Lahir :* ${anu.message.hari_lahir}\n• *Tanggal Lahir :* ${anu.message.tgl_lahir}\n• *Arah Naga Hari :* ${anu.message.arah_naga_hari}\n• *Catatan :* ${anu.message.catatan}`, m);
+                }
+                break;
+            case "arahrejeki":
+            case "arahrezeki":
+                {
+                    if (!text) return m.reply(`Contoh : ${prefix + command} 8, 1, 2008`);
+                    let [tgl, bln, thn] = text.split`,`;
+                    let anu = await primbon.primbon_arah_rejeki(tgl, bln, thn);
+                    if (anu.status == false) return m.reply(anu.message);
+                    andy.sendText(m.chat, `• *Hari Lahir :* ${anu.message.hari_lahir}\n• *tanggal Lahir :* ${anu.message.tgl_lahir}\n• *Arah Rezeki :* ${anu.message.arah_rejeki}\n• *Catatan :* ${anu.message.catatan}`, m);
+                }
+                break;
+            case "peruntungan":
+                {
+                    if (!text) return m.reply(`Contoh : ${prefix + command} Andy, 8, 1, 2008, 2026\n\nNote : ${prefix + command} Nama, tanggal lahir, bulan lahir, tahun lahir, untuk tahun`);
+                    let [nama, tgl, bln, thn, untuk] = text.split`,`;
+                    let anu = await primbon.ramalan_peruntungan(nama, tgl, bln, thn, untuk);
+                    if (anu.status == false) return m.reply(anu.message);
+                    andy.sendText(m.chat, `• *Nama :* ${anu.message.nama}\n• *Lahir :* ${anu.message.tgl_lahir}\n• *Peruntungan Tahun :* ${anu.message.peruntungan_tahun}\n• *Hasil :* ${anu.message.result}\n• *Catatan :* ${anu.message.catatan}`, m);
+                }
+                break;
+            case "weton":
+            case "wetonjawa":
+                {
+                    if (!text) return m.reply(`Contoh : ${prefix + command} 8, 1, 2008`);
+                    let [tgl, bln, thn] = text.split`,`;
+                    let anu = await primbon.weton_jawa(tgl, bln, thn);
+                    if (anu.status == false) return m.reply(anu.message);
+                    andy.sendText(m.chat, `• *Tanggal :* ${anu.message.tanggal}\n• *Jumlah Neptu :* ${anu.message.jumlah_neptu}\n• *Watak Hari :* ${anu.message.watak_hari}\n• *Naga Hari :* ${anu.message.naga_hari}\n• *Jam Baik :* ${anu.message.jam_baik}\n• *Watak Kelahiran :* ${anu.message.watak_kelahiran}`, m);
+                }
+                break;
+            case "sifat":
+            case "karakter":
+                {
+                    if (!text) return m.reply(`Contoh : ${prefix + command} Andy, 8, 1, 2008`);
+                    let [nama, tgl, bln, thn] = text.split`,`;
+                    let anu = await primbon.sifat_karakter_tanggal_lahir(nama, tgl, bln, thn);
+                    if (anu.status == false) return m.reply(anu.message);
+                    andy.sendText(m.chat, `• *Nama :* ${anu.message.nama}\n• *Lahir :* ${anu.message.tgl_lahir}\n• *Garis Hidup :* ${anu.message.garis_hidup}`, m);
+                }
+                break;
+            case "keberuntungan":
+                {
+                    if (!text) return m.reply(`Contoh : ${prefix + command} Andy, 8, 1, 2008`);
+                    let [nama, tgl, bln, thn] = text.split`,`;
+                    let anu = await primbon.potensi_keberuntungan(nama, tgl, bln, thn);
+                    if (anu.status == false) return m.reply(anu.message);
+                    andy.sendText(m.chat, `• *Nama :* ${anu.message.nama}\n• *Lahir :* ${anu.message.tgl_lahir}\n• *Hasil :* ${anu.message.result}`, m);
+                }
+                break;
+            case "memancing":
+                {
+                    if (!text) return m.reply(`Contoh : ${prefix + command} 8, 1, 2025`);
+                    let [tgl, bln, thn] = text.split`,`;
+                    let anu = await primbon.primbon_memancing_ikan(tgl, bln, thn);
+                    if (anu.status == false) return m.reply(anu.message);
+                    andy.sendText(m.chat, `• *Tanggal :* ${anu.message.tgl_memancing}\n• *Hasil :* ${anu.message.result}\n• *Catatan :* ${anu.message.catatan}`, m);
+                }
+                break;
+            case "masasubur":
+                {
+                    if (!text) return m.reply(`Contoh : ${prefix + command} 8, 1, 2025, 28\n\nNote : ${prefix + command} hari pertama menstruasi, siklus`);
+                    let [tgl, bln, thn, siklus] = text.split`,`;
+                    let anu = await primbon.masa_subur(tgl, bln, thn, siklus);
+                    if (anu.status == false) return m.reply(anu.message);
+                    andy.sendText(m.chat, `• *Hasil :* ${anu.message.result}\n• *Catatan :* ${anu.message.catatan}`, m);
+                }
+                break;
+            case "shio":
+                {
+                    if (!text) return m.reply(`Contoh : ${prefix + command} tikus\n\nNote : For Detail https://primbon.com/shio.htm`);
+                    let anu = await primbon.shio(text);
+                    if (anu.status == false) return m.reply(anu.message);
+                    andy.sendText(m.chat, `• *Hasil :* ${anu.message}`, m);
+                }
+                break;
+
             //=======================================//
             //=======================================//
             //==============[ Menu Fun ]===============//
@@ -719,12 +1005,58 @@ SELAMAT DATANG: ${global.welcome ? "*✅*" : "*❌*"}
                     m.reply(`*Bisakah ${text}*\nJawab : ${keh}`);
                 }
                 break;
+            case "cekaku":
+                const ganteng = ["Cakep", "Kurang cakep:v", "Jelek", "Cakep Parah"];
+                const sifat = ["Pembohong", "Galak", "Suka Bantu Orang", "Baik", "Jahat:(", "Bobrok", "Suka BadMood", "Setia", "Tulus", "Beriman", "Penyayang Binatang", "Baperan"];
+                const suka = ["Makan", "Tidur", "Main Game", "Sesama Jenis", "Binatang", `Seseorang Yang ${pushname} Sukai`, "Belajar", "Ibadah", "Diri Sendiri"];
+                const nomernyah = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "31", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59", "60", "61", "62", "63", "64", "65", "66", "67", "68", "69", "70", "71", "72", "73", "74", "75", "76", "77", "78", "79", "80", "81", "82", "82", "84", "84", "86", "87", "88", "89", "90", "91", "92", "93", "94", "95", "96", "97", "98", "99", "100"];
+                const keberanian = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "31", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59", "60", "61", "62", "63", "64", "65", "66", "67", "68", "69", "70", "71", "72", "73", "74", "75", "76", "77", "78", "79", "80", "81", "82", "82", "84", "84", "86", "87", "88", "89", "90", "91", "92", "93", "94", "95", "96", "97", "98", "99", "100"];
+                const kepinteran = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "31", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59", "60", "61", "62", "63", "64", "65", "66", "67", "68", "69", "70", "71", "72", "73", "74", "75", "76", "77", "78", "79", "80", "81", "82", "82", "84", "84", "86", "87", "88", "89", "90", "91", "92", "93", "94", "95", "96", "97", "98", "99", "100"];
+                const ganz = ganteng[Math.floor(Math.random() * ganteng.length)];
+                const sipat = sifat[Math.floor(Math.random() * sifat.length)];
+                const numb = nomernyah[Math.floor(Math.random() * nomernyah.length)];
+                const gai = suka[Math.floor(Math.random() * suka.length)];
+                const berani = keberanian[Math.floor(Math.random() * keberanian.length)];
+                const pinter = kepinteran[Math.floor(Math.random() * kepinteran.length)];
+                var cek = `*[ CEK PRIBADI KAMU ]*
+ 
+Nama : ${pushname}
+Sifat : ${sipat}
+Keberanian : ${berani}%
+Ketakutan : ${numb}%
+Cakep : ${ganz}
+Cek Pintar : ${pinter}%
+Menyukai : ${gai}
+  `;
+
+                andy.profilePictureUrl(m.chat, "image")
+                    .then(res => andy.sendMessage(m.chat, { caption: cek, image: { url: res } }, { quoted: m }))
+                    .catch(() => andy.sendMessage(m.chat, { caption: cek, image: { url: `https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjCX5TOKkOk3MBt8V-f8PbmGrdLHCi4BoUOs_yuZ1pekOp8U_yWcf40t66JZ4_e_JYpRTOVCl0m8ozEpLrs9Ip2Cm7kQz4fUnUFh8Jcv8fMFfPbfbyWEEKne0S9e_U6fWEmcz0oihuJM6sP1cGFqdJZbLjaEQnGdgJvcxctqhMbNw632OKuAMBMwL86/s414/pp%20kosong%20wa%20default.jpg` } }, { quoted: m }));
+                break;
+            case "bagaimanakah": {
+                if (!text) return m.reply(`Penggunaan ${command} text\n\nContoh : ${command} Cara buat cilok`);
+                const gimana = ["Gak Gimana2", "Sulit Itu Bro", "Maaf Bot Tidak Bisa Menjawab", "Coba Deh Cari Di Gugel", "Duh jawaban sulit, kapan kapan aja", "Pusing ah", "Coba tanya ai", "Gatau", "Gimana yeee"];
+                const ya = gimana[Math.floor(Math.random() * gimana.length)];
+                m.reply(`Pertanyaan : Apakah ${q}\nJawaban : ${ya}`);
+            }
             case "apakah":
                 {
                     if (!text) return m.reply(`Example : ${prefix + command} saya bisa menang?`);
                     let apa = ["Iya", "Tidak", "Bisa Jadi", "Coba Ulangi", "Mungkin Saja", "Mungkin Tidak", "Mungkin Iya", "Ntahlah"];
                     let kah = apa[Math.floor(Math.random() * apa.length)];
                     m.reply(`*${command} ${text}*\nJawab : ${kah}`);
+                }
+                break;
+            case "halah":
+            case "hilih":
+            case "huluh":
+            case "heleh":
+            case "holoh":
+                {
+                    if (!text) return m.reply(`Kirim/reply text dengan caption ${prefix + command}`);
+                    ter = command[1].toLowerCase();
+                    tex = m.quoted ? (m.quoted.text ? m.quoted.text : q ? q : m.text) : q ? q : m.text;
+                    m.reply(tex.replace(/[aiueo]/g, ter).replace(/[AIUEO]/g, ter.toUpperCase()));
                 }
                 break;
             case "kapan":
@@ -874,38 +1206,6 @@ SELAMAT DATANG: ${global.welcome ? "*✅*" : "*❌*"}
                     }
                 }
                 break;
-            case "welcome":
-                {
-                    if (!isOwner) return m.reply(msg.owner);
-                    if (!text) return m.reply(example("on/off\n\nKetik *.statusbot* Untuk Melihat Status Settingan Bot"));
-                    if (text.toLowerCase() == "on") {
-                        if (welcome) return m.reply("Welcome is now active");
-                        welcome = true;
-                        m.reply("Successfully turned on welcome by andyjavadams");
-                    } else if (text.toLowerCase() == "off") {
-                        if (!welcome) return m.reply("Welcome is now inactive");
-                        welcome = false;
-                        m.reply("Successfully turned off welcome by andyjavadams");
-                    } else {
-                        return m.reply(example("on/off\n\nKetik *.statusbot* Untuk Melihat Status Settingan Bot"));
-                    }
-                }
-                break;
-            case "statusgc":
-                {
-                    if (!isGroup) return m.reply(msg.group);
-                    if (!isOwner && !isAdmin) return m.reply(msg.admin);
-                    var anti1 = "✅";
-                    var anti2 = "✅";
-                    if (!antilink2.includes(m.chat)) anti2 = "❌";
-                    if (!antilink.includes(m.chat)) anti1 = "❌";
-                    var teks = `
-ANTI LINK V1 : ${anti1}
-ANTI LINK V2 : ${anti2}
-`;
-                    m.reply(teks);
-                }
-                break;
             case "setppgc":
                 {
                     if (!isGroup) return m.reply(msg.group);
@@ -943,8 +1243,6 @@ ANTI LINK V2 : ${anti2}
                 }
                 break;
             case "open":
-            case "ngoceh":
-            case "bacot":
                 {
                     if (!isGroup) return m.reply(msg.group);
                     if (!isBotAdmin) return m.reply(msg.adminbot);
@@ -954,8 +1252,6 @@ ANTI LINK V2 : ${anti2}
                 }
                 break;
             case "close":
-            case "bisu":
-            case "tunarungu":
                 {
                     if (!isGroup) return m.reply(msg.group);
                     if (!isBotAdmin) return m.reply(msg.adminbot);
@@ -986,7 +1282,6 @@ ANTI LINK V2 : ${anti2}
                 break;
             case "demote":
             case "demote":
-            case "budak":
                 {
                     if (!isGroup) return m.reply(msg.group);
                     if (!isAdmin && !isOwner) return m.reply(msg.admin);
@@ -1050,7 +1345,6 @@ ANTI LINK V2 : ${anti2}
             case "k":
             case "kik":
             case "kick":
-            case "babi":
                 {
                     if (!isGroup) return m.reply(msg.group);
                     if (!isBotAdmin) return m.reply(msg.adminbot);
@@ -1105,7 +1399,7 @@ ANTI LINK V2 : ${anti2}
                         {
                             requestPaymentMessage: {
                                 currencyCodeIso4217: "IDR",
-                                amount1000: 6282164659363000000,
+                                amount1000: 6282164659363000,
                                 requestFrom: m.sender,
                                 noteMessage: {
                                     extendedTextMessage: {
@@ -1163,25 +1457,6 @@ ANTI LINK V2 : ${anti2}
                     }
                 }
                 break;
-            case "translate":
-            case "tr":
-                {
-                    if (text && text == "list") {
-                        let list_tr = `╭──❍「 *Kode Bahasa* 」❍\n│• af : Afrikaans\n│• ar : Arab\n│• zh : Chinese\n│• en : English\n│• en-us : English (United States)\n│• fr : French\n│• de : German\n│• hi : Hindi\n│• hu : Hungarian\n│• is : Icelandic\n│• id : Indonesian\n│• it : Italian\n│• ja : Japanese\n│• ko : Korean\n│• la : Latin\n│• no : Norwegian\n│• pt : Portuguese\n│• pt : Portuguese\n│• pt-br : Portuguese (Brazil)\n│• ro : Romanian\n│• ru : Russian\n│• sr : Serbian\n│• es : Spanish\n│• sv : Swedish\n│• ta : Tamil\n│• th : Thai\n│• tr : Turkish\n│• vi : Vietnamese\n╰──────❍`;
-                        m.reply(list_tr);
-                    } else {
-                        if (!m.quoted && (!text || !args[1])) return m.reply(`Kirim/reply text dengan caption ${prefix + command}`);
-                        let lang = args[0] ? args[0] : "id";
-                        let teks = args[1] ? args.slice(1).join(" ") : m.quoted.text;
-                        try {
-                            let hasil = await translate(teks, { to: lang, autoCorrect: true });
-                            m.reply(`To : ${lang}\n${hasil[0]}`);
-                        } catch (e) {
-                            m.reply(`Lang *${lang}* Tidak Di temukan!\nSilahkan lihat list, ${prefix + command} list`);
-                        }
-                    }
-                }
-                break;
             case "inspect":
                 {
                     if (!text) return m.reply("Masukkan Link Group!");
@@ -1221,7 +1496,7 @@ ANTI LINK V2 : ${anti2}
                     const anu = await m.getQuotedObj();
                     if (!anu) return m.reply("Format Tidak Tersedia!");
                     if (!anu.quoted) return m.reply("Pesan Yang Anda Reply Tidak Mengandung Reply");
-                    await andy.relayMessage(m.chat, { [anu.quoted.type]: anu.quoted.msg }, {});
+                    await andy.sendMessage(m.chat, { [anu.quoted.type]: anu.quoted.msg }, {});
                 }
                 break;
             case "emojimix":
@@ -1958,18 +2233,6 @@ ANTI LINK V2 : ${anti2}
                     }
                 }
                 break;
-            case "mediafire":
-                {
-                    if (!text) return m.reply(`Example: ${prefix + command} https://www.mediafire.com/file/xxxxxxxxx/xxxxx.zip/file`);
-                    if (!isUrl(args[0]) && !args[0].includes("mediafire.com")) return m.reply("Url Invalid!");
-                    try {
-                        const anu = await mediafireDl(text);
-                        await andy.sendMedia(m.chat, anu.link, decodeURIComponent(anu.name), `*MEDIAFIRE DOWNLOADER*\n\n*${setv} Name* : ${decodeURIComponent(anu.name)}\n*${setv} Size* : ${anu.size}`, m);
-                    } catch (e) {
-                        m.reply("Server download sedang offline!");
-                    }
-                }
-                break;
             case "spotifydl":
                 {
                     await m.reply(msg.wait);
@@ -1988,12 +2251,6 @@ ANTI LINK V2 : ${anti2}
             //============[ MENU MASSAGE ]============//
             //=======================================//
             //=======================================//
-            case "terkentod":
-                {
-                    var teks = `Hoekkkkkkk🤮🤮🤮. najis ada gay.`;
-                    m.reply(teks);
-                }
-                break;
             case "owner":
                 {
                     andy.sendContact(m.chat, [owner], "Save namain Andy Malaikat Bandung", qloc);
