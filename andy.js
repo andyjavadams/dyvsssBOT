@@ -1490,16 +1490,14 @@ Menyukai : ${gai}
                     }
                 }
                 break;
-            case "q":
-            case "quoted":
-                {
-                    if (!m.quoted) return m.reply("Reply Pesannya!");
-                    const anu = await m.getQuotedObj();
-                    if (!anu) return m.reply("Format Tidak Tersedia!");
-                    if (!anu.quoted) return m.reply("Pesan Yang Anda Reply Tidak Mengandung Reply");
-                    await andy.sendMessage(m.chat, { [anu.quoted.type]: anu.quoted.msg }, {});
-                }
-                break;
+            case 'q':
+            case 'quoted': {
+                if (!m.quoted) return m.reply('Reply Pesannya!!')
+                let wokwol = await andy.serializeM(await m.getQuotedObj())
+                if (!wokwol.quoted) return m.reply('Pesan Yang Anda Reply Tidak Mengandung Reply')
+                await wokwol.quoted.copyNForward(m.chat, true)
+            }
+            break
             case "emojimix":
                 {
                     if (!text) return m.reply(`Example: ${prefix + command} 😅+🤔`);
