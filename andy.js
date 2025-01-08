@@ -112,7 +112,7 @@ module.exports = async (andy, m) => {
             return false;
         }
         let jadwalSholat = {
-            shubuh: "04:10",
+            shubuh: "04:19",
             terbit: "05:42",
             dhuha: "06:02",
             dzuhur: "11:52",
@@ -265,13 +265,16 @@ module.exports = async (andy, m) => {
             case "menu":
                 {
                     andy.sendText(m.chat, "Sedang Diproses", qtext);
-                    let teksnya = `┌─「 D A S H B O A R D 」
+                    let teksnya = `📌 INFO : _Fitur download belum di fix_
+
+📌 INFO UPDATE : _Fix bug - Penambahan Fitur Primbon - Penambahan Fitur quotes_
+
+┌─「 D A S H B O A R D 」
 ├ ${ucapanWaktu}, @${m.sender.split("@")[0]}
 ├ Tanggal : _${hariini}_
 ├ Jam : _${wib}_
-├ INFO : _Fitur download belum di fix_
-├ INFO UPDATE : _Fix bug - Penambahan Fitur Primbon_
 └─
+
 ┌─「 I N F O - B O T 」
 ├ Nama Bot : _${namabot}_
 ├ Nama Bos : _${namaowner}_
@@ -293,6 +296,15 @@ module.exports = async (andy, m) => {
 ┌─「 A I - M E N U 」
 ├ simi
 ├ ai
+└─
+
+┌─「 Q U O T E S - M E N U 」
+├ motivasi
+├ bijak
+├ dare
+├ truth
+├ quotes
+├ bucin
 └─
 
 ┌─「 S E A R C H - M E N U 」
@@ -408,7 +420,7 @@ module.exports = async (andy, m) => {
 ├ open
 ├ close
 ├ setnamagc
-├ setdeskgc
+├ setdesk
 ├ setppgc
 ├ promote
 ├ demote
@@ -1006,6 +1018,319 @@ module.exports = async (andy, m) => {
                     let anu = await primbon.shio(text);
                     if (anu.status == false) return m.reply(anu.message);
                     andy.sendText(m.chat, `• *Hasil :* ${anu.message}`, m);
+                }
+                break;
+
+            //=======================================//
+            //=======================================//
+            //==============[ Menu Quotes ]===============//
+            //=======================================//
+            //=======================================//
+            case "motivasi":
+                let kata = [
+                    "di setiap kelebihan pasti ada kembalian",
+                    "cobaan memang banyak kalo dikit itu cobain",
+                    "kalau orang lain bisa mengapa harus saya, kalau orang lain gak bisa apalagi saya",
+                    "lebih baik menjauh daripada tersakiti begitulah caraku menggoreng ikan",
+                    "sholat itu 5 waktu, bukan kalo ada waktu",
+                    "tetaplah membalas budi, walau budi nggak salah",
+                    "jika kamu bilang cari duit itu sulit, percayalah,nagih utang jauh lebih sulit",
+                    "jika hidupmu malang, cobalah ke Bali",
+                    "ke masjid itu sampai tua bukan nunggu tua",
+                    "ingat kawan sakit gigi dan sakit hati berawal dari yang 'manis manis'",
+                    "kesempatan tidak datang 2 kali kecuali remedial",
+                    "hidup cuman sekali kalo dua kali namanya hidup-hidup",
+                    "kalian mau tau kenapa pria sejati itu kebanyakan sibuk? ok nanti aku jelasin, lagi sibuk soalnya.",
+                    "sibuk mencari kesibukan yang tidak menyibukan",
+                    "masa depan mu tidak secerah 'hp bapakku'",
+                    "disaat masalah tidak ada jalan keluarnya, maka kita yang keluar jalan-jalan",
+                    "Pekerjaan akan lebih mudah jika tidak dikerjakan",
+                    "Istiqomah itu berat, yang ringan mah istirahat.",
+                    "dunia ini berputar, pantesan saya pusing",
+                    "Hidup itu berjalan kalo capek naik gojek aja",
+                    "dunia punya cerita yg cerita bukan saya",
+                    "ingin tidak mau jadi beban keluarga yaa keluar kk",
+                    "'sesuatu yang berlebihan itu tidak baik kecuali' uang",
+                    "cinta itu hanya bertepuk sebelah tangan, kalau tepuk dua tangan jadi tepuk pramuka",
+                    "kalau pekerjaan mu berat cari lah yg ringan",
+                    "anda punya masalah Ya itu bukan urusan saya, karena klau saya ikut akan jadi masalah buat saya",
+                    "bermimpi adalah hal terbaik, maka dari itu saya sering tidur.",
+                    "ibu dan bapak kalian nikah di tanggal yang sama",
+                    "diam tidak akan menyelesaikan masalah, tapi diam juga tidak membuat masalah",
+                    "jika kamu gagal jadi orang sukses. tenanglah. setidaknya kamu telah sukses jadi orang gagal.",
+                    "aku tulus, tapi aku gabisa nyanyi",
+                    "hidup memang banyak ujian , kalau banyak cucian itu Laundry",
+                    "pengen ngejar mimpi tapi males lari",
+                    "tanpa kalian sadari,kalian itu udah sadar",
+                    "kalau roda bisa berhenti kenapa harus berputar?",
+                    "jika kamu gagal maka cobalah lagi, siapa tau gagal lagi",
+                    "kamu tau kiko? Enak tau",
+                    "prot² lebih menyenangkan dari pada janji kawan",
+                    "Hari ini dan esok harinya untuk kita berdua , tapi hari selanjutnya untuk siapa?",
+                    "aku cuma punya motor supra, kalo kamu suka sama ninja. sama aku juga",
+                    "jadilah murid teladan, datangnya telat pulang duluan",
+                    "penyesalan itu di akhir kalo di awal itu pendaftaran",
+                    "didewasakan oleh film dewasa",
+                    "jangan ngurusin saya, saya udah kurus",
+                    "tanpa saya, warga Indonesia kurang satu",
+                    "menyukai tidak harus memiliki, itulah caraku melihat shopee",
+                    "dikuburan itu sepi, kalo rame lanjut part 2"
+                ];
+                const quotes = kata[Math.floor(Math.random() * kata.length)];
+                m.reply(quotes);
+                break;
+            case "bijak":
+                let katanya = [
+                    "jgn pernah meremehkan diri sendiri. Jika kamu tak bahagia dengan hidupmu, perbaiki apa yg salah, dan teruslah melangkah",
+                    "Dalam cinta, ketika ada yg berbeda, jgn mencari siapa yg salah, krn kamu dan dia adalah tim yg sama dgn tujuan yg sama",
+                    "Saat terpisah, imajinasi adalah penghubung antara dua jiwa yang saling mencintai",
+                    "Sahabat adl dia yg tahu kekuranganmu, tp menunjukkan kelebihanmu. Dia yg tahu ketakutanmu, tapi menunjukkan keberanianmu",
+                    "Jadikan cobaan sebuah pelajaran, jgn pernah mengeluh krn kesusahan, di situ kita diajarkan utk menjadi orang yg sabar",
+                    "Risiko terbesar dalam hidup ini adalah tidak mengambil resiko sama sekali",
+                    "Mereka yg membencimu hanya buktikan bahwa hidupmu lebih baik dari mereka. Jangan hiraukan mereka, teruslah melangkah",
+                    "Hanya karena mereka tak memperlakukanmu seperti yg kamu inginkan, bukan berarti mereka tak mencintaimu setulus hati",
+                    "Kebahagiaan belum tentu membuat seseorang bersyukur. Tetapi bersyukurlah yang membuat seseorang meraih kebahagiaan",
+                    "Meski bersahabat, kalian tak hrs sll bersama. Miliki waktumu sendiri. Tapi jgn lupakan mrk ketika kalian menemukan cinta",
+                    "Jangan selalu katakan *masih ada waktu* atau *nanti saja*. Lakukan segera, gunakan waktumu dengan bijak",
+                    "Hanya karena mereka tak memperlakukanmu seperti yg kamu inginkan, bukan berarti mereka tak mencintaimu setulus hati",
+                    "Berpikir itu gampang, bertindak itu sulit, dan melaksanakan satu pikiran dalam tindakan adl hal yg paling sulit di dunia",
+                    "Dear sahabat.. Aku tak tahu cara berterimakasih kepadamu, tp aku sangatlah beruntung mempunyai seorang sahabat sepertimu",
+                    "Jika tak cinta, katakan saja. Jangan memberi harapan hampa, karena seseorang akan terluka. Jangan manfaatkan cinta!",
+                    "Cinta bisa membuat waktu terlewati, dan waktu pun bisa membuat cinta terlewati",
+                    "Cinta yg dekat dan mesra, sering terbukti hambar setelah pernikahan. Maka lbh berhati-hatilah saat cintamu terpisah jarak",
+                    "Terkadang, bukan kenangan buruk yg membuatmu bersedih, tp kenangan indah yg kamu tahu, hal itu tak akan terulang kembali",
+                    "Dalam kepala kaum wanita ada kekurangan, tetapi dalam hati mereka ada kelebihan",
+                    "jika menjauhimu membuatku jd sendiri, itu tak mengapa ... karna Tuhan sudah menjodohkan aku, entah dgn siapa kelak :( semangat",
+                    "jgn sesali apa yg pergi. Jgn tangisi apa yg sudah tiada. Tetapi bangkitlah dan bina kembali apa yg telah hilang dan pergi",
+                    "Orang yang telah tiada takkan mungkin kembali, seberapapun km mencintainya, km harus merelakan itu kan? Move On",
+                    "Butuh waktu untuk mendapatkan orang yang tepat",
+                    "Yang penting itu bukan apa yang kita ketahui tapi apa yang kita bersedia pelajari",
+                    "Perasaan yang paling berbahaya adalah iri, karena iri hati melahirkan kebencian dan kebencian akan membunuhmu perlahan",
+                    "Sesuatu yg sangat sulit tuk melupakan seseorang yang telah memberimu begitu banyak hal tuk diingat",
+                    "Ikhlas menerima kesalahan, dan belajar dari setiap kesalahan, krn itu yg akan menjadikanmu kuat dlm menjalani kehidupan",
+                    "Kebahagiaanmu tdk ditentukan org lain, tapi dirimu sendiri. Apa yg kamu lakukan hari ini, tentukan bahagia masa depanmu",
+                    "Ladies# jangan pernah meremehkan seorang pria, karena mereka adalah orang yang akan menjaga kamu seumur hidupmu",
+                    "Terkadang, bukan kenangan buruk yg membuatmu bersedih, tp kenangan indah yg kamu tahu, hal itu tak akan terulang kembali",
+                    "Hanya krn km sendiri, bukan berarti harus berdiam diri kaLa ada dipersimpangan",
+                    "Perbedaan tak seharusnya membuatmu berpisah, krn seharusnya perbedaan menyadarkanmu bahwa kamu dan dia saling membutuhkan",
+                    "Orang yang gagah perkasa itu bukan orang yang bertubuh kekar melainkan orang yang mampu mengendalikan emosinya ketika marah",
+                    "Bukan seberapa banyak yang kita punya yang memberikan kebahagiaan adalah seberapa besar kita menikmati apa yg kita punya",
+                    "Pada akhirnya kita tau bahwa cinta tidak datang pada 2 orang yang sempurna seperti yang kita harapkan",
+                    "Berjalan dengan seorang sahabat dikegelapan,lebih berarti daripada berjalan sendirian ditempat yg terang banyak cahaya",
+                    "jgn memulai bisnis utk jadi kaya. tp mulailah utk membuat kaya org di sekitarmu. itu akan membuatmu kaya dgn sendirinya",
+                    "Berpikir itu gampang, bertindak itu sulit, dan melaksanakan satu pikiran dalam tindakan adl hal yg paling sulit di dunia",
+                    "Satu-satunya perempuan yang tidak pernah mengecewakanku adalah ibu",
+                    "jgn memohon pd Tuhan utk meringankan cobaan yg ada, berdoalah pd Tuhan utk memberikanmu kekuatan utk dpt melaluinya",
+                    "Orang yang gagah perkasa itu bukan orang yang bertubuh kekar melainkan orang yang mampu mengendalikan emosinya ketika marah",
+                    "Hanya karena mereka tak memperlakukanmu seperti yg kamu inginkan, bukan berarti mereka tak mencintaimu setulus hati",
+                    "Berbincang-bincang dengan kawan lama membuatmu menyadari seberapa besar hidupmu telah berubah",
+                    "Ketika ragu menghampiri, ikuti kata hati. Beri pertanyaan, temukan sebuah jawaban. Belajarlah tuk mempercayai hati",
+                    "Orang yg malas telah membuang kesempatan yg diberikan Tuhan, padahal Tuhan tidak pernah menciptakan sesuatu dgn sia-sia",
+                    "Jangan membenci mereka yang mengatakan hal buruk tuk menjatuhkanmu, karena merekalah yang buatmu semakin kuat setiap hari",
+                    "Dan janganlah memperburuk keadaan dengan berlaku rendah untuk membuatnya balik mencemburuimu",
+                    "dlm hidup, kamu akan bertemu orang yg tak INGIN kamu bahagia, namun hidupmu bukan ttg keinginan mereka tapi keinginanmu",
+                    "Bahwa dalam suatu perjuangan kita harus berjuang terus sampai habis-habisan",
+                    "Di balik kekurangan pasti ada kelebihan, meskipun mata tertutup, tapi hati selalu bisa merasakan",
+                    "Cinta sejati adl ketika dia mencintai org lain dan kamu masih mampu tersenyum, sambil berkata: aku turut bahagia untukmu",
+                    "Orang yg malas telah membuang kesempatan yg diberikan Tuhan, padahal Tuhan tidak pernah menciptakan sesuatu dgn sia-sia",
+                    "Kamu takkan bisa mendapatkan yg kamu inginkan jika kamu terlalu sibuk mengeluhkan apa yg telah kamu miliki. Bersyukurlah!",
+                    "jgn nilai orang dr masa lalunya krn kita semua sudah tdk hidup disana. Semua orang bisa berubah, biarkan mrk membuktikan",
+                    "Lebih baik memiliki 1 sahabat yang mengerti kita dari pada 1000 teman yang mementingkan dirinya sendiri",
+                    "Pada akhirnya kita tau bahwa cinta tidak datang pada 2 orang yang sempurna seperti yang kita harapkan",
+                    "Begitu sulitnya mencari teman yg tak lupa kita ketika sudah tak lama berjumpa",
+                    "Di mana Anda berada saat ini tidak menentukan di mana Anda akan berakhir",
+                    "Jangan terlalu memikirkan masa lalumu, kini mereka hanya kenangan. Tatap masa depanmu karena disanalah impian",
+                    "Kesalahan adl pengalaman hidup, belajarlah darinya. jgn mencoba tuk menjadi sempurna. Cobalah menjadi teladan bagi sesama",
+                    "Hidup terlalu singkat jika hanya menyesal. Hidup hanya sekali, namun jika digunakan dengan baik, sekali saja cukup!",
+                    "Di balik kekurangan pasti ada kelebihan, meskipun mata tertutup, tapi hati selalu bisa merasakan",
+                    "Selama kita masih hidup tidak ada hukuman; yang ada adalah peringatan agar kita memperbaiki diri",
+                    "Aku hanya manusia biasa, memiliki hidup yg biasa. Namun kehadiran dirimu mengubah segalanya, kau membuatku merasa sempurna",
+                    "Sahabat sejati menangis saat kau pergi, sahabat palsu pergi saat kau menangis",
+                    "Sahabat adalah mereka yang mengerti masa lalumu, percaya pada masa depanmu, dan menerima kamu apa adanya",
+                    "Dalam hidup, orang tak akan peduli berapa banyak yg kamu tahu hingga mereka tahu berapa banyak kamu peduli pada mereka",
+                    "Bila org mulai dgn kepastian, akan berakhir dgn keraguan. jika org mulai dgn keraguan, dia akan berakhir dgn kepastian",
+                    "Hindari mengaplikasikan trend yg berlebihan ke diri kalian. krn kalian terkesan tdk memiliki penampilan yg unik & khas",
+                    "Hidup ini bukan hanya mencari yang terbaik, namun lebih kepada menerima kenyataan bahwa kamu adalah kamu",
+                    "jika ssorg meninggalkanmu, jgn hanya bs katakan dia tak mencintaimu, tp tanyakan pada dirimu, knp dia meninggalkanmu",
+                    "Hidup ini bukan hanya mencari yg terbaik, namun lebih pada menerima kenyataan bahwa kamu adalah kamu. Jadi dirimu sendiri",
+                    "mencintai karena agama dan kebaikannya, kamu akan menemuakan kebahagian hidup bersamanya",
+                    "Sukses dicapai dengan mengembangkan kelebihan kita bukan dengan menghilangkan kelemahan",
+                    "Orang yg malas telah membuang kesempatan yg diberikan Tuhan, padahal Tuhan tidak pernah menciptakan sesuatu dgn sia-sia",
+                    "jgn pernah meremehkan diri sendiri. Jika kamu tak bahagia dengan hidupmu, perbaiki apa yg salah, dan teruslah melangkah",
+                    "Kalaulah anda tidak mampu untuk menggembirakan orang lain, janganlah pula anda menambah dukanya",
+                    "Jika tak cinta, katakan saja. Jangan memberi harapan hampa, karena seseorang akan terluka. Jangan manfaatkan cinta!",
+                    "masa lalu hanya akan membuatmu tak percaya dgn berbagai hal, namun HATI, dia akan selalu ada dimasa kini",
+                    "Cinta mgkn akan membuatmu terluka, tapi ia membuatmu semakin dewasa. Jadilah pribadi yg sll memaafkan, terutama hatimu",
+                    "Lebih jernih dalam berpikir, dengan logika dan ilmu yg memadai",
+                    "Hanya krn km sendiri, bukan berarti harus berdiam diri kaLa ada dipersimpangan",
+                    "Meneruskan kehidupan dengan baik, meskipun ada yang iri dan membenci Anda. Live on!",
+                    "Mewujudkan apa yang kita inginkan adalah hadiah terbesar yang kita terima dari lahir",
+                    "Berpikir itu gampang, bertindak itu sulit, dan melaksanakan satu pikiran dalam tindakan adl hal yg paling sulit di dunia",
+                    "Butuh waktu untuk mendapatkan orang yang tepat",
+                    "Sesuatu yg sulit ketika tahu bahwa kamu hrs melepaskan, krn cinta tak terbalaskan, tp kamu ttp berharap sebuah keajaiban",
+                    "Tidak ada kebahagiaan dalam kelemahan. Jangan lagi berlama-lama dalam kelemahan hidup",
+                    "Ketika Tuhan mengambil sesuatu dari genggamanmu, Dia tak menghukummu, Dia hanya membuka tanganmu tuk menerima yg lbh baik",
+                    "jgn pernah meremehkan diri sendiri. Jika kamu tak bahagia dengan hidupmu, perbaiki apa yg salah, dan teruslah melangkah",
+                    "Tiada yg lebih indah daripada kasih seorg sahabat, sahabat menaruh kasih di setiap waktu selalu ada dlm setiap kesukaran",
+                    "Pribadi yg baik bukan hanya pribadi yg berlaku baik, tetapi juga yg menghindari keadaan utk diperlakukan dgn tidak baik",
+                    "merelakan org yg kita cinta bahwa dia telah pergi selamanya mmg bkn hal mudah, namun mengharapkan dia ada itupun salah",
+                    "Kesalahan adl pengalaman hidup, belajarlah darinya. jgn mencoba tuk menjadi sempurna. Cobalah menjadi teladan bagi sesama",
+                    "Seorang ibu akan terus menyayangi anaknya walaupun anaknya telah tumbuh dewasa dan menua",
+                    "Kamu takkan pernah kehilangan org yg kamu cintai jika kamu bersedia jadi sahabatnya, meski hubungan kalian telah berakhir",
+                    "aku mundur darimu bkn krn aku tak cinta padamu, tapi aku butuh kepastian *mau dibawa kemana hubungan kita ini?*",
+                    "jgn terus menyesali masa lalu, selama km mampu menjadikannya pelajaran, km akan jd pribadi yg lbh kuat di masa depan",
+                    "Kadang kamu bertemu seseorang yg sangat berarti dlm hidupmu hanya tuk menyadari pada akhirnya kamu harus melepaskannya",
+                    "Jika dia mencintaimu, dia pasti menginginkan hubungan serius dgnmu, jk dia terus mempertahankanmu namun tak serius, lupakan"
+                ];
+                const bijak = katanya[Math.floor(Math.random() * katanya.length)];
+                m.reply(bijak);
+                break;
+            case "dare":
+                let kat = [
+                    "Ajak orang yg tidak kamu kenal itu selfie berdua dengan mu lalu upload ke snapgram",
+                    "Ambil beberapa nomor dari kontakmu secara acak dan kirim sms 'Aku hamil' sama mereka.",
+                    "Ambil minuman apa saja yg ada didekat mu lalu campurkan dengan cabai dan minum!",
+                    "Ambil nomor secara acak dari kontakmu, telepon dia, dan bilang 'Aku mencintaimu'",
+                    "Beli makanan paling murah di kantin (atau beli sebotol aqua) dan bilang sambil tersedu-sedu pada teman sekelasmu 'Ini.. adalah makanan yang paling mahal yang pernah kubeli.. Hiks'",
+                    "Beli satu botol coca cola dan siram bunga dengan coca cola itu di depan orang banyak.",
+                    "Berdiri deket kulkas, tutup mata, pilih makanan secara acak didalemnya, pas makanpun mata harus tetep ditutup.",
+                    "Berdiri di tengah lapangan basket dan berteriak, 'AKU MENCINTAIMU PANGERANKU/PUTRIKU'",
+                    "Beri hormat pada seseorang di kelas, lalu bilang 'Hamba siap melayani Anda, Yang Mulia.'",
+                    "Berjalan sambil bertepuk tangan dan menyanyi lagu 'Selamat Ulang Tahun' dari kelas ke koridor.",
+                    "Berlutut satu kaki dan bilang 'Marry me?' sama orang pertama yang masuk ke ruangan.",
+                    "Bikin hiasan kepala absurd dari tisu, apapun itu, terus suruh pose didepan kamera, terus upload",
+                    "Bilang 'KAMU CANTIK BANGET NGGAK BOHONG' sama cewek yang menurutmu paling cantik di kelas ini",
+                    "Bilang pada seorang guru, 'Bu/Pak, baju saya terasa sempit' dengan ekspresi memelas.",
+                    "Bilang pada seseorang di kelas, 'Aku baru saja diberi tahu aku adalah kembaranmu dulu, kita dipisahkan, lalu aku menjalani operasi plastik. Dan ini adalah hal paling serius yang pernah aku katakan.'",
+                    "Buang buku catatan seseorang ke tempat sampah, di depan matanya, sambil bilang 'Buku ini isinya tidak ada yang bisa memahami'",
+                    "Cabut bulu kaki mu sendiri sebanyak 3x",
+                    "Chat kedua orangtuamu, katakan bahwa kamu kangen dengan mereka lengkap dengan emoticon sedih.",
+                    "Coba searcing google mengenai hal-hal yang mengerikan atau menggelikan seperti trypophobia, dll.",
+                    "Duduk relaks di tengah lapangan basket sambil berpura-pura itu adalah pantai untuk berjemur.",
+                    "isi mulut penuh dengan air dan harus tahan hingga dua putaran. Jika tertawa dan tumpah atau terminum, maka harus ngisi ulang dan ditambah satu putaran lagi.",
+                    "Jabat tangan orang pertama yang masuk ke ruangan ini dan bilang 'Selamat datang di Who Wants To Be a Millionaire!'",
+                    "Kirim sms pada orangtuamu 'Hai, bro! Aku baru beli majalah Playboy edisi terbaru!'",
+                    "Kirim sms pada orangtuamu, 'Ma, Pa, aku sudah tahu bahwa aku adalah anak adopsi dari Panti Asuhan. Jangan menyembunyikan hal ini lagi.'",
+                    "Kirim sms pada tiga nomor acak di kontakmu dan tulis 'Aku baru saja menjadi model majalah Playboy.'",
+                    "Makan 1 Sendok makan kecap manis dan kecap asin!",
+                    "Makan sesuatu tapi gak pake tangan.",
+                    "Marah-marah ketemen kamu yang gak dateng padahal udah janjian mau main 'truth or dare' bareng-bareng",
+                    "Mecahin telur pake kepala.",
+                    "Memakan makanan yang sudah dicampur-campur dan rasanya pasti aneh, namun pastikan bahwa makanan itu tidak berbahaya untuk kesehatan jangka panjang maupun jangka pendek.",
+                    "Menari ala Girls' Generation untuk cowok di depan kelas, atau menari ala Super Junior untuk cewek.",
+                    "Mengerek tiang bendera tanpa ada benderanya.",
+                    "Menggombali orang yang ditaksir, sahabat terdekat, lawan jenis yang tidak dikenal sama sekali dan  sejenisnya.",
+                    "Meniru style rambut semua temen kamu.",
+                    "Menyanyikan lagu HAI TAYO di depan banyak orang sambil menari",
+                    "Menyanyikan lagu Iwak Peyek dengan keras di ruang kelas.",
+                    "Minjem sesuatu ke tetangga",
+                    "Minta tandatangan pada seorang guru yang paling kamu benci sambil bilang 'Anda benar-benar orang yang paling saya kagumi di dunia.'",
+                    "Minta uang pada seseorang (random/acak) di jalan sambil bilang 'Saya tidak punya uang untuk naik angkot.'",
+                    "Minum sesuatu yang udah dibuat/disepakatin, tapi pastiin gak berbahaya, bisa kayak minum sirup yang digaremin terus ditambah kecap.",
+                    "Minum tiga teguk teh atau coke (coca-cola atau sprite) yang dicampur sambal.",
+                    "Ngomong ke gebetannya emoticon-Takut, ngobrol ngalurngidul apapun lah boleh ,via manapun juga bisa.",
+                    "Nyanyi-nyanyi lagu favorit difilm disney diluar rumah sambil teriak-teriak.",
+                    "Nyebutin 1 biru sampai 10 biru dengan cepat dan tidak boleh melakukan kesalahan. Jika salah maka harus diulang dari awal.",
+                    "Pakai mahkota tiruan dari kertas buku dan bilang sama setiap orang di ruangan 'BERI PENGHORMATAN PADA YANG MULIA RAJA' sambil menunjuk setiap orang dengan penggaris.",
+                    "Pake celana kebalik sampe besok paginya.",
+                    "Pegang bola basket, berdiri di depan kelas, dan berteriak, 'ADA YANG TAHU MENGAPA BOLA GOLF INI SANGAT BESAR? APA PABRIKNYA SALAH CETAK?'",
+                    "Peluk orang yang NGGAK kamu sukai di kelas dan bilang, 'Terimakasih banyak kamu sudah bersedia menjadi orang paling baik untukku.'",
+                    "Pergi ke lapangan yg luas, lalu berlari sekencang kencangnya sambil mengatakan 'aku gila aku gila'",
+                    "Petik 1 bunga lalu tancapkan bunga itu ke orang yg tidak kamu kenal (harus lawan jenis ya)",
+                    "Pilih orang secara acak di jalan, lalu bilang 'You don't know you're beautiful' (ala One Direction)",
+                    "Pura pura kerasukan ex: kerasukan macan dll",
+                    "Suruh bersiul pas mulutnya lagi penuh dijejelin makanan.",
+                    "Suruh jadi pelayan buat ngelayanin kamu sama temen-temen kamu buat makan siang.",
+                    "Suruh pake kaos kaki buat dijadiin sarung tangan.",
+                    "Suruh pake topi paling aneh/helm paling absurd selama 3 putaraann kedepan.",
+                    "Telpon mama kamu dan bilang 'ma, aku mau nikah secepatnya'",
+                    "Telpon mantan kamu dan bialng 'aku rindu kamu'",
+                    "Teriak 'WOI GW JACK, DENGER NIH RAUNGAN GW, ROAAAAR!' ditempat rame",
+                    "Tuker baju sama orang terdekat sampe ronde berikutnya.",
+                    "Update status di BBM, Line, WA, atau apapun itu dengan kata kata yang semuanya berawalan 'T'",
+                    "Upload video dia nyanyi ke youtube yang lagi nyanyiin lagu-lagu populer",
+                    "Warnain kuku kaki dan tangan tapi dengan warna berbeda-beda buat seminggu"
+                ];
+                const dare = kat[Math.floor(Math.random() * kat.length)];
+                m.reply(dare);
+                break;
+            case "truth":
+                let ka = [
+                    "Acara tv apa yang paling memuakkan? Berikan alasannya!",
+                    "Apa baju yang (menurutmu) paling jelek yang pernah kamu pakai, dan kapan kamu memakainya?",
+                    "Apa binatang patronus yang cocok untuk kamu?",
+                    "Apa hal paling buruk yang pernah kamu bilang tentang temenmu?",
+                    "Apa hal paling memalukan dari dirimu?",
+                    "Apa hal paling memalukan dari temanmu?",
+                    "Apa hal pertama yang kamu lihat saat kamu melihat orang lain (beda gender)?",
+                    "Apa hal pertama yang terlintas di pikiranmu saat kamu melihat cermin?",
+                    "Apa hal terbodoh yang pernah kamu lakukan?",
+                    "Apa hal terbodoh yg pernah kamu lakukan ?",
+                    "Apa ketakutan terbesar kamu?",
+                    "Apa mimpi terburukmu?",
+                    "Apa mimpi terkonyol yang pernah kamu inget?",
+                    "Apa pekerjaan paling konyol yang pernah kamu bayangin kamu akan jadi?",
+                    "Apa sifat terburukmu menurut kamu?",
+                    "Apa sifat yang ingin kamu rubah dari dirimu?",
+                    "Apa sifat yang ingin kamu rubah dari temanmu?",
+                    "Apa yang akan kamu lakuin bila pacarmu bilang hidung atau jarimu jelek?",
+                    "Apa yg kamu fikirkan sebelum kamu tidur ? ex: menghayal tentang jodoh,dll.",
+                    "Apakah hal yang menurutmu paling menonjol dari dirimu?",
+                    "Bagian tubuh temanmu mana yang paling kamu sukai dan ingin kamu punya?",
+                    "Bagian tubuhmu mana yang paling kamu benci?",
+                    "Dari semua kelas yang ada di sekolah, kelas mana yang paling ingin kamu masuki dan kelas mana yang paling ingin kamu hindari?",
+                    "Deksripsikan teman terdekat mu!",
+                    "Deskripsikan dirimu dalam satu kata!",
+                    "Film dan lagu apa yang pernah bikin kamu nangis?",
+                    "Hal apa yang kamu rahasiakan sampe, sekarang dan gak ada satu orangpun yang tau?",
+                    "Hal paling romantis apa yang seseorang (beda gender) pernah lakuin atau kasih ke kamu?",
+                    "Hal-hal menjijikan apa yang pernah kamu alami ?",
+                    "Jika kamu lahir kembali dan harus jadi salah satu dari temanmu, siapa yang akan kamu pilih untuk jadi dia?",
+                    "Jika punya kekuatan super/ super power ingin melakukan apa",
+                    "Jika sebentar lagi kiamat, apa yg kamu lakukan ?",
+                    "Kalo kamu disuruh operasi plastik dengan contoh wajah dari teman sekelasmu, wajah siapa yang akan kamu tiru?",
+                    "Kamu pernah mencuri sesuatu gak?",
+                    "Kamu takut mati? kenapa?",
+                    "Kapan terakhir kali menangis dan mengapa?",
+                    "kemampuan spesial kamu apa?",
+                    "Kok bisa suka sama orang yang kamu sukai?",
+                    "Menurutmu, apa sifat baik teman terdekatmu yang nggak dia sadari?",
+                    "Orang seperti apa yang ingin kamu nikahi suatu saat nanti?",
+                    "Pekerjaan paling ngenes apa yang menurutmu cocok untuk teman di sebelah kananmu?",
+                    "Pengen tukeran hidup sehari dengan siapa? (teman terdekat yang kalian sama-sama tahu) dan mengapa",
+                    "Pernahkah kamu diam-diam berharap hubungan seseorang dengan pacarnya putus? Siapa?",
+                    "Pilih PACAR atau TEMAN ? berikan alasannya !",
+                    "Quote apa yang paling kamu ingat dan kamu suka?",
+                    "Rahasia apa yg belum pernah kamu katakan sampai sekarang kepada teman mu ?",
+                    "Rolemodel (panutan) kamu siapa?",
+                    "Siapa di antara temanmu yang kamu pikir matre?",
+                    "Siapa di antara teman-temanmu yang menurutmu potongan rambutnya paling ngenes (paling nggak banget)?",
+                    "Siapa diantara temen-temenmu yang paling NGGAK fotogenik dan kalo difoto lagi ketawa mukanya kaya kuda?",
+                    "Siapa mantan terindah mu? dan mengapa kalian putus ?!",
+                    "Siapa nama artis yang pernah kamu cium fotonya diam-diam?",
+                    "Siapa nama guru cowok yang pernah kamu sukai dulu?",
+                    "Siapa nama mantan pacar teman mu yang pernah kamu sukai diam diam?",
+                    "Siapa nama orang (beda gender) yang menurutmu akan asyik bila dijadikan pacar?",
+                    "Siapa nama orang yang kamu benci, tapi kamu rasa orang itu suka sama kamu (nggak harus beda gender)?",
+                    "Siapa nama orang yang pernah kamu ikutin diam-diam?",
+                    "Siapa orang (lawan jenis) yang paling sering terlintas di pikiranmu?",
+                    "Siapa orang yg paling menjengkelkan di antara teman teman mu ? alasannya!",
+                    "Siapa sebenernya di antara teman-temanmu yang kamu pikir harus di make-over?",
+                    "Siapa yang paling mendekati tipe pasangan idealmu di sini"
+                ];
+                const truth = ka[Math.floor(Math.random() * ka.length)];
+                m.reply(truth);
+                break;
+            case "quotes":
+                {
+                    const hasil = pickRandom(await fetchJson("https://raw.githubusercontent.com/nazedev/database/refs/heads/master/kata-kata/quotes.json"));
+                    m.reply(`_${hasil.quotes}_\n\n*- ${hasil.author}*`);
+                }
+                break;
+            case "bucin":
+                {
+                    const hasil = pickRandom(await fetchJson("https://raw.githubusercontent.com/nazedev/database/refs/heads/master/kata-kata/bucin.json"));
+                    m.reply(hasil);
                 }
                 break;
 
@@ -1632,11 +1957,10 @@ Menyukai : ${gai}
                 break;
             case "getexif":
                 {
-                    if (!m.quoted) return m.reply(`Reply sticker\nDengan caption ${prefix + command}`);
-                    if (!/sticker|webp/.test(quoted.type)) return m.reply(`Reply sticker\nDengan caption ${prefix + command}`);
-                    const img = new webp.Image();
-                    await img.load(await m.quoted.download());
-                    m.reply(util.format(JSON.parse(img.exif.slice(22).toString())));
+                    let webp = (await import("node-webpmux")).default;
+                    let img = new webp.Image();
+                    await img.load(await quoted.download());
+                    await m.reply(util.format(JSON.parse(img.exif.slice(22).toString())));
                 }
                 break;
             case "cuaca":
