@@ -2,7 +2,7 @@ require("./global");
 
 const store = makeInMemoryStore({ logger: pino().child({ level: "silent", stream: "store" }) });
 const delay = ms => ms && new Promise(resolve => setTimeout(resolve, ms));
-const { generateWAMessageFromContent, proto } = require("@FizzxyDev/BaileysPro");
+const { generateWAMessageFromContent, proto } = require("@whiskeysockets/baileys");
 const request = require("request");
 const FileType = require("file-type");
 const makeid = crypto.randomBytes(3).toString("hex");
