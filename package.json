@@ -11,7 +11,7 @@
     "license": "ISC",
     "dependencies": {
         "@adiwajshing/keyed-db": "^0.2.4",
-        "@FizzxyDev/BaileysPro": "npm:@fizzxydev/baileys@latest",
+        "@whiskeysockets/baileys": "npm:@whiskeysockets/baileys@^6.7.7",
         "@hapi/boom": "^10.0.1",
         "@ibaraki-douji/pixivts": "^2.4.1",
         "api-dylux": "^1.7.2",

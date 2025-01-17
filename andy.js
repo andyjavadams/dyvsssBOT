@@ -173,8 +173,19 @@ module.exports = async (andy, m) => {
             let res = await fetch(`https://api.nasirxml.my.id/download/tiktok?url=${url}`).then(response => response.json());
             return res;
         }
-
         //end
+
+        //react
+        async function emote(emo) {
+            andy.sendMessage(m.chat, {
+                react: {
+                    text: emo,
+                    key: m.key
+                }
+            });
+        }
+        //end
+
         function getRandomColor() {
             return Math.floor(Math.random() * 256); // Menghasilkan warna acak dari 0-255
         }
@@ -304,15 +315,18 @@ module.exports = async (andy, m) => {
             //=======================================//
             case "menu":
                 {
-                    andy.sendText(m.chat, "Sedang Diproses", qtext);
-                    let teksnya = `📌 INFO : _Fitur download belum di fix_
+                    emote("✅");
+                    //   andy.sendText(m.chat, "Sedang Diproses", qtext);
+                    let teksnya = `📌 INFO : _Semua bug sudah di fix_
 
-📌 INFO UPDATE : _Fix bug - Penambahan Fitur Primbon - Penambahan Fitur quotes_
+📌 INFO UPDATE : _Penghapusan button - Penambahan react - Membuat agar suport di ios_
 
 📌 _${countdownMessage}_
 
+${readmore}
+
 ┌─「 D A S H B O A R D 」
-├ ${ucapanWaktu}, ${pushname}
+├ ${ucapanWaktu}, @${m.sender.split("@")[0]}
 ├ Hari Ini : _${hariini}_
 ├ Status Bot : _Online_
 └─
@@ -328,172 +342,7 @@ module.exports = async (andy, m) => {
 ├ Nama Bos : _${namaowner}_
 ├ Versi Bot : _${versionbot}_
 └─
-`;
-                    andy.sendMessage(
-                        m.chat,
-                        {
-                            image: { url: "https://d.top4top.io/p_32942ilrn0.jpg" },
-                            caption: teksnya,
-                            footer: "dyvsssBOT akan selalu update, dan dikembangkan gimana mood owner | dyvsss.me | © andyjavadams",
-                            buttons: [
-                                {
-                                    buttonId: ".owner",
-                                    buttonText: {
-                                        displayText: "CONTACT"
-                                    },
-                                    type: 1
-                                },
-                                {
-                                    buttonId: ".sc",
-                                    buttonText: {
-                                        displayText: "SOURCE CODE"
-                                    },
-                                    type: 1
-                                },
-                                {
-                                    buttonId: ".donasi",
-                                    buttonText: {
-                                        displayText: "DONASI"
-                                    },
-                                    type: 4,
-                                    nativeFlowInfo: {
-                                        name: "single_select",
-                                        paramsJson: JSON.stringify({
-                                            title: "Menu Utama",
-                                            sections: [
-                                                {
-                                                    title: "dyvsssBOT | andyjavadams",
-                                                    highlight_label: "Recomended",
-                                                    rows: [
-                                                        {
-                                                            header: "",
-                                                            title: "All Menu",
-                                                            description: "Menampilkan Semua Menu",
-                                                            id: ".allmenu"
-                                                        },
-                                                        {
-                                                            header: "",
-                                                            title: "Sticker Menu",
-                                                            description: "Membuat stiker dengan menggunakan bot",
-                                                            id: ".menustiker"
-                                                        },
-                                                        {
-                                                            header: "",
-                                                            title: "Ai Menu",
-                                                            description: "Tanya dyvsss ai layaknya seperti chat gpt",
-                                                            id: ".menuai"
-                                                        },
-                                                        {
-                                                            header: "",
-                                                            title: "Quotes Menu",
-                                                            description: "Dapatkan ide quotes untuk orang kesayangan kalian",
-                                                            id: ".menuquot"
-                                                        },
-                                                        {
-                                                            header: "",
-                                                            title: "Menfes Menu",
-                                                            description: "Confes ke orang yang kamu sayang, tanpa memberitahukan identitas.",
-                                                            id: ".menumenf"
-                                                        },
-                                                        {
-                                                            header: "",
-                                                            title: "Search Menu",
-                                                            description: "Menu Search lumayan lengkap",
-                                                            id: ".menusear"
-                                                        },
-                                                        {
-                                                            header: "",
-                                                            title: "Download Menu",
-                                                            description: "Menu Download belum dapat digunakan",
-                                                            id: ".menudown"
-                                                        },
-                                                        {
-                                                            header: "",
-                                                            title: "Asupan Menu",
-                                                            description: "Dapatkan asupan setiap harinya",
-                                                            id: ".menuasup"
-                                                        },
-                                                        {
-                                                            header: "",
-                                                            title: "Primbon Menu",
-                                                            description: "Cek primbon kamu disini",
-                                                            id: ".menuprim"
-                                                        },
-                                                        {
-                                                            header: "",
-                                                            title: "Audio Menu",
-                                                            description: "Ubahlah file audio anda dengan fitur ini",
-                                                            id: ".menuaud"
-                                                        },
-                                                        {
-                                                            header: "",
-                                                            title: "Tools Menu",
-                                                            description: "Menu tools membantu anda (mungkin)",
-                                                            id: ".menutools"
-                                                        },
-                                                        {
-                                                            header: "",
-                                                            title: "Group Menu",
-                                                            description: "Fitur khusus grup",
-                                                            id: ".menugrup"
-                                                        },
-                                                        {
-                                                            header: "",
-                                                            title: "Owner Menu",
-                                                            description: "Fitur khusus Baginda Andy",
-                                                            id: ".menuown"
-                                                        }
-                                                    ]
-                                                }
-                                            ]
-                                        })
-                                    }
-                                }
-                            ],
-                            headerType: 1,
-                            viewOnce: true
-                        },
-                        { quoted: qkontak }
-                    );
-                }
-                break;
-            /*            andy.sendMessage(
-                        m.chat,
-                        {
-                            image: { url: "https://d.top4top.io/p_32942ilrn0.jpg" },
-                            caption: teksnya,
-                            footer: "dyvsssBOT akan selalu update, dan dikembangkan gimana mood owner | dyvsss.me | © andyjavadams",
-                            buttons: [
-                                {
-                                    buttonId: ".owner",
-                                    buttonText: {
-                                        displayText: "CONTACT"
-                                    }
-                                },
-                                {
-                                    buttonId: ".sc",
-                                    buttonText: {
-                                        displayText: "SOURCE CODE"
-                                    }
-                                },
-                                {
-                                    buttonId: ".donasi",
-                                    buttonText: {
-                                        displayText: "DONASI"
-                                    }
-                                }
-                            ],
-                            headerType: 1,
-                            viewOnce: true
-                        },
-                        { quoted: qkontak }
-                    );
-                }
-                break;*/
-            case "allmenu":
-                {
-                    andy.sendText(m.chat, "Sedang Diproses", qloc2);
-                    let menuall = `${readmore}
+
 ┌─「 S T I C K E R - M E N U 」
 ├ sticker
 ├ swm
@@ -518,10 +367,6 @@ module.exports = async (andy, m) => {
 ├ truth
 ├ quotes
 ├ bucin
-└─
-
-┌─「 M E N F E S - M E N U 」
-├ menfes nama|nomorpenerima|pesan
 └─
 
 ┌─「 S E A R C H - M E N U 」
@@ -673,8 +518,23 @@ module.exports = async (andy, m) => {
                     andy.sendMessage(
                         m.chat,
                         {
-                            image: { url: "https://d.top4top.io/p_32942ilrn0.jpg" },
-                            caption: menuall,
+                            image: { url: image },
+                            caption: teksnya,
+                            contextInfo: {
+                                mentionedJid: [m.sender],
+                                forwardingScore: 1000,
+                                isForwarded: true
+                            }
+                        },
+                        { quoted: qkontak }
+                    );
+                }
+                break;
+            /*            andy.sendMessage(
+                        m.chat,
+                        {
+                            image: { url: image },
+                            caption: teksnya,
                             footer: "dyvsssBOT akan selalu update, dan dikembangkan gimana mood owner | dyvsss.me | © andyjavadams",
                             buttons: [
                                 {
@@ -702,563 +562,7 @@ module.exports = async (andy, m) => {
                         { quoted: qkontak }
                     );
                 }
-                break;
-            case "menustiker":
-                andy.sendText(m.chat, "Sedang Diproses", qloc2);
-                let menustc = `┌─「 S T I C K E R - M E N U 」
-├ sticker
-├ swm
-├ smeme
-├ toimage
-├ trigger
-├ emojimix
-├ getexif
-├ qc
-├ brat
-└─`;
-                andy.sendMessage(
-                    m.chat,
-                    {
-                        image: { url: "https://d.top4top.io/p_32942ilrn0.jpg" },
-                        caption: menustc,
-                        footer: "dyvsssBOT akan selalu update, dan dikembangkan gimana mood owner | dyvsss.me | © andyjavadams",
-                        buttons: [
-                            {
-                                buttonId: ".owner",
-                                buttonText: {
-                                    displayText: "CONTACT"
-                                }
-                            },
-                            {
-                                buttonId: ".sc",
-                                buttonText: {
-                                    displayText: "SOURCE CODE"
-                                }
-                            },
-                            {
-                                buttonId: ".donasi",
-                                buttonText: {
-                                    displayText: "DONASI"
-                                }
-                            }
-                        ],
-                        headerType: 1,
-                        viewOnce: true
-                    },
-                    { quoted: qkontak }
-                );
-                break;
-            case "menuai":
-                andy.sendText(m.chat, "Sedang Diproses", qloc2);
-                let menuai = `┌─「 A I - M E N U 」
-├ simi
-├ ai
-└─`;
-                andy.sendMessage(
-                    m.chat,
-                    {
-                        image: { url: "https://d.top4top.io/p_32942ilrn0.jpg" },
-                        caption: menuai,
-                        footer: "dyvsssBOT akan selalu update, dan dikembangkan gimana mood owner | dyvsss.me | © andyjavadams",
-                        buttons: [
-                            {
-                                buttonId: ".owner",
-                                buttonText: {
-                                    displayText: "CONTACT"
-                                }
-                            },
-                            {
-                                buttonId: ".sc",
-                                buttonText: {
-                                    displayText: "SOURCE CODE"
-                                }
-                            },
-                            {
-                                buttonId: ".donasi",
-                                buttonText: {
-                                    displayText: "DONASI"
-                                }
-                            }
-                        ],
-                        headerType: 1,
-                        viewOnce: true
-                    },
-                    { quoted: qkontak }
-                );
-                break;
-            case "menuasup":
-                andy.sendText(m.chat, "Sedang Diproses", qloc2);
-                let menuasup = `┌─「 A S U P A N - M E N U 」
-├ asupan
-├ asupanbocil
-├ asupancina
-├ asupangeayubi
-├ asupanindo
-├ asupanjepang
-├ asupankorea
-├ asupanthailand
-└─`;
-                andy.sendMessage(
-                    m.chat,
-                    {
-                        image: { url: "https://d.top4top.io/p_32942ilrn0.jpg" },
-                        caption: menuasup,
-                        footer: "dyvsssBOT akan selalu update, dan dikembangkan gimana mood owner | dyvsss.me | © andyjavadams",
-                        buttons: [
-                            {
-                                buttonId: ".owner",
-                                buttonText: {
-                                    displayText: "CONTACT"
-                                }
-                            },
-                            {
-                                buttonId: ".sc",
-                                buttonText: {
-                                    displayText: "SOURCE CODE"
-                                }
-                            },
-                            {
-                                buttonId: ".donasi",
-                                buttonText: {
-                                    displayText: "DONASI"
-                                }
-                            }
-                        ],
-                        headerType: 1,
-                        viewOnce: true
-                    },
-                    { quoted: qkontak }
-                );
-                break;
-            case "menuquot":
-                andy.sendText(m.chat, "Sedang Diproses", qloc2);
-                let menuquot = `┌─「 Q U O T E S - M E N U 」
-├ motivasi
-├ bijak
-├ dare
-├ truth
-├ quotes
-├ bucin
-└─`;
-                andy.sendMessage(
-                    m.chat,
-                    {
-                        image: { url: "https://d.top4top.io/p_32942ilrn0.jpg" },
-                        caption: menuquot,
-                        footer: "dyvsssBOT akan selalu update, dan dikembangkan gimana mood owner | dyvsss.me | © andyjavadams",
-                        buttons: [
-                            {
-                                buttonId: ".owner",
-                                buttonText: {
-                                    displayText: "CONTACT"
-                                }
-                            },
-                            {
-                                buttonId: ".sc",
-                                buttonText: {
-                                    displayText: "SOURCE CODE"
-                                }
-                            },
-                            {
-                                buttonId: ".donasi",
-                                buttonText: {
-                                    displayText: "DONASI"
-                                }
-                            }
-                        ],
-                        headerType: 1,
-                        viewOnce: true
-                    },
-                    { quoted: qkontak }
-                );
-                break;
-            case "menumenf":
-                andy.sendText(m.chat, "Sedang Diproses", qloc2);
-                let menumenf = `┌─「 M E N F E S - M E N U 」
-├ menfes nama|nomorpenerima|pesan
-└─`;
-                andy.sendMessage(
-                    m.chat,
-                    {
-                        image: { url: "https://d.top4top.io/p_32942ilrn0.jpg" },
-                        caption: menumenf,
-                        footer: "dyvsssBOT akan selalu update, dan dikembangkan gimana mood owner | dyvsss.me | © andyjavadams",
-                        buttons: [
-                            {
-                                buttonId: ".owner",
-                                buttonText: {
-                                    displayText: "CONTACT"
-                                }
-                            },
-                            {
-                                buttonId: ".sc",
-                                buttonText: {
-                                    displayText: "SOURCE CODE"
-                                }
-                            },
-                            {
-                                buttonId: ".donasi",
-                                buttonText: {
-                                    displayText: "DONASI"
-                                }
-                            }
-                        ],
-                        headerType: 1,
-                        viewOnce: true
-                    },
-                    { quoted: qkontak }
-                );
-                break;
-            case "menusear":
-                andy.sendText(m.chat, "Sedang Diproses", qloc2);
-                let menusear = `┌─「 S E A R C H - M E N U 」
-├ google
-├ gimage
-├ fetch
-├ pixiv
-├ wallpaper
-├ ringtone
-├ npm
-├ style
-├ yts
-├ spotify
-├ pinterest
-└─`;
-                andy.sendMessage(
-                    m.chat,
-                    {
-                        image: { url: "https://d.top4top.io/p_32942ilrn0.jpg" },
-                        caption: menusear,
-                        footer: "dyvsssBOT akan selalu update, dan dikembangkan gimana mood owner | dyvsss.me | © andyjavadams",
-                        buttons: [
-                            {
-                                buttonId: ".owner",
-                                buttonText: {
-                                    displayText: "CONTACT"
-                                }
-                            },
-                            {
-                                buttonId: ".sc",
-                                buttonText: {
-                                    displayText: "SOURCE CODE"
-                                }
-                            },
-                            {
-                                buttonId: ".donasi",
-                                buttonText: {
-                                    displayText: "DONASI"
-                                }
-                            }
-                        ],
-                        headerType: 1,
-                        viewOnce: true
-                    },
-                    { quoted: qkontak }
-                );
-                break;
-            case "menudown":
-                andy.sendText(m.chat, "Sedang Diproses", qloc2);
-                let menudown = `┌─「 D O W N L O A D - M E N U 」
-├ ytmp4
-├ ytmp3
-├ tiktokmp
-├ tiktokmp3
-├ spotifydl
-└─
-`;
-                andy.sendMessage(
-                    m.chat,
-                    {
-                        image: { url: "https://d.top4top.io/p_32942ilrn0.jpg" },
-                        caption: menuown,
-                        footer: "dyvsssBOT akan selalu update, dan dikembangkan gimana mood owner | dyvsss.me | © andyjavadams",
-                        buttons: [
-                            {
-                                buttonId: ".owner",
-                                buttonText: {
-                                    displayText: "CONTACT"
-                                }
-                            },
-                            {
-                                buttonId: ".sc",
-                                buttonText: {
-                                    displayText: "SOURCE CODE"
-                                }
-                            },
-                            {
-                                buttonId: ".donasi",
-                                buttonText: {
-                                    displayText: "DONASI"
-                                }
-                            }
-                        ],
-                        headerType: 1,
-                        viewOnce: true
-                    },
-                    { quoted: qkontak }
-                );
-                break;
-            case "menuprim":
-                andy.sendText(m.chat, "Sedang Diproses", qloc2);
-                let menuprim = `┌─「 P R I M B O N - M E N U 」
-├ artimimpi
-├ nomorhoki
-├ ramalanjodoh
-├ ramalanjodohbali
-├ suamiistri
-├ ramalancinta
-├ artinama
-├ kecocokannama
-├ kecocokanpasangan
-├ jadianpernikahan
-├ sifatusaha
-├ rezeki
-├ pekerjaan
-├ ramalannasib
-├ potensipenyakit
-├ artitarot
-├ fengshui
-├ haribaik
-├ harisangar
-├ harinaas
-├ nagahari
-├ arahrezeki
-├ peruntungan
-├ weton
-├ sifat
-├ Keberuntungan
-├ memancing
-├ masasubur
-├ shio
-└─`;
-                andy.sendMessage(
-                    m.chat,
-                    {
-                        image: { url: "https://d.top4top.io/p_32942ilrn0.jpg" },
-                        caption: menuprim,
-                        footer: "dyvsssBOT akan selalu update, dan dikembangkan gimana mood owner | dyvsss.me | © andyjavadams",
-                        buttons: [
-                            {
-                                buttonId: ".owner",
-                                buttonText: {
-                                    displayText: "CONTACT"
-                                }
-                            },
-                            {
-                                buttonId: ".sc",
-                                buttonText: {
-                                    displayText: "SOURCE CODE"
-                                }
-                            },
-                            {
-                                buttonId: ".donasi",
-                                buttonText: {
-                                    displayText: "DONASI"
-                                }
-                            }
-                        ],
-                        headerType: 1,
-                        viewOnce: true
-                    },
-                    { quoted: qkontak }
-                );
-                break;
-            case "menuaud":
-                andy.sendText(m.chat, "Sedang Diproses", qloc2);
-                let menuaud = `┌─「 A U D I O - M E N U 」
-├ bass
-├ blown
-├ deep
-├ earrape
-├ fast
-├ fat
-├ nightcore
-├ reverse
-├ robot
-├ slow
-├ smooth
-├ tupai
-├ toaudio
-├ tomp3
-├ tovn
-├ toptt
-├ tts
-└─`;
-                andy.sendMessage(
-                    m.chat,
-                    {
-                        image: { url: "https://d.top4top.io/p_32942ilrn0.jpg" },
-                        caption: menuaud,
-                        footer: "dyvsssBOT akan selalu update, dan dikembangkan gimana mood owner | dyvsss.me | © andyjavadams",
-                        buttons: [
-                            {
-                                buttonId: ".owner",
-                                buttonText: {
-                                    displayText: "CONTACT"
-                                }
-                            },
-                            {
-                                buttonId: ".sc",
-                                buttonText: {
-                                    displayText: "SOURCE CODE"
-                                }
-                            },
-                            {
-                                buttonId: ".donasi",
-                                buttonText: {
-                                    displayText: "DONASI"
-                                }
-                            }
-                        ],
-                        headerType: 1,
-                        viewOnce: true
-                    },
-                    { quoted: qkontak }
-                );
-                break;
-            case "menutools":
-                andy.sendText(m.chat, "Sedang Diproses", qloc2);
-                let menutools = `┌─「 T O O L S - M E N U 」
-├ hd
-├ readmore
-├ cuaca
-├ shortlink
-├ tourl
-├ toqr
-├ git
-├ ssweb
-├ inspect
-├ q
-└─`;
-                andy.sendMessage(
-                    m.chat,
-                    {
-                        image: { url: "https://d.top4top.io/p_32942ilrn0.jpg" },
-                        caption: menutools,
-                        footer: "dyvsssBOT akan selalu update, dan dikembangkan gimana mood owner | dyvsss.me | © andyjavadams",
-                        buttons: [
-                            {
-                                buttonId: ".owner",
-                                buttonText: {
-                                    displayText: "CONTACT"
-                                }
-                            },
-                            {
-                                buttonId: ".sc",
-                                buttonText: {
-                                    displayText: "SOURCE CODE"
-                                }
-                            },
-                            {
-                                buttonId: ".donasi",
-                                buttonText: {
-                                    displayText: "DONASI"
-                                }
-                            }
-                        ],
-                        headerType: 1,
-                        viewOnce: true
-                    },
-                    { quoted: qkontak }
-                );
-                break;
-            case "menugrup":
-                andy.sendText(m.chat, "Sedang Diproses", qloc2);
-                let menugrup = `┌─「 G R O U P - M E N U 」
-├ add
-├ kick
-├ hidetag
-├ tagall
-├ delete
-├ open
-├ close
-├ setnamagc
-├ setdesk
-├ setppgc
-├ promote
-├ demote
-├ leavegc
-├ idgc
-├ linkgc
-└─`;
-                andy.sendMessage(
-                    m.chat,
-                    {
-                        image: { url: "https://d.top4top.io/p_32942ilrn0.jpg" },
-                        caption: menugrup,
-                        footer: "dyvsssBOT akan selalu update, dan dikembangkan gimana mood owner | dyvsss.me | © andyjavadams",
-                        buttons: [
-                            {
-                                buttonId: ".owner",
-                                buttonText: {
-                                    displayText: "CONTACT"
-                                }
-                            },
-                            {
-                                buttonId: ".sc",
-                                buttonText: {
-                                    displayText: "SOURCE CODE"
-                                }
-                            },
-                            {
-                                buttonId: ".donasi",
-                                buttonText: {
-                                    displayText: "DONASI"
-                                }
-                            }
-                        ],
-                        headerType: 1,
-                        viewOnce: true
-                    },
-                    { quoted: qkontak }
-                );
-                break;
-            case "menuown":
-                andy.sendText(m.chat, "Sedang Diproses", qloc2);
-                let menuown = `┌─「 O W N E R - M E N U 」
-├ anticall
-├ setpppanjang
-├ setnamabot
-├ setbiobot
-├ listpremium
-├ listowner
-├ addowner
-├ delowner
-├ addprem
-├ delprem
-└─`;
-                andy.sendMessage(
-                    m.chat,
-                    {
-                        image: { url: "https://d.top4top.io/p_32942ilrn0.jpg" },
-                        caption: menuown,
-                        footer: "dyvsssBOT akan selalu update, dan dikembangkan gimana mood owner | dyvsss.me | © andyjavadams",
-                        buttons: [
-                            {
-                                buttonId: ".owner",
-                                buttonText: {
-                                    displayText: "CONTACT"
-                                }
-                            },
-                            {
-                                buttonId: ".sc",
-                                buttonText: {
-                                    displayText: "SOURCE CODE"
-                                }
-                            },
-                            {
-                                buttonId: ".donasi",
-                                buttonText: {
-                                    displayText: "DONASI"
-                                }
-                            }
-                        ],
-                        headerType: 1,
-                        viewOnce: true
-                    },
-                    { quoted: qkontak }
-                );
-                break;
+                break;*/
             //===================================================//
             //===================================================//
             //==================[ MENU OWNER ]==================//
@@ -1273,7 +577,8 @@ module.exports = async (andy, m) => {
                     if (users.filter(v => zippokun.includes(v)).length) return andy.sendMessage(m.chat, { text: `${users.map(v => `@${v.split("@")[0]}`).join(", ")} adalah owner.`, mentions: users }, { quoted: m });
                     zippokun = [...zippokun, ...users];
                     fs.writeFileSync(dbowner, JSON.stringify(zippokun));
-                    m.reply("Successfully added owner by andyjavadams");
+                    m.reply("Berhasil menambah ke daftar owner");
+                    await emote("✅");
                 }
                 break;
             case "upsw":
@@ -1332,12 +637,14 @@ module.exports = async (andy, m) => {
                     if (users.filter(v => !zippokun.includes(v)).length) return andy.sendMessage(m.chat, { text: `${users.map(v => `@${v.split("@")[0]}`).join(", ")} belum masuk ke list owner!`, mentions: users }, { quoted: m });
                     zippokun = zippokun.filter(v => !users.includes(v));
                     fs.writeFileSync(dbowner, JSON.stringify(zippokun));
-                    m.reply("Successfully removed owner by andyjavadams");
+                    m.reply("Kedudukan owner telah di hapus dari database");
+                    await emote("✅");
                 }
                 break;
             case "listowner":
             case "listown":
                 {
+                    emote("✅");
                     andy.sendMessage(m.chat, { text: `DAFTAR OWNER\n\n${zippokun.map(v => `- @${v.split("@")[0]}`).join("\n")}\n\nTotal : ${zippokun.length}`, mentions: zippokun }, { quoted: qloc });
                 }
                 break;
@@ -1351,7 +658,8 @@ module.exports = async (andy, m) => {
                     if (users.filter(v => zippokuy.includes(v)).length) return andy.sendMessage(m.chat, { text: `${users.map(v => `@${v.split("@")[0]}`).join(", ")} sudah masuk ke list premium!`, mentions: users }, { quoted: m });
                     zippokuy = [...zippokuy, ...users];
                     fs.writeFileSync(dbprem, JSON.stringify(zippokuy));
-                    m.reply("Successfully added premium byandyjavadams");
+                    m.reply("Berhasil menambahkan Kedudukan premium ke database");
+                    await emote("✅");
                 }
                 break;
 
@@ -1364,7 +672,8 @@ module.exports = async (andy, m) => {
                     if (users.filter(v => !zippokuy.includes(v)).length) return andy.sendMessage(m.chat, { text: `${users.map(v => `@${v.split("@")[0]}`).join(", ")} belum masuk ke list premium!`, mentions: users }, { quoted: m });
                     zippokuy = zippokuy.filter(v => !users.includes(v));
                     fs.writeFileSync(dbprem, JSON.stringify(zippokuy));
-                    m.reply("Successfully removed owner by andyjavadams");
+                    m.reply("Berhasil menghapus Kedudukan premium dari database");
+                    await emote("✅");
                 }
                 break;
 
@@ -1372,6 +681,7 @@ module.exports = async (andy, m) => {
             case "listpremium":
                 {
                     andy.sendMessage(m.chat, { text: `DAFTAR PREMIUM\n\n${zippokuy.map(v => `- @${v.split("@")[0]}`).join("\n")}\n\nTotal : ${zippokuy.length}`, mentions: zippokuy }, { quoted: m });
+                    emote("✅");
                 }
                 break;
             case "public":
@@ -1379,7 +689,8 @@ module.exports = async (andy, m) => {
                 {
                     if (!isOwner) return m.reply(msg.owner);
                     andy.public = true;
-                    m.reply("Successfully changed bot mode to public");
+                    m.reply("Sukses merubah bot ke publik");
+                    await emote("✅");
                 }
                 break;
             case "self":
@@ -1389,7 +700,8 @@ module.exports = async (andy, m) => {
                 {
                     if (!isOwner) return m.reply(msg.owner);
                     andy.public = false;
-                    m.reply("Successfully changed bot mode to private");
+                    m.reply("Sukses merubah bot ke pribadi");
+                    await emote("✅");
                 }
                 break;
             case "setppbot":
@@ -1400,7 +712,7 @@ module.exports = async (andy, m) => {
                         let media = await andy.downloadAndSaveMediaMessage(qmsg);
                         await andy.updateProfilePicture(botNumber, { url: media });
                         await fs.unlinkSync(media);
-                        m.reply("Profile photo changed by andyjavadams");
+                        m.reply("Berhasil menggantif foto profil");
                     } else return m.reply(example("dengan mengirim/reply foto"));
                 }
                 break;
@@ -1480,7 +792,7 @@ module.exports = async (andy, m) => {
                 break;
             case "idgc":
                 {
-                    if (!isOwner) return m.reply(msg.owner);
+                    if (!isAdmin) return m.reply(msg.admin);
                     if (!isGroup) return m.reply(msg.group);
                     m.reply(`${m.chat}`);
                 }
@@ -1488,6 +800,7 @@ module.exports = async (andy, m) => {
             case "listgc":
             case "listgrup":
                 {
+                    emote("✅");
                     let gcall = Object.values(await andy.groupFetchAllParticipating().catch(_ => null));
                     let listgc = `*dyvsss bot BERADA DI*\n\n`;
                     await gcall.forEach((u, i) => {
@@ -1511,7 +824,7 @@ module.exports = async (andy, m) => {
                 {
                     if (!isOwner) return m.reply(msg.owner);
                     if (!isGroup) return m.reply(msg.group);
-                    await m.reply("Successfully left the group by andyjavadams\nMessage : Adios..");
+                    await m.reply("Aku disuruh keluar dari grup sama bos,\n\nSelamat tinggal");
                     await sleep(3000);
                     await andy.groupLeave(m.chat);
                 }
@@ -1877,32 +1190,7 @@ module.exports = async (andy, m) => {
                     "dikuburan itu sepi, kalo rame lanjut part 2"
                 ];
                 const quotes = kata[Math.floor(Math.random() * kata.length)];
-                andy.sendMessage(
-                    m.chat,
-                    {
-                        text: quotes,
-                        footer: "Kata-Kata hari ini lagi?",
-                        buttons: [
-                            {
-                                buttonId: `.motivasi`,
-                                buttonText: {
-                                    displayText: "IYA"
-                                },
-                                type: 1
-                            },
-                            {
-                                buttonId: `.gakmauah`,
-                                buttonText: {
-                                    displayText: "TIDAK"
-                                },
-                                type: 1
-                            }
-                        ],
-                        headerType: 1,
-                        viewOnce: true
-                    },
-                    { quoted: m }
-                );
+                andy.sendText(m.chat, quotes, m);
                 break;
             case "bijak":
                 let katanya = [
@@ -2008,33 +1296,7 @@ module.exports = async (andy, m) => {
                     "Jika dia mencintaimu, dia pasti menginginkan hubungan serius dgnmu, jk dia terus mempertahankanmu namun tak serius, lupakan"
                 ];
                 const bijak = katanya[Math.floor(Math.random() * katanya.length)];
-                andy.sendMessage(
-                    m.chat,
-                    {
-                        text: bijak,
-                        footer: "Kata-Kata bijak lagi?",
-                        buttons: [
-                            {
-                                buttonId: `.bijak`,
-                                buttonText: {
-                                    displayText: "IYA"
-                                },
-                                type: 1
-                            },
-                            {
-                                buttonId: `.gakmauah`,
-                                buttonText: {
-                                    displayText: "TIDAK"
-                                },
-                                type: 1
-                            }
-                        ],
-                        headerType: 1,
-                        viewOnce: true
-                    },
-                    { quoted: m }
-                );
-                break;
+                andy.sendText(m.chat, bijak, m);
                 break;
             case "dare":
                 let kat = [
@@ -2103,32 +1365,7 @@ module.exports = async (andy, m) => {
                     "Warnain kuku kaki dan tangan tapi dengan warna berbeda-beda buat seminggu"
                 ];
                 const dare = kat[Math.floor(Math.random() * kat.length)];
-                andy.sendMessage(
-                    m.chat,
-                    {
-                        text: dare,
-                        footer: "TRUTH OR DARE?",
-                        buttons: [
-                            {
-                                buttonId: `.truth`,
-                                buttonText: {
-                                    displayText: "TRUTH"
-                                },
-                                type: 1
-                            },
-                            {
-                                buttonId: `.dare`,
-                                buttonText: {
-                                    displayText: "DARE"
-                                },
-                                type: 1
-                            }
-                        ],
-                        headerType: 1,
-                        viewOnce: true
-                    },
-                    { quoted: m }
-                );
+                andy.sendText(m.chat, dare, m);
                 break;
             case "truth":
                 let ka = [
@@ -2195,32 +1432,7 @@ module.exports = async (andy, m) => {
                     "Siapa yang paling mendekati tipe pasangan idealmu di sini"
                 ];
                 const truth = ka[Math.floor(Math.random() * ka.length)];
-                andy.sendMessage(
-                    m.chat,
-                    {
-                        text: truth,
-                        footer: "TRUTH OR DARE?",
-                        buttons: [
-                            {
-                                buttonId: `.truth`,
-                                buttonText: {
-                                    displayText: "TRUTH"
-                                },
-                                type: 1
-                            },
-                            {
-                                buttonId: `.dare`,
-                                buttonText: {
-                                    displayText: "DARE"
-                                },
-                                type: 1
-                            }
-                        ],
-                        headerType: 1,
-                        viewOnce: true
-                    },
-                    { quoted: m }
-                );
+                andy.sendText(m.chat, truth, m);
                 break;
             case "quotes":
                 {
@@ -2231,33 +1443,7 @@ module.exports = async (andy, m) => {
             case "bucin":
                 {
                     const hasil = pickRandom(await fetchJson("https://raw.githubusercontent.com/nazedev/database/refs/heads/master/kata-kata/bucin.json"));
-                    andy.sendMessage(
-                        m.chat,
-                        {
-                            text: hasil,
-                            footer: "Mau bucin lagi?",
-                            buttons: [
-                                {
-                                    buttonId: `.bucin`,
-                                    buttonText: {
-                                        displayText: "IYA"
-                                    },
-                                    type: 1
-                                },
-                                {
-                                    buttonId: `.gakmauah`,
-                                    buttonText: {
-                                        displayText: "ENGGA"
-                                    },
-                                    type: 1
-                                }
-                            ],
-                            headerType: 1,
-                            viewOnce: true
-                        },
-                        { quoted: m }
-                    );
-                    break;
+                    andy.sendText(m.chat, hasil, m);
                 }
                 break;
             //=======================================//
@@ -2267,7 +1453,7 @@ module.exports = async (andy, m) => {
             //=======================================//
             case "asupan":
                 {
-                    m.reply(msg.wait);
+                    emote("⏳");
                     try {
                         const response = await axios.get("https://api.nasirxml.my.id/asupan/bocil");
                         const videoUrl = response.data.result;
@@ -2279,6 +1465,7 @@ module.exports = async (andy, m) => {
                             },
                             { quoted: m }
                         );
+                        await emote("✅");
                     } catch (error) {
                         m.reply("Error bre");
                     }
@@ -2286,7 +1473,7 @@ module.exports = async (andy, m) => {
                 break;
             case "asupanbocil":
                 {
-                    m.reply(msg.wait);
+                    emote("⏳");
                     try {
                         const response = await axios.get("https://api.nasirxml.my.id/asupan/asupan");
                         const videoUrl = response.data.result;
@@ -2298,6 +1485,7 @@ module.exports = async (andy, m) => {
                             },
                             { quoted: m }
                         );
+                        await emote("✅");
                     } catch (error) {
                         m.reply("Error bre");
                     }
@@ -2305,7 +1493,7 @@ module.exports = async (andy, m) => {
                 break;
             case "asupancina":
                 {
-                    m.reply(msg.wait);
+                    emote("⏳");
                     try {
                         const response = await axios.get("https://api.nasirxml.my.id/asupan/china");
                         const imageUrl = response.data.result;
@@ -2317,6 +1505,7 @@ module.exports = async (andy, m) => {
                             },
                             { quoted: m }
                         );
+                        await emote("✅");
                     } catch (error) {
                         m.reply("Error bre");
                     }
@@ -2324,7 +1513,7 @@ module.exports = async (andy, m) => {
                 break;
             case "asupangeayubi":
                 {
-                    m.reply(msg.wait);
+                    emote("⏳");
                     try {
                         const response = await axios.get("https://api.nasirxml.my.id/asupan/geayubi");
                         const videoUrl = response.data.result;
@@ -2336,6 +1525,7 @@ module.exports = async (andy, m) => {
                             },
                             { quoted: m }
                         );
+                        await emote("✅");
                     } catch (error) {
                         m.reply("Error bre");
                     }
@@ -2343,7 +1533,7 @@ module.exports = async (andy, m) => {
                 break;
             case "asupanindo":
                 {
-                    m.reply(msg.wait);
+                    emote("⏳");
                     try {
                         const response = await axios.get("https://api.nasirxml.my.id/asupan/indonesia");
                         const imageUrl = response.data.result;
@@ -2355,14 +1545,16 @@ module.exports = async (andy, m) => {
                             },
                             { quoted: m }
                         );
+                        await emote("✅");
                     } catch (error) {
                         m.reply("Error bre");
                     }
                 }
                 break;
+
             case "asupanjepang":
                 {
-                    m.reply(msg.wait);
+                    emote("⏳");
                     try {
                         const response = await axios.get("https://api.nasirxml.my.id/asupan/japan");
                         const imageUrl = response.data.result;
@@ -2374,6 +1566,7 @@ module.exports = async (andy, m) => {
                             },
                             { quoted: m }
                         );
+                        await emote("✅");
                     } catch (error) {
                         m.reply("Error bre");
                     }
@@ -2381,7 +1574,7 @@ module.exports = async (andy, m) => {
                 break;
             case "asupankorea":
                 {
-                    m.reply(msg.wait);
+                    emote("⏳");
                     try {
                         const response = await axios.get("https://api.nasirxml.my.id/asupan/korea");
                         const imageUrl = response.data.result;
@@ -2393,6 +1586,7 @@ module.exports = async (andy, m) => {
                             },
                             { quoted: m }
                         );
+                        await emote("✅");
                     } catch (error) {
                         m.reply("Error bre");
                     }
@@ -2400,7 +1594,7 @@ module.exports = async (andy, m) => {
                 break;
             case "asupanthailand":
                 {
-                    m.reply(msg.wait);
+                    emote("⏳");
                     try {
                         const response = await axios.get("https://api.nasirxml.my.id/asupan/thailand");
                         const imageUrl = response.data.result;
@@ -2412,6 +1606,7 @@ module.exports = async (andy, m) => {
                             },
                             { quoted: m }
                         );
+                        await emote("✅");
                     } catch (error) {
                         m.reply("Error bre");
                     }
@@ -2541,13 +1736,16 @@ Menyukai : ${gai}
             case "ai":
                 {
                     if (!text) return m.reply(`Example: ${prefix + command} query`);
+                    await emote("⏳");
                     try {
                         let hasil = await yanzGpt(text);
-                        m.reply(hasil.choices[0].message.content);
+                        await m.reply(hasil.choices[0].message.content);
+                        await emote("✅");
                     } catch (e) {
                         try {
                             let hasil = await bk9Ai(text);
-                            m.reply(hasil.BK9);
+                            await m.reply(hasil.BK9);
+                            await emote("✅");
                         } catch (e) {
                             m.reply(pickRandom(["Fitur Ai sedang bermasalah!", "Tidak dapat terhubung ke ai!", "Sistem Ai sedang sibuk sekarang!", "Fitur sedang tidak dapat digunakan!"]));
                         }
@@ -2579,7 +1777,7 @@ Menyukai : ${gai}
                         let media = await andy.downloadAndSaveMediaMessage(qmsg);
                         await andy.updateProfilePicture(m.chat, { url: media });
                         await fs.unlinkSync(media);
-                        m.reply("Group profile photo changed successfully by andyjavadams");
+                        m.reply("Sukses mengganti foto profil grup");
                     } else return m.reply(example("dengan mengirim/reply foto"));
                 }
                 break;
@@ -2592,7 +1790,7 @@ Menyukai : ${gai}
                     if (!text) return m.reply(example("teksnya"));
                     const gcname = metadata.subject;
                     await andy.groupUpdateSubject(m.chat, text);
-                    m.reply(`Group name successfully changed by andyjavadams`);
+                    m.reply(`Sukses mengganti nama grup`);
                 }
                 break;
             case "setdesc":
@@ -2603,7 +1801,7 @@ Menyukai : ${gai}
                     if (!isAdmin && !isOwner) return m.reply(msg.admin);
                     if (!text) return m.reply(example("teksnya"));
                     await andy.groupUpdateDescription(m.chat, text);
-                    m.reply(`Group description changed successfully by andyjavadams`);
+                    m.reply(`Sukses mengganti deskripsi grup`);
                 }
                 break;
             case "open":
@@ -2612,7 +1810,7 @@ Menyukai : ${gai}
                     if (!isBotAdmin) return m.reply(msg.adminbot);
                     if (!isAdmin && !isOwner) return m.reply(msg.admin);
                     await andy.groupSettingUpdate(m.chat, "not_announcement");
-                    m.reply("Successfully changed group settings to allow members to send messages by andyjavadams");
+                    m.reply("Sukses membuka grup");
                 }
                 break;
             case "close":
@@ -2621,7 +1819,7 @@ Menyukai : ${gai}
                     if (!isBotAdmin) return m.reply(msg.adminbot);
                     if (!isAdmin && !isOwner) return m.reply(msg.admin);
                     await andy.groupSettingUpdate(m.chat, "announcement");
-                    m.reply("Successfully changed group settings to allow only admins to send messages by andyjavadams");
+                    m.reply("Sukses menutup grup");
                 }
                 break;
             case "d":
@@ -2654,7 +1852,7 @@ Menyukai : ${gai}
                         let target = m.mentionedJid[0] ? m.mentionedJid[0] : m.quoted ? m.quoted.sender : text.replace(/[^0-9]/g, "") + "@s.whatsapp.net";
                         await andy
                             .groupParticipantsUpdate(m.chat, [target], "demote")
-                            .then(res => m.reply(`${target.split("@")[0]} now become a regular member`))
+                            .then(res => m.reply(`${target.split("@")[0]} sekarang jadi member`))
                             .catch(err => m.reply(err.toString()));
                     } else return m.reply(example("62821xxxxxxxx"));
                 }
@@ -2670,7 +1868,7 @@ Menyukai : ${gai}
                         let target = m.mentionedJid[0] ? m.mentionedJid[0] : m.quoted ? m.quoted.sender : text.replace(/[^0-9]/g, "") + "@s.whatsapp.net";
                         await andy
                             .groupParticipantsUpdate(m.chat, [target], "promote")
-                            .then(res => m.reply(`${target.split("@")[0]} now become an admin`))
+                            .then(res => m.reply(`${target.split("@")[0]} sekarang jadi admin`))
                             .catch(err => m.reply(err.toString()));
                     } else return m.reply(example("62821xxxxxxxx"));
                 }
@@ -2684,7 +1882,7 @@ Menyukai : ${gai}
                     var teks = text.replace(/[^0-9]/g, "") + "@s.whatsapp.net";
                     var cek = await andy.onWhatsApp(`${teks.split("@")[0]}`);
                     if (cek.length < 1) return m.reply("Number not registered in WhatsApp");
-                    if (!isBotAdmin || !groupMetadata.memberAddMode) return m.reply("𝗚𝗔𝗚𝗔𝗟\nAdmin tidak mengizinkan peserta menambahkan member");
+                    if (!isBotAdmin || !groupMetadata.memberAddMode) return m.reply("G A G A L\nAdmin tidak mengizinkan peserta menambahkan member");
                     var a = await andy.groupParticipantsUpdate(m.chat, [teks], "add");
                     if (a[0].status == 200) return m.reply(`BERHASIL DITAMBAHKAN`);
                     if (a[0].status == 408) return m.reply(`GAGAL DITAMBAHKAN`);
@@ -2745,113 +1943,6 @@ Menyukai : ${gai}
                     andy.sendMessage(m.chat, { text: teks, mentions: [...member] });
                 }
                 break;
-
-            //=======================================//
-            //=======================================//
-            //============[ MENU Menfes ]============//
-            //=======================================//
-            //=======================================//
-
-            case "menfess":
-            case "menfes":
-                {
-                    this.menfes = this.menfes || {};
-                    let session = Object.values(this.menfes).find(menpes => [menpes.a, menpes.b].includes(m.sender));
-                    if (session) return m.reply(`Uhh... Kakak masih ada di sesi ${command} yang sebelumnya nih, selesaikan dulu ya sebelum mulai yang baru! 🤭`);
-                    if (m.isGroup) return m.reply(`Maaf ya Kak, fitur ini cuma bisa dipakai di chat pribadi aja! 😅`);
-                    if (!text || !text.includes("|")) {
-                        return m.reply(`Kakak bisa pakai format ini ya: ${prefix + command} nama|nomorpenerima|pesan\n\nContoh:\n${prefix + command} ${pushname}|62xxxxxx|Halo, apa kabar? 👋`);
-                    }
-                    let [namaNya, nomorNya, pesanNya] = text.split("|");
-                    if (!nomorNya || !pesanNya) {
-                        return m.reply(`Uh-oh, formatnya salah! Pastikan pakai format nama|nomor|pesan ya, Kak! 😄`);
-                    }
-                    if (nomorNya.startsWith("0") || isNaN(nomorNya)) {
-                        return m.reply(`Nomornya gak valid, Kak! Gunakan format internasional tanpa awalan '0' ya! 🙏`);
-                    }
-                    let pesanTemplate = `\nHai Kak, ada menfess nih 😊✨\n\n👤 *Dari:* ${namaNya}\n✉️ *Pesan:* ${pesanNya}\n\nKakak bisa:\n · Ketuk *Balas* untuk *menerima menfess*.\n · Ketuk *Tolak* untuk *menolak menfess*.\n\n_Pesan ini cuma disampaikan oleh bot ya, Kak!_`;
-                    let id = m.sender;
-                    this.menfes[id] = {
-                        id,
-                        a: m.sender,
-                        b: nomorNya + "@s.whatsapp.net",
-                        state: "WAITING"
-                    };
-                    await andy.sendMessage(nomorNya + "@s.whatsapp.net", {
-                        image: { url: "https://d.top4top.io/p_32942ilrn0.jpg" },
-                        caption: pesanTemplate,
-                        footer: "dyvsssBOT",
-                        buttons: [
-                            {
-                                buttonId: `${prefix}balasmenfess`,
-                                buttonText: {
-                                    displayText: "Balas"
-                                }
-                            },
-                            {
-                                buttonId: `${prefix}tolakmenfess`,
-                                buttonText: {
-                                    displayText: "Tolak"
-                                }
-                            }
-                        ],
-                        viewOnce: true
-                    });
-                    m.reply(`Yay! Pesan ${command} berhasil dikirim ke ${nomorNya}. Sekarang tinggal tunggu responsnya ya, Kak. Kalau gak ada balasan dalam 24 jam, jangan ditunggu lagi ya! 🤭`);
-                }
-                break;
-
-            case "balasmenfess":
-            case "balasmenfes":
-                {
-                    let session = Object.values(this.menfes).find(menpes => [menpes.a, menpes.b].includes(m.sender));
-                    if (!session) return m.reply("Hmmm, sepertinya Kakak belum ada sesi menfess yang aktif deh. 😅");
-                    let room = Object.values(this.menfes).find(room => [room.a, room.b].includes(m.sender) && room.state === "WAITING");
-                    if (!room) return m.reply("Gak ada sesi menfess yang menunggu balasan dari Kakak nih. 😢");
-                    let otherUser = [room.a, room.b].find(user => user !== m.sender);
-                    room.state = "CHATTING";
-                    this.menfes[room.id] = { ...room };
-                    await andy.sendMessage(otherUser, {
-                        text: `_@${m.sender.split("@")[0]} sudah menerima menfess kamu, sekarang kalian bisa ngobrol lewat bot ini ya!_\n\n*Note:* Kalau mau berhenti, ketik aja .stopmenfess. 😉`,
-                        mentions: [m.sender]
-                    });
-                    andy.sendMessage(m.chat, {
-                        text: `😊🎉 _Menfess sudah diterima, sekarang Kakak bisa ngobrol lewat bot ini ya!_\n\n*Note:* Kalau mau berhenti, tinggal ketik .stopmenfess. 🤗`
-                    });
-                }
-                break;
-
-            case "tolakmenfess":
-            case "tolakmenfes":
-                {
-                    let session = Object.values(this.menfes).find(menpes => [menpes.a, menpes.b].includes(m.sender));
-                    if (!session) return m.reply("Hmm, gak ada sesi menfess yang Kakak ikuti saat ini. 😕");
-                    let room = Object.values(this.menfes).find(room => [room.a, room.b].includes(m.sender) && room.state === "WAITING");
-                    if (!room) return m.reply("Gak ada sesi menfess yang bisa ditolak saat ini, Kak! 😅");
-                    let otherUser = [room.a, room.b].find(user => user !== m.sender);
-                    await andy.sendMessage(otherUser, {
-                        text: `_Oops... @${m.sender.split("@")[0]} menolak menfess kamu nih. Gak apa-apa ya, semangat! 🤗_`,
-                        mentions: [m.sender]
-                    });
-                    m.reply("Menfess berhasil ditolak. Kalau ada yang lain, jangan sungkan buat coba lagi ya, Kak! ✋");
-                    delete this.menfes[room.id];
-                }
-                break;
-
-            case "stopmenfess":
-            case "stopmenfes":
-                {
-                    let session = Object.values(this.menfes).find(menpes => [menpes.a, menpes.b].includes(m.sender));
-                    if (!session) return m.reply("Kayaknya Kakak gak ada sesi menfess yang aktif saat ini deh. 😅");
-                    let otherUser = session.a === m.sender ? session.b : session.a;
-                    await andy.sendMessage(otherUser, {
-                        text: `_Teman chat menghentikan sesi menfess ini ya, Kak. Makasih udah coba fitur ini! 😊_`,
-                        mentions: [m.sender]
-                    });
-                    m.reply("Sesi menfess sudah dihentikan. Kalau mau mulai lagi, tinggal gunakan perintah yang sama ya, Kak! 😄");
-                    delete this.menfes[session.id];
-                }
-                break;
             //=======================================//
             //=======================================//
             //============[ MENU TOOLS ]============//
@@ -2892,15 +1983,16 @@ Menyukai : ${gai}
             case "qr":
                 {
                     if (!text) return m.reply(`Ubah Text ke Qr dengan *${prefix + command}* textnya`);
-                    m.reply(msg.wait);
+                    emote("⏳");
                     await andy.sendMessage(m.chat, { image: { url: "https://api.qrserver.com/v1/create-qr-code/?size=1000x1000&data=" + text }, caption: "Selesai" }, { quoted: qloc2 });
+                    await emote("✅");
                 }
                 break;
             case "tourl":
                 {
                     try {
                         if (/webp|video|sticker|audio|jpg|jpeg|png/.test(mime)) {
-                            m.reply(msg.wait);
+                            emote("✅");
                             let media = await quoted.download();
                             let anu = await UguuSe(media);
                             m.reply("Url : " + anu.url);
@@ -2916,6 +2008,7 @@ Menyukai : ${gai}
             case "shorturl":
             case "shortlink":
                 {
+                    emote("✅");
                     if (!text || !isUrl(text)) return m.reply(`Example: ${prefix + command} https://ask.dyvsss.me`);
                     try {
                         let anu = await axios.get("https://tinyurl.com/api-create.php?url=" + text);
@@ -2927,6 +2020,7 @@ Menyukai : ${gai}
                 break;
             case "ssweb":
                 {
+                    emote("✅");
                     if (!text) return m.reply(`Example: ${prefix + command} https://github.com/andyjavadams`);
                     try {
                         let anu = "https://" + text.replace(/^https?:\/\//, "");
@@ -3006,12 +2100,14 @@ Menyukai : ${gai}
                     let teks1 = text.split`|`[0] ? text.split`|`[0] : "";
                     let teks2 = text.split`|`[1] ? text.split`|`[1] : "";
                     if (/image|webp/.test(mime)) {
-                        m.reply(msg.wait);
+                        emote("⏳");
                         await andy.sendStimg(m.chat, media, m, { packname: teks1, author: teks2 });
+                        await emote("✅");
                     } else if (/video/.test(mime)) {
                         if (qmsg.seconds > 11) return m.reply("Maksimal 10 detik!");
-                        m.reply(msg.wait);
+                        emote("⏳");
                         await andy.sendStimg(m.chat, media, m, { packname: teks1, author: teks2 });
+                        await emote("✅");
                     } else {
                         m.reply(`Kirim/reply gambar/video/gif dengan caption ${prefix + command}\nDurasi Video/Gif 1-9 Detik`);
                     }
@@ -3027,13 +2123,14 @@ Menyukai : ${gai}
                         if (!isPremium) return m.reply(msg.prem);
                         if (!/image|webp/.test(mime)) return m.reply(`Kirim/reply image/sticker\nDengan caption ${prefix + command} atas|bawah`);
                         if (!text) return m.reply(`Kirim/reply image/sticker dengan caption ${prefix + command} atas|bawah`);
-                        m.reply(msg.wait);
+                        emote("⏳");
                         let atas = text.split`|`[0] ? text.split`|`[0] : "-";
                         let bawah = text.split`|`[1] ? text.split`|`[1] : "-";
                         let media = await quoted.download();
                         let mem = await UguuSe(media);
                         let smeme = `https://api.memegen.link/images/custom/${encodeURIComponent(atas)}/${encodeURIComponent(bawah)}.png?background=${mem.url}`;
                         await andy.sendStimg(m.chat, smeme, m, { packname: packname, author: author });
+                        await emote("✅");
                     } catch (e) {
                         m.reply("Server Meme Sedang Offline!");
                     }
@@ -3067,7 +2164,7 @@ Menyukai : ${gai}
                         if (/smooth/.test(command)) set = "-filter:v \"minterpolate='mi_mode=mci:mc_mode=aobmc:vsbmc=1:fps=120'\"";
                         if (/tupai/.test(command)) set = '-filter:a "atempo=0.5,asetrate=65100"';
                         if (/audio/.test(mime)) {
-                            m.reply(msg.wait);
+                            emote("✅");
                             let media = await andy.downloadAndSaveMediaMessage(qmsg);
                             let ran = `./database/sampah/${getRandom(".mp3")}`;
                             exec(`ffmpeg -i ${media} ${set} ${ran}`, (err, stderr, stdout) => {
@@ -3124,13 +2221,15 @@ Menyukai : ${gai}
                 break;
             case "brat":
                 {
-                    await m.reply("Sedang diproses");
+                    await emote("⏳");
                     if (!text && (!m.quoted || !m.quoted.text)) return m.reply(`Kirim/reply pesan *${prefix + command}* Teksnya`);
                     try {
                         await andy.sendMessage(m.chat, { image: { url: "https://brat.caliphdev.com/api/brat?text=" + (text || m.quoted.text) } }, { quoted: qloc });
+                        await emote("✅");
                     } catch (e) {
                         try {
                             await andy.sendMessage(m.chat, { image: { url: "https://mannoffc-x.hf.space/brat?q=" + (text || m.quoted.text) } }, { quoted: qkontak });
+                            await emote("✅");
                         } catch (e) {
                             m.reply("Server Brat Sedang Offline!");
                         }
@@ -3148,7 +2247,7 @@ Menyukai : ${gai}
                         ppuser = "https://raw.githubusercontent.com/andyjavadams/andyjavadams.github.io/refs/heads/main/assets/imgs/image.jpg";
                     }
                     let reswarna = await warna[Math.floor(Math.random() * warna.length)];
-                    m.reply(msg.wait);
+                    emote("⏳");
                     const obj = {
                         type: "quote",
                         format: "png",
@@ -3183,6 +2282,7 @@ Menyukai : ${gai}
                     } catch (error) {
                         m.reply(error.toString());
                     }
+                    emote("✅");
                 }
                 break;
             case "hdr":
@@ -3190,22 +2290,23 @@ Menyukai : ${gai}
             case "remini":
                 {
                     if (!quoted) return m.reply(`Where is the picture?`);
-                    m.reply(msg.wait);
+                    emote("⏳");
                     if (!/image/.test(mime)) return m.reply(`Send/Reply Photos With Captions ${prefix + command}`);
                     const { remini } = require("./all/remini");
                     let media = await quoted.download();
                     let proses = await remini(media, "enhance");
-                    andy.sendMessage(m.chat, { image: proses, caption: msg.success }, { quoted: m });
+                    andy.sendMessage(m.chat, { image: proses, caption: "Jangan lupa folow instagram @andy.jees" }, { quoted: m });
+                    await emote("✅");
                 }
                 break;
             case "toimage":
             case "toimg":
                 {
                     if (!/webp/.test(mime) && !/audio/.test(mime)) return m.reply(example("sambil reply sticker"));
-                    m.reply(msg.wait);
+                    emote("✅");
                     let media = await andy.downloadAndSaveMediaMessage(qmsg);
                     let ran = `${makeid}.png`;
-                    exec(`ffmpeg -i ${media} ${ran}`, err => {
+                    await exec(`ffmpeg -i ${media} ${ran}`, err => {
                         fs.unlinkSync(media);
                         if (err) return err;
                         let buffer = fs.readFileSync(ran);
@@ -3224,7 +2325,7 @@ Menyukai : ${gai}
             case "toptt":
                 {
                     if (!/video|audio/.test(mime) && !/audio/.test(mime)) return m.reply(example("dengan mengirim/reply audio/vidio"));
-                    m.reply(msg.wait);
+                    emote("✅");
                     await andy.downloadMediaMessage(qmsg).then(async res => {
                         let anu = await toPTT(res, "mp4");
                         andy.sendMessage(m.chat, { audio: anu, mimetype: "audio/mpeg", ptt: true }, { quoted: m });
@@ -3236,7 +2337,7 @@ Menyukai : ${gai}
                 {
                     if (!/video/.test(mime) && !/audio/.test(mime)) return m.reply(example("dengan mengirim/reply vidio"));
                     if (qmsg.seconds > 30) return m.reply("Durasi vidio maksimal 30 detik");
-                    m.reply(msg.wait);
+                    emote("✅");
                     await andy.downloadMediaMessage(qmsg).then(async res => {
                         let anu = await toAudio(res, "mp4");
                         andy.sendMessage(m.chat, { audio: anu, mimetype: "audio/mpeg" }, { quoted: m });
@@ -3247,7 +2348,7 @@ Menyukai : ${gai}
                 {
                     try {
                         if (/jpg|jpeg|png/.test(mime)) {
-                            m.reply(msg.wait);
+                            emote("✅");
                             let media = await quoted.download();
                             let anu = await UguuSe(media);
                             await andy.sendMessage(m.chat, "https://some-random-api.com/canvas/wasted?avatar=" + anu.url, "Nih Bro", m);
@@ -3264,7 +2365,7 @@ Menyukai : ${gai}
                 {
                     try {
                         if (/jpg|jpeg|png/.test(mime)) {
-                            m.reply(msg.wait);
+                            emote("✅");
                             let media = await quoted.download();
                             let anu = await UguuSe(media);
                             await andy.sendMessage(m.chat, { document: { url: "https://some-random-api.com/canvas/triggered?avatar=" + anu.url }, fileName: "triggered.gif", mimetype: "image/gif" }, { quoted: m });
@@ -3285,10 +2386,11 @@ Menyukai : ${gai}
                     if (/video/.test(mime)) {
                         if (qmsg.seconds > 15) return m.reply("Durasi vidio maksimal 15 detik!");
                     }
-                    m.reply(msg.wait);
+                    emote("⏳");
                     var media = await andy.downloadAndSaveMediaMessage(qmsg);
                     await andy.sendStimg(m.chat, media, m, { packname: "© andyjavadams" });
                     await fs.unlinkSync(media);
+                    await emote("✅");
                 }
                 break;
             case "fetch":
@@ -3327,7 +2429,7 @@ Menyukai : ${gai}
             case "gimage":
                 {
                     if (!text) return m.reply(`Example: ${prefix + command} query`);
-                    m.reply(msg.wait);
+                    emote("⏳");
                     gis(text, async (err, result) => {
                         if (err) return m.reply(`Image Untuk Query : _${text}_\nTidak Ditemukan!`);
                         if (result == undefined) {
@@ -3346,12 +2448,13 @@ Menyukai : ${gai}
             case "youtubesearch":
                 {
                     if (!text) return m.reply(`Example: ${prefix + command} booyah free fire`);
-                    m.reply(msg.wait);
+                    emote("⏳");
                     try {
                         const res = await yts.search(text);
                         const hasil = pickRandom(res.all);
                         const teksnya = `*📍Title:* ${hasil.title || "Tidak tersedia"}\n*✏Description:* ${hasil.description || "Tidak tersedia"}\n*🌟Channel:* ${hasil.author?.name || "Tidak tersedia"}\n*⏳Duration:* ${hasil.seconds || "Tidak tersedia"} second (${hasil.timestamp || "Tidak tersedia"})\n*🔎Source:* ${hasil.url || "Tidak tersedia"}\n\n_note : jika ingin mendownload silahkan_\n_pilih ${prefix}ytmp3 url_video atau ${prefix}ytmp4 url_video_`;
                         await andy.sendMessage(m.chat, { image: { url: hasil.thumbnail }, caption: teksnya }, { quoted: qloc });
+                        await emote("✅");
                     } catch (e) {
                         m.reply("Post not available!");
                     }
@@ -3363,7 +2466,7 @@ Menyukai : ${gai}
                     try {
                         let { pixivdl } = require("./all/pixiv");
                         let res = await pixivdl(text);
-                        m.reply(msg.wait);
+                        emote("⏳");
                         for (let i = 0; i < res.media.length; i++) {
                             let caption = i == 0 ? `${res.caption}\n\n*By:* ${res.artist}\n*Tags:* ${res.tags.join(", ")}` : "";
                             let mime = (await FileType.fromBuffer(res.media[i])).mime;
@@ -3423,6 +2526,7 @@ Menyukai : ${gai}
             case "spotifysearch":
                 {
                     if (!text) return m.reply(`Example: ${prefix + command} alan walker alone`);
+                    emote("✅");
                     try {
                         let hasil = await fetchJson("https://www.bhandarimilan.info.np/spotisearch?query=" + encodeURIComponent(text));
                         let txt = hasil.map(a => {
@@ -3538,18 +2642,18 @@ Menyukai : ${gai}
                 {
                     if (!text) return m.reply(`Contoh: ${prefix + command} url_youtube`);
                     if (!text.includes("youtu")) return m.reply("Url Tidak Mengandung Result Dari Youtube!");
-                    m.reply(msg.wait);
+                    emote("⏳");
                     let v = await saveTube3(text);
-                    andy.sendMessage(m.chat, { audio: { url: v.result.link }, mimetype: "audio/mpeg", ptt: false }, { quoted: m });
+                    andy.sendMessage(m.chat, { audio: { url: v.result.link }, mimetype: "audio/mpeg", ptt: false }, { quoted: m }), await emote("✅");
                 }
                 break;
             case "ytmp4":
                 {
                     if (!text) return m.reply(`Contoh: ${prefix + command} url_youtube`);
                     if (!text.includes("youtu")) return m.reply("Url Tidak Mengandung Result Dari Youtube!");
-                    m.reply(msg.wait);
+                    emote("⏳");
                     let v = await saveTube4(text);
-                    andy.sendMessage(m.chat, { video: { url: v.result.link }, caption: "Done kak jangan lupa folow instagram @andy.jees", mimetype: "video/mp4" }, { quoted: m });
+                    andy.sendMessage(m.chat, { video: { url: v.result.link }, caption: "Done kak jangan lupa folow instagram @andy.jees", mimetype: "video/mp4" }, { quoted: m }), await emote("✅");
                 }
                 break;
             case "tiktok":
@@ -3590,7 +2694,7 @@ Menyukai : ${gai}
                     if (!text.includes("tiktok.com")) return m.reply("Url Tidak Mengandung Result Dari Tiktok!");
                     try {
                         const hasil = await tiktokDl(text);
-                        m.reply(msg.wait);
+                        emote("⏳");
                         await andy.sendMessage(
                             m.chat,
                             {
@@ -3608,7 +2712,8 @@ Menyukai : ${gai}
                                     }
                                 }
                             },
-                            { quoted: m }
+                            { quoted: m },
+                            await emote("✅")
                         );
                     } catch (e) {
                         m.reply("Gagal/Url tidak valid!");
@@ -3617,11 +2722,12 @@ Menyukai : ${gai}
                 break;
             case "spotifydl":
                 {
-                    m.reply(msg.wait);
+                    emote("⏳");
                     if (!text) return m.reply(`Example: ${prefix + command} https://open.spotify.com/track/0JiVRyTJcJnmlwCZ854K4p`);
                     if (!isUrl(args[0]) && !args[0].includes("open.spotify.com/track")) return m.reply("Url Invalid!");
                     try {
-                        await andy.sendMedia(m.chat, "https://spotifyapi.caliphdev.com/api/download/track?url=" + text, "", "", m);
+                        await andy.sendMedia(m.chat, "https://spotifyapi.caliphdev.com/api/download/track?url=" + text, "", "", { quoted: m });
+                        await emote("✅");
                     } catch (e) {
                         m.reply("Server download sedang offline!");
                     }
@@ -3634,54 +2740,26 @@ Menyukai : ${gai}
             //=======================================//
             //=======================================//
             case "owner":
-            case "creator":
                 {
-                    const caption = `Haii, Kak! Apa yang ingin kamu ketahui tentang Ownerku? 🤔💭\nAku bisa kasih info lebih atau cara menghubungi Owner, loh! 😊✨`;
-                    andy.sendMessage(
-                        m.chat,
-                        {
-                            image: { url: "https://d.top4top.io/p_32942ilrn0.jpg" },
-                            caption: caption,
-                            footer: "dyvsssBOT | andyjavadams",
-                            buttons: [
-                                {
-                                    buttonId: `.noowner`,
-                                    buttonText: {
-                                        displayText: "Contact 📞"
-                                    }
-                                },
-                                {
-                                    buttonId: `.donasi`,
-                                    buttonText: {
-                                        displayText: "Donasi ⚡"
-                                    }
-                                }
-                            ],
-                            viewOnce: true
-                        },
-                        {
-                            quoted: qkontak
-                        }
-                    );
-                }
-                break;
-            case "noowner":
-                {
+                    emote("✅");
                     andy.sendContact(m.chat, [owner], "Save namain Andy Malaikat Bandung", qloc);
                 }
                 break;
             case "sc":
                 {
+                    emote("✅");
                     andy.sendText(m.chat, "https://github.com/andyjavadams/dyvsssBOT", qdoc);
                 }
                 break;
             case "donasi":
                 {
+                    emote("✅");
                     andy.sendText(m.chat, "OVO | 082164659362 | ANXX JAXXXXX", qloc);
                 }
                 break;
             case "gakmauah":
                 {
+                    emote("✅");
                     andy.sendText(m.chat, "Baiklah, aku tidak memaksa", qloc2);
                 }
                 break;
