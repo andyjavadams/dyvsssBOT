@@ -1,4 +1,4 @@
-module.exports = async (andy, m) => {
+module.exports = async (andy, m, chatUpdate, store) => {
     try {
         const body = m.mtype === "conversation" ? m.message.conversation : m.mtype == "imageMessage" ? m.message.imageMessage.caption : m.mtype == "videoMessage" ? m.message.videoMessage.caption : m.mtype == "extendedTextMessage" ? m.message.extendedTextMessage.text : m.mtype == "buttonsResponseMessage" ? m.message.buttonsResponseMessage.selectedButtonId : m.mtype == "listResponseMessage" ? m.message.listResponseMessage.singleSelectReply.selectedRowId : m.mtype === "interactiveResponseMessage" ? JSON.parse(m.message.interactiveResponseMessage.nativeFlowResponseMessage.paramsJson).id : m.mtype == "templateButtonReplyMessage" ? m.message.templateButtonReplyMessage.selectedId : m.mtype === "messageContextInfo" ? m.message.buttonsResponseMessage?.selectedButtonId || m.message.listResponseMessage?.singleSelectReply.selectedRowId || m.text : "";
         const budy = typeof m.text == "string" ? m.text : "";
@@ -12,6 +12,9 @@ module.exports = async (andy, m) => {
         const makeid = crypto.randomBytes(3).toString("hex");
         const fatkuns = m.quoted || m;
         const axios = require("axios");
+        const fs = require("fs");
+        const cron = require("node-cron");
+        const { execSync } = require("child_process");
         const quoted = fatkuns.mtype == "buttonsMessage" ? fatkuns[Object.keys(fatkuns)[1]] : fatkuns.mtype == "templateMessage" ? fatkuns.hydratedTemplate[Object.keys(fatkuns.hydratedTemplate)[1]] : fatkuns.mtype == "product" ? fatkuns[Object.keys(fatkuns)[0]] : m.quoted ? m.quoted : m;
         const mime = (quoted.msg || quoted).mimetype || "";
         const qmsg = quoted.msg || quoted;
@@ -21,18 +24,18 @@ module.exports = async (andy, m) => {
         const hari = sekarang.toLocaleDateString("id-ID", { weekday: "long" });
         const text = (q = args.join(" "));
         const gis = require("g-i-s");
-        const { pinterest2, wallpaper, remini, wikimedia, quotesAnime, multiDownload, yanzGpt, happymod, umma, ringtone, jadwalsholat, styletext, tiktokDl, facebookDl, instaStory, bk9Ai, ytMp4, ytMp3, mediafireDl, quotedLyo, simi } = require("./all/screaper");
-        const { pixivdl } = require("./all/pixiv");
+        const { pinterest2, wallpaper, remini, wikimedia, quotesAnime, multiDownload, yanzGpt, happymod, umma, ringtone, jadwalsholat, styletext, tiktokDl, facebookDl, instaStory, bk9Ai, ytMp4, ytMp3, mediafireDl, quotedLyo, simi } = require("./lib/screaper");
+        const { pixivdl } = require("./lib/pixiv");
         const google = require("googlethis");
         const botNumber = await andy.decodeJid(andy.user.id);
-        const fs = require("fs");
         if (!fs.existsSync(dbowner)) fs.writeFileSync(dbowner, "[]");
         if (!fs.existsSync(dbprem)) fs.writeFileSync(dbprem, "[]");
         let zippokun = JSON.parse(fs.readFileSync(dbowner).toString());
         let zippokuy = JSON.parse(fs.readFileSync(dbprem).toString());
         const isOwner = [owner + "@s.whatsapp.net", ...zippokun, botNumber].includes(m.sender);
-        const isPremium = [owner + "@s.whatsapp.net", ...zippokun, botNumber, ...zippokuy].includes(m.sender);
+        //   const isPremium = [owner + "@s.whatsapp.net", ...zippokun, botNumber, ...zippokuy].includes(m.sender);
         const isGroup = m.chat.endsWith("@g.us");
+        const isMedia = /image|video|sticker|audio/.test(mime);
         const ytdl = require("ytdl-core");
         const yts = require("yt-search");
         const path = require("path");
@@ -70,10 +73,10 @@ module.exports = async (andy, m) => {
         const isAdmin = participant_sender?.admin !== null ? true : false;
         const chatnano = JSON.parse(fs.readFileSync("./database/chatnano.json"));
         const isnanochat = m.isGroup ? chatnano.includes(m.chat) : true;
-        const { runtime, getRandom, getTime, tanggal, toRupiah, telegraPh, pinterest, isUrl, pickRandom, ucapan, generateProfilePicture, getBuffer, fetchJson, formatp } = require("./all/function.js");
-        const { toAudio, toPTT, toVideo, ffmpeg } = require("./all/converter.js");
-        const { TelegraPh, UguuSe } = require("./all/uploader");
-        const contacts = JSON.parse(fs.readFileSync("./all/database/contacts.json"));
+        const { runtime, getRandom, getTime, tanggal, toRupiah, telegraPh, pinterest, isUrl, pickRandom, ucapan, generateProfilePicture, getBuffer, fetchJson, formatp } = require("./lib/function.js");
+        const { toAudio, toPTT, toVideo, ffmpeg } = require("./lib/converter.js");
+        const { TelegraPh, UguuSe } = require("./lib/uploader");
+        const contacts = JSON.parse(fs.readFileSync("./lib/database/contacts.json"));
         const time = moment(Date.now()).tz("Asia/Jakarta").locale("id").format("HH:mm:ss z");
         // Days
         const hariini = moment.tz("Asia/Jakarta").format("dddd, DD MMMM YYYY");
@@ -147,17 +150,6 @@ module.exports = async (andy, m) => {
         let detiknya = Math.floor((remainingTime % (1000 * 60)) / 1000);
         let countdownMessage = `Tinggal ${poe} hari, ${jamnya} jam, ${menitnya} menit, ${detiknya} detik menuju bulan ramadhan 😇`;
 
-        if (!m.key.fromMe && m.isGroup && isnanochat) {
-            try {
-                const data1 = await fetchJson(`https://skizoasia.xyz/api/openai?apikey=lynzzid&text=${budy}&system=kamu adalah dyvsssAi`);
-                const msgai = data1.result;
-                m.reply(`${msgai}`);
-            } catch (err) {
-                // console.log(err);
-                console.log("Terjadi kelasalah, silahkan hubungi owner tentang kesalahan ini");
-                // reply(JSON.stringify(err));
-            }
-        }
         //function downloader
         async function saveTube3(url) {
             let res = await fetch(`https://api.nasirxml.my.id/download/ytmp3?url=${url}`).then(response => response.json());
@@ -174,6 +166,11 @@ module.exports = async (andy, m) => {
             return res;
         }
         //end
+
+        //database
+        const { LoadDataBase } = require("./src/message");
+        //baca database
+        const { rdGame, iGame, tGame, gameSlot, gameCasinoSolo, gameMerampok, gameBegal, daily, buy, setLimit, addLimit, addUang, setUang, transfer } = require("./lib/game");
 
         //react
         async function emote(emo) {
@@ -228,8 +225,57 @@ module.exports = async (andy, m) => {
             }
         };
 
-        let example = teks => {
-            return `\nCmd salah, cobalah ${cmd} ${teks}\n`;
+        // Respon Cmd with media
+        if (isMedia && m.msg.fileSha256 && m.msg.fileSha256.toString("base64") in db.data.sticker) {
+            let hash = db.data.sticker[m.msg.fileSha256.toString("base64")];
+            let { text, mentionedJid } = hash;
+            let messages = await generateWAMessage(
+                from,
+                { text: text, mentions: mentionedJid },
+                {
+                    userJid: andy.user.id,
+                    quoted: m.quoted && m.quoted.fakeObj
+                }
+            );
+            messages.key.fromMe = areJidsSameUser(m.sender, andy.user.id);
+            messages.key.id = m.key.id;
+            messages.pushName = m.pushName;
+            if (m.isGroup) messages.participant = m.sender;
+            let msg = {
+                ...chatUpdate,
+                messages: [proto.WebMessageInfo.fromObject(messages)],
+                type: "append"
+            };
+            andy.ev.emit("messages.upsert", msg);
+        }
+
+        const example = teks => {
+            andy.sendMessage(
+                m.chat,
+                {
+                    text: `Perintah salah, cobalah ${cmd} ${teks}`,
+                    contextInfo: {
+                        forwardingScore: 1000,
+                        isForwarded: true,
+                        forwardedNewsletterMessageInfo: {
+                            newsletterJid: cenel,
+                            serverMessageId: null,
+                            newsletterName: "P ingfo @andy.jees"
+                        },
+                        externalAdReply: {
+                            showAdAttribution: true,
+                            renderLargerThumbnail: false,
+                            title: `jangan lupa follow instagram @andy.jees`,
+                            containsAutoReply: true,
+                            mediaType: 1,
+                            thumbnailUrl: image,
+                            mediaUrl: web,
+                            sourceUrl: web
+                        }
+                    }
+                },
+                { quoted: qdoc }
+            );
         };
 
         let timestamp = speed();
@@ -322,9 +368,7 @@ module.exports = async (andy, m) => {
 📌 INFO UPDATE : _Penghapusan button - Penambahan react - Membuat agar suport di ios_
 
 📌 _${countdownMessage}_
-
 ${readmore}
-
 ┌─「 D A S H B O A R D 」
 ├ ${ucapanWaktu}, @${m.sender.split("@")[0]}
 ├ Hari Ini : _${hariini}_
@@ -343,6 +387,12 @@ ${readmore}
 ├ Versi Bot : _${versionbot}_
 └─
 
+┌─「 C M D - B O T 」
+├ setcmd
+├ delcmd
+├ listcmd
+└─
+
 ┌─「 S T I C K E R - M E N U 」
 ├ sticker
 ├ swm
@@ -358,6 +408,10 @@ ${readmore}
 ┌─「 A I - M E N U 」
 ├ simi
 ├ ai
+└─
+
+┌─「 M E N F E S - M E N U 」
+├ menfes nama|nomorpenerima|pesan
 └─
 
 ┌─「 Q U O T E S - M E N U 」
@@ -505,6 +559,7 @@ ${readmore}
   
 ┌─「 O W N E R - M E N U 」
 ├ anticall
+├ join
 ├ setpppanjang
 ├ setnamabot
 ├ setbiobot
@@ -515,15 +570,35 @@ ${readmore}
 ├ addprem
 ├ delprem
 └─`;
-                    andy.sendMessage(
+                    await andy.sendMessage(
                         m.chat,
                         {
-                            image: { url: image },
+                            document: docs,
+                            fileName: ucapanWaktu,
+                            mimetype: pickRandom(listfakedocs),
+                            fileLength: "100000000000000",
+                            pageCount: "999",
                             caption: teksnya,
                             contextInfo: {
-                                mentionedJid: [m.sender],
+                                mentionedJid: [m.sender, "0@s.whatsapp.net", owner[0] + "@s.whatsapp.net"],
                                 forwardingScore: 1000,
-                                isForwarded: true
+                                isForwarded: true,
+                                forwardedNewsletterMessageInfo: {
+                                    newsletterJid: cenel,
+                                    serverMessageId: null,
+                                    newsletterName: "P ingfo @andy.jees"
+                                },
+                                externalAdReply: {
+                                    title: author,
+                                    body: packname,
+                                    showAdAttribution: true,
+                                    thumbnailUrl: image,
+                                    mediaType: 1,
+                                    previewType: 0,
+                                    renderLargerThumbnail: true,
+                                    mediaUrl: web,
+                                    sourceUrl: web
+                                }
                             }
                         },
                         { quoted: qkontak }
@@ -568,6 +643,22 @@ ${readmore}
             //==================[ MENU OWNER ]==================//
             //===================================================//
             //===================================================//
+            case "join":
+                {
+                    if (!isOwner) return m.reply(msg.owner);
+                    if (!text) return m.reply("Masukkan Link Group!");
+                    if (!isUrl(args[0]) && !args[0].includes("whatsapp.com")) return m.reply("Link Invalid!");
+                    const result = args[0].split("https://chat.whatsapp.com/")[1];
+                    emote("✅");
+                    await andy.groupAcceptInvite(result).catch(res => {
+                        if (res.data == 400) return m.reply("Grup Tidak Di Temukan❗");
+                        if (res.data == 401) return m.reply("Bot Di Kick Dari Grup Tersebut❗");
+                        if (res.data == 409) return m.reply("Bot Sudah Join Di Grup Tersebut❗");
+                        if (res.data == 410) return m.reply("Url Grup Telah Di Setel Ulang❗");
+                        if (res.data == 500) return m.reply("Grup Penuh❗");
+                    });
+                }
+                break;
             case "addown":
             case "addowner":
                 {
@@ -638,13 +729,11 @@ ${readmore}
                     zippokun = zippokun.filter(v => !users.includes(v));
                     fs.writeFileSync(dbowner, JSON.stringify(zippokun));
                     m.reply("Kedudukan owner telah di hapus dari database");
-                    await emote("✅");
                 }
                 break;
             case "listowner":
             case "listown":
                 {
-                    emote("✅");
                     andy.sendMessage(m.chat, { text: `DAFTAR OWNER\n\n${zippokun.map(v => `- @${v.split("@")[0]}`).join("\n")}\n\nTotal : ${zippokun.length}`, mentions: zippokun }, { quoted: qloc });
                 }
                 break;
@@ -659,7 +748,6 @@ ${readmore}
                     zippokuy = [...zippokuy, ...users];
                     fs.writeFileSync(dbprem, JSON.stringify(zippokuy));
                     m.reply("Berhasil menambahkan Kedudukan premium ke database");
-                    await emote("✅");
                 }
                 break;
 
@@ -673,7 +761,6 @@ ${readmore}
                     zippokuy = zippokuy.filter(v => !users.includes(v));
                     fs.writeFileSync(dbprem, JSON.stringify(zippokuy));
                     m.reply("Berhasil menghapus Kedudukan premium dari database");
-                    await emote("✅");
                 }
                 break;
 
@@ -681,7 +768,6 @@ ${readmore}
             case "listpremium":
                 {
                     andy.sendMessage(m.chat, { text: `DAFTAR PREMIUM\n\n${zippokuy.map(v => `- @${v.split("@")[0]}`).join("\n")}\n\nTotal : ${zippokuy.length}`, mentions: zippokuy }, { quoted: m });
-                    emote("✅");
                 }
                 break;
             case "public":
@@ -716,17 +802,21 @@ ${readmore}
                     } else return m.reply(example("dengan mengirim/reply foto"));
                 }
                 break;
-            case "setppbotpanjang":
             case "setpppanjang":
                 {
                     if (!isOwner) return m.reply(msg.owner);
-                    if (/image/g.test(mime)) {
-                        var medis = await andy.downloadAndSaveMediaMessage(qmsg, "ppbot.jpeg", false);
-                        var { img } = await generateProfilePicture(medis);
+                    let { S_WHATSAPP_NET } = require("@whiskeysockets/baileys");
+                    if (!m.quoted) return m.reply(`Send/Reply Image With Caption ${prefix + command}`);
+                    if (!/image/.test(mime)) return m.reply(`Send/Reply Image With Caption ${prefix + command}`);
+
+                    try {
+                        let media = await quoted.download();
+                        let { img } = await pepe(media);
+
                         await andy.query({
                             tag: "iq",
                             attrs: {
-                                to: botNumber,
+                                to: S_WHATSAPP_NET,
                                 type: "set",
                                 xmlns: "w:profile:picture"
                             },
@@ -738,9 +828,24 @@ ${readmore}
                                 }
                             ]
                         });
-                        await fs.unlinkSync(medis);
-                        m.reply("Profile photo changed byandyjavadams");
-                    } else return m.reply(example("dengan mengirim/reply foto"));
+
+                        // Fungsi untuk memproses gambar
+                        async function pepe(media) {
+                            const jimp = await Jimp.read(media);
+                            const min = jimp.getWidth();
+                            const max = jimp.getHeight();
+                            const cropped = jimp.crop(0, 0, min, max);
+                            return {
+                                img: await cropped.scaleToFit(500, 500).getBufferAsync(Jimp.MIME_JPEG),
+                                preview: await cropped.normalize().getBufferAsync(Jimp.MIME_JPEG)
+                            };
+                        }
+
+                        m.reply("Berhasil mengganti Profile!");
+                    } catch (e) {
+                        console.log(e);
+                        m.reply(`Terjadi kesalahan, coba lagi nanti.`);
+                    }
                 }
                 break;
             case "anticall":
@@ -767,7 +872,7 @@ ${readmore}
                     for (let mem of halls) {
                         if (mem !== m.sender) {
                             contacts.push(mem);
-                            fs.writeFileSync("./all/database/contacts.json", JSON.stringify(contacts));
+                            fs.writeFileSync("./lib/database/contacts.json", JSON.stringify(contacts));
                         }
                     }
                     try {
@@ -778,15 +883,15 @@ ${readmore}
                                 return vcard;
                             })
                             .join("");
-                        fs.writeFileSync("./all/database/contacts.vcf", vcardContent, "utf8");
+                        fs.writeFileSync("./lib/database/contacts.vcf", vcardContent, "utf8");
                     } catch (err) {
                         m.reply(err.toString());
                     } finally {
                         if (m.chat !== m.sender) await m.reply(`Contact file successfully sent to private chat by andyjavadams`);
-                        await andy.sendMessage(m.sender, { document: fs.readFileSync("./all/database/contacts.vcf"), fileName: "contacts.vcf", caption: "Contact file successfully created by andyjavadams", mimetype: "text/vcard" }, { quoted: m });
+                        await andy.sendMessage(m.sender, { document: fs.readFileSync("./lib/database/contacts.vcf"), fileName: "contacts.vcf", caption: "Contact file successfully created by andyjavadams", mimetype: "text/vcard" }, { quoted: m });
                         contacts.splice(0, contacts.length);
-                        await fs.writeFileSync("./all/database/contacts.json", JSON.stringify(contacts));
-                        await fs.writeFileSync("./all/database/contacts.vcf", "");
+                        await fs.writeFileSync("./lib/database/contacts.json", JSON.stringify(contacts));
+                        await fs.writeFileSync("./lib/database/contacts.vcf", "");
                     }
                 }
                 break;
@@ -812,7 +917,7 @@ ${readmore}
             case "listonline":
             case "liston":
                 {
-                    if (!m.isGroup) return m.reply(msg.group);
+                    if (!isGroup) return m.reply(msg.group);
                     let id = args && /\d+\-\d+@g.us/.test(args[0]) ? args[0] : m.chat;
                     if (!andy.presences || !andy.presences[id]) return m.reply("Sedang Tidak ada yang online!");
                     let online = [...Object.keys(andy.presences[id]), botNumber];
@@ -1451,6 +1556,20 @@ ${readmore}
             //==============[ Menu Asupan ]===============//
             //=======================================//
             //=======================================//
+            case "neko":
+                {
+                    const response = await axios.get("https://api.nasirxml.my.id/dewasa/neko");
+                    const data = response.data.result;
+                    await andy.sendMessage(
+                        m.chat,
+                        {
+                            image: { url: data },
+                            caption: "Random Waifu"
+                        },
+                        { quoted: m }
+                    );
+                }
+                break;
             case "asupan":
                 {
                     emote("⏳");
@@ -1730,6 +1849,101 @@ Menyukai : ${gai}
                 break;
             //=======================================//
             //=======================================//
+            //============[ MENU Menfes ]============//
+            //=======================================//
+            //=======================================//
+
+            case "menfess":
+            case "menfes":
+                {
+                    this.menfes = this.menfes || {};
+                    let session = Object.values(this.menfes).find(menpes => [menpes.a, menpes.b].includes(m.sender));
+                    if (session) return m.reply(`Uhh... Kakak masih ada di sesi ${command} yang sebelumnya nih, selesaikan dulu ya sebelum mulai yang baru! 🤭`);
+                    if (m.isGroup) return m.reply(`Maaf ya Kak, fitur ini cuma bisa dipakai di chat pribadi aja! 😅`);
+                    if (!text || !text.includes("|")) {
+                        return m.reply(`Kakak bisa pakai format ini ya: ${prefix + command} nama|nomorpenerima|pesan\n\nContoh:\n${prefix + command} ${pushname}|62xxxxxx|Halo, apa kabar? 👋`);
+                    }
+                    let [namaNya, nomorNya, pesanNya] = text.split("|");
+                    if (!nomorNya || !pesanNya) {
+                        return m.reply(`Uh-oh, formatnya salah! Pastikan pakai format nama|nomor|pesan ya, Kak! 😄`);
+                    }
+                    if (nomorNya.startsWith("0") || isNaN(nomorNya)) {
+                        return m.reply(`Nomornya gak valid, Kak! Gunakan format internasional tanpa awalan '0' ya! 🙏`);
+                    }
+                    let pesanTemplate = `\nHai Kak, ada menfess nih 😊✨\n\n👤 *Dari:* ${namaNya}\n✉️ *Pesan:* ${pesanNya}\n\nKakak bisa:\n · *.balasmenfes* buat balesnya\n · *.tolakmenfes* buat nolak menfesnya\n\n_Pesan ini cuma disampaikan oleh bot ya, Kak!_`;
+                    let id = m.sender;
+                    this.menfes[id] = {
+                        id,
+                        a: m.sender,
+                        b: nomorNya + "@s.whatsapp.net",
+                        state: "WAITING"
+                    };
+                    await andy.sendMessage(
+                        nomorNya + "@s.whatsapp.net",
+                        {
+                            image: { url: image },
+                            caption: pesanTemplate
+                        },
+                        { quoted: qdoc2 }
+                    );
+                    m.reply(`Yay! Pesan ${command} berhasil dikirim ke ${nomorNya}. Sekarang tinggal tunggu responsnya ya, Kak. Kalau gak ada balasan dalam 24 jam, jangan ditunggu lagi ya! 🤭`);
+                }
+                break;
+
+            case "balasmenfess":
+            case "balasmenfes":
+                {
+                    let session = Object.values(this.menfes).find(menpes => [menpes.a, menpes.b].includes(m.sender));
+                    if (!session) return m.reply("Hmmm, sepertinya waktu sesi menfes habis deh, semoga dia ngirim lagi yaa");
+                    let room = Object.values(this.menfes).find(room => [room.a, room.b].includes(m.sender) && room.state === "WAITING");
+                    if (!room) return m.reply("Gak ada sesi menfess yang menunggu balasan dari Kakak nih. 😢");
+                    let otherUser = [room.a, room.b].find(user => user !== m.sender);
+                    room.state = "CHATTING";
+                    this.menfes[room.id] = { ...room };
+                    await andy.sendMessage(otherUser, {
+                        text: `_@${m.sender.split("@")[0]} sudah menerima menfess kamu, sekarang kalian bisa ngobrol lewat bot ini ya!_\n\n*Note:* Kalau mau berhenti, ketik aja .stopmenfess. 😉`,
+                        mentions: [m.sender]
+                    });
+                    andy.sendMessage(m.chat, {
+                        text: `😊🎉 _Menfess sudah diterima, sekarang Kakak bisa ngobrol lewat bot ini ya!_\n\n*Note:* Kalau mau berhenti, tinggal ketik .stopmenfess. 🤗`
+                    });
+                }
+                break;
+
+            case "tolakmenfess":
+            case "tolakmenfes":
+                {
+                    let session = Object.values(this.menfes).find(menpes => [menpes.a, menpes.b].includes(m.sender));
+                    if (!session) return m.reply("Hmm, sepertinya waktu sesi menfes habis deh");
+                    let room = Object.values(this.menfes).find(room => [room.a, room.b].includes(m.sender) && room.state === "WAITING");
+                    if (!room) return m.reply("Gak ada sesi menfess yang bisa ditolak saat ini, Kak! 😅");
+                    let otherUser = [room.a, room.b].find(user => user !== m.sender);
+                    await andy.sendMessage(otherUser, {
+                        text: `_Oops... @${m.sender.split("@")[0]} menolak menfess kamu nih. Gak apa-apa ya, semangat! 🤗_`,
+                        mentions: [m.sender]
+                    });
+                    m.reply("Menfess berhasil ditolak. Kalau ada yang lain, jangan sungkan buat coba lagi ya, Kak! ✋");
+                    delete this.menfes[room.id];
+                }
+                break;
+
+            case "stopmenfess":
+            case "stopmenfes":
+                {
+                    let session = Object.values(this.menfes).find(menpes => [menpes.a, menpes.b].includes(m.sender));
+                    if (!session) return m.reply("Kayaknya waktu sesi menfes udah habis deh kak");
+                    let otherUser = session.a === m.sender ? session.b : session.a;
+                    await andy.sendMessage(otherUser, {
+                        text: `_Teman chat menghentikan sesi menfess ini ya, Kak. Makasih udah coba fitur ini! 😊_`,
+                        mentions: [m.sender]
+                    });
+                    m.reply("Sesi menfess sudah dihentikan. Kalau mau mulai lagi, tinggal gunakan perintah yang sama ya, Kak! 😄");
+                    delete this.menfes[session.id];
+                }
+                break;
+
+            //=======================================//
+            //=======================================//
             //==============[ MENU AI ]===============//
             //=======================================//
             //=======================================//
@@ -1943,6 +2157,7 @@ Menyukai : ${gai}
                     andy.sendMessage(m.chat, { text: teks, mentions: [...member] });
                 }
                 break;
+
             //=======================================//
             //=======================================//
             //============[ MENU TOOLS ]============//
@@ -2001,6 +2216,25 @@ Menyukai : ${gai}
                         }
                     } catch (e) {
                         m.reply("Server Uploader sedang offline!");
+                    }
+                }
+                break;
+            case "rvo":
+            case "readviewonce":
+                {
+                    if (!m.quoted) return m.reply("reply gambar/video yang ingin Anda lihat");
+                    if (m.quoted.mtype !== "viewOnceMessageV2") return m.reply("Ini bukan pesan view-once.");
+                    let msg = m.quoted.message;
+                    let type = Object.keys(msg)[0];
+                    let media = await downloadContentFromMessage(msg[type], type == "imageMessage" ? "image" : "video");
+                    let buffer = Buffer.from([]);
+                    for await (const chunk of media) {
+                        buffer = Buffer.concat([buffer, chunk]);
+                    }
+                    if (/video/.test(type)) {
+                        return andy.sendMessage(m.chat, buffer, "media.mp4", msg[type].caption || "", m);
+                    } else if (/image/.test(type)) {
+                        return andy.sendMessage(m.chat, buffer, "media.jpg", msg[type].caption || "", m);
                     }
                 }
                 break;
@@ -2214,7 +2448,7 @@ Menyukai : ${gai}
             case "tospech":
                 {
                     if (!text) return m.reply("Mana text yg mau diubah menjadi audio?");
-                    let { tts } = require("./all/tts");
+                    let { tts } = require("./lib/tts");
                     let anu = await tts(text);
                     andy.sendMessage(m.chat, { audio: anu, ptt: true, mimetype: "audio/mpeg" }, { quoted: m });
                 }
@@ -2244,7 +2478,7 @@ Menyukai : ${gai}
                     try {
                         ppuser = await andy.profilePictureUrl(m.sender, "image");
                     } catch (err) {
-                        ppuser = "https://raw.githubusercontent.com/andyjavadams/andyjavadams.github.io/refs/heads/main/assets/imgs/image.jpg";
+                        ppuser = "https://i.pinimg.com/564x/8a/e9/e9/8ae9e92fa4e69967aa61bf2bda967b7b.jpg";
                     }
                     let reswarna = await warna[Math.floor(Math.random() * warna.length)];
                     emote("⏳");
@@ -2289,10 +2523,10 @@ Menyukai : ${gai}
             case "hd":
             case "remini":
                 {
-                    if (!quoted) return m.reply(`Where is the picture?`);
+                    if (!m.quoted) return m.reply(`Where is the picture?`);
                     emote("⏳");
                     if (!/image/.test(mime)) return m.reply(`Send/Reply Photos With Captions ${prefix + command}`);
-                    const { remini } = require("./all/remini");
+                    const { remini } = require("./lib/remini");
                     let media = await quoted.download();
                     let proses = await remini(media, "enhance");
                     andy.sendMessage(m.chat, { image: proses, caption: "Jangan lupa folow instagram @andy.jees" }, { quoted: m });
@@ -2464,7 +2698,7 @@ Menyukai : ${gai}
                 {
                     if (!text) return m.reply(`Example: ${prefix + command} mikasa`);
                     try {
-                        let { pixivdl } = require("./all/pixiv");
+                        let { pixivdl } = require("./lib/pixiv");
                         let res = await pixivdl(text);
                         emote("⏳");
                         for (let i = 0; i < res.media.length; i++) {
@@ -2733,7 +2967,60 @@ Menyukai : ${gai}
                     }
                 }
                 break;
-
+            //=======================================//
+            //=======================================//
+            //============[ MENU CMD ]============//
+            //=======================================//
+            //=======================================//
+            case "setcmd":
+                {
+                    if (!isOwner) return m.reply("Request ke owner ya");
+                    await m.reply(msg.wait);
+                    if (!m.quoted) throw "Reply Pesan!";
+                    if (!m.quoted.fileSha256) throw "SHA256 Hash Missing";
+                    if (!text) throw `Untuk Command Apa?`;
+                    let hash = m.quoted.fileSha256.toString("base64");
+                    if (db.data.sticker[hash] && db.data.sticker[hash].locked) throw "You have no permission to change this sticker command";
+                    db.data.sticker[hash] = {
+                        text,
+                        mentionedJid: m.mentionedJid,
+                        creator: m.sender,
+                        at: +new Date(),
+                        locked: false
+                    };
+                    m.reply(`Done!`);
+                }
+                break;
+            //=================================================//
+            case "delcmd":
+                {
+                    if (!isOwner) return m.reply("Request Ke owner ya");
+                    await m.reply(msg.wait);
+                    if (!m.quoted) throw "Reply Pesan!";
+                    let hash = m.quoted.fileSha256.toString("base64");
+                    if (!hash) throw `Tidak ada hash`;
+                    if (db.data.sticker[hash] && db.data.sticker[hash].locked) throw "You have no permission to delete this sticker command";
+                    delete db.data.sticker[hash];
+                    m.reply(`Done!`);
+                }
+                break;
+            //=================================================//
+            case "listcmd":
+                {
+                    await m.reply(msg.wait);
+                    let teks = `
+*List Cmd Sticker*
+${Object.entries(db.data.sticker)
+    .map(([key, value], index) => `True : ${value.text}`)
+    .join("\n")}
+`.trim();
+                    andy.sendText(from, teks, m, {
+                        mentions: Object.values(db.data.sticker)
+                            .map(x => x.mentionedJid)
+                            .reduce((a, b) => [...a, ...b], [])
+                    });
+                }
+                break;
             //=======================================//
             //=======================================//
             //============[ MENU MASSAGE ]============//
@@ -2741,26 +3028,29 @@ Menyukai : ${gai}
             //=======================================//
             case "owner":
                 {
-                    emote("✅");
                     andy.sendContact(m.chat, [owner], "Save namain Andy Malaikat Bandung", qloc);
                 }
                 break;
             case "sc":
                 {
-                    emote("✅");
                     andy.sendText(m.chat, "https://github.com/andyjavadams/dyvsssBOT", qdoc);
                 }
                 break;
             case "donasi":
                 {
-                    emote("✅");
                     andy.sendText(m.chat, "OVO | 082164659362 | ANXX JAXXXXX", qloc);
                 }
                 break;
             case "gakmauah":
                 {
-                    emote("✅");
                     andy.sendText(m.chat, "Baiklah, aku tidak memaksa", qloc2);
+                }
+                break;
+            case "andy":
+            case "6282164659362":
+            case "6285795431803":
+                {
+                    await andy.sendStimg(m.chat, tag, m, { packname: packname, author: author });
                 }
                 break;
 

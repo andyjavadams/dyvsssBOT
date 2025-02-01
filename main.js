@@ -1,7 +1,8 @@
-require("./all/global");
-const func = require("./all/place");
+require("./lib/global");
+const func = require("./lib/place");
 const readline = require("readline");
 const yargs = require("yargs/yargs");
+const NodeCache = require("node-cache");
 const _ = require("lodash");
 const usePairingCode = true;
 const question = text => {
@@ -13,6 +14,28 @@ const question = text => {
         rl.question(text, resolve);
     });
 };
+const DataBase = require("./src/database");
+const database = new DataBase(global.tempatDB);
+const msgRetryCounterCache = new NodeCache();
+(async () => {
+    const loadData = await database.read();
+    if (loadData && Object.keys(loadData).length === 0) {
+        global.db = {
+            set: {},
+            users: {},
+            data: {},
+            database: {},
+            ...(loadData || {})
+        };
+        await database.write(global.db);
+    } else {
+        global.db = loadData;
+    }
+
+    setInterval(async () => {
+        if (global.db) await database.write(global.db);
+    }, 30000);
+})();
 
 async function startSesi() {
     const store = makeInMemoryStore({ logger: pino().child({ level: "silent", stream: "store" }) });
