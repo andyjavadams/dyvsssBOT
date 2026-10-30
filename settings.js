@@ -20,7 +20,7 @@ const ctext = (text, style = 1) => {
     return output.join("");
 };
 //========== Setting Owner ==========//
-global.owner = "6282164659362", "6282164659362"; // no owner
+global.owner = "628xxxxxxx"; // no owner
 global.dbowner = "./lib/database/owner.json";
 global.dbprem = "./lib/database/premium.json";
 global.dbusers = "./lib/database/users.json";
