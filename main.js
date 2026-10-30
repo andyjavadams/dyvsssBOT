@@ -1,9 +1,20 @@
+const nodeMajorVersion = Number(process.versions.node.split(".")[0]);
+if (nodeMajorVersion < 26) {
+    console.error(`Node.js 26 or newer is required. Current version: ${process.versions.node}`);
+    process.exit(1);
+}
+
+console.log("[BOOT] Memulai DyvsssBOT...");
+console.log("[BOOT] Memuat modul global...");
 require("./lib/global");
+console.log("[BOOT] Modul global siap.");
 const func = require("./lib/place");
+console.log("[BOOT] Modul koneksi siap.");
 const readline = require("readline");
 const yargs = require("yargs/yargs");
 const NodeCache = require("node-cache");
 const _ = require("lodash");
+const createStore = require("./lib/store");
 const usePairingCode = true;
 const question = text => {
     const rl = readline.createInterface({
@@ -38,9 +49,13 @@ const msgRetryCounterCache = new NodeCache();
 })();
 
 async function startSesi() {
-    const store = makeInMemoryStore({ logger: pino().child({ level: "silent", stream: "store" }) });
+    console.log("[BOOT] Menyiapkan autentikasi WhatsApp...");
+    const store = createStore();
     const { state, saveCreds } = await useMultiFileAuthState(`./session`);
-    const { version, isLatest } = await fetchLatestBaileysVersion();
+    console.log("[BOOT] Mengambil versi protokol WhatsApp...");
+    const { version, isLatest, error: versionError } = await fetchLatestBaileysVersion({ timeout: 10000 });
+    if (versionError) console.warn("[BOOT] Fetch versi gagal, memakai versi bawaan Baileys:", versionError.message);
+    else console.log(`[BOOT] Versi protokol siap${isLatest ? " (terbaru)" : " (bawaan)"}.`);
     const getMessage = async key => {
         if (store) {
             const msg = await store.loadMessage(key.remoteJid, key.id, undefined);
@@ -52,18 +67,23 @@ async function startSesi() {
     };
 
     const connectionOptions = {
-        isLatest,
         getMessage,
         keepAliveIntervalMs: 30000,
         printQRInTerminal: !usePairingCode,
         logger: pino({ level: "fatal" }),
         auth: state,
-        version: [2, 3000, 1015901307],
+        version,
         browser: ["Ubuntu", "Chrome", "20.0.04"]
     };
+    console.log("[BOOT] Membuka koneksi WhatsApp...");
     const andy = func.makeWASocket(connectionOptions);
     if (usePairingCode && !andy.authState.creds.registered) {
-        const phoneNumber = await question(color("Recode by @andy.jees\nMasukan nomornya dibawah berawal 62 :\n", "white"));
+        let phoneNumber = (await question(color("Masukkan nomor WhatsApp (contoh 62812... atau 0812...). Kode pairing akan tampil setelah nomor dikirim:\n", "white"))).replace(/\D/g, "");
+        if (phoneNumber.startsWith("0")) phoneNumber = `62${phoneNumber.slice(1)}`;
+        if (!phoneNumber.startsWith("62") || phoneNumber.length < 10 || phoneNumber.length > 15) {
+            throw new Error("Nomor tidak valid. Gunakan nomor WhatsApp Indonesia, misalnya 62812...");
+        }
+        console.log("Meminta kode pairing WhatsApp...");
         const code = await andy.requestPairingCode(phoneNumber.trim());
         console.log(`KODE : ${code}`);
     }
@@ -101,7 +121,7 @@ async function startSesi() {
         } else if (connection === "oke udah") {
             console.log(color("bentar..."));
         } else if (connection === "open") {
-            andy.sendMessage("6282164659362@s.whatsapp.net", { text: "Conected WhatsApp web code by @andy.jees" });
+            andy.sendMessage("6283131838328@s.whatsapp.net", { text: "Conected WhatsApp web code by @andy.jees" });
             console.log(color("dyvsssBot succesfully connected"));
         }
     });
@@ -195,7 +215,10 @@ async function startSesi() {
     return andy;
 }
 
-startSesi();
+startSesi().catch(error => {
+    console.error("Gagal memulai sesi WhatsApp:", error);
+    process.exit(1);
+});
 
 process.on("uncaughtException", function (err) {
     console.log("Caught exception: ", err);

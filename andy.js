@@ -1,3 +1,5 @@
+const crypto = require("node:crypto");
+
 module.exports = async (andy, m, chatUpdate, store) => {
     try {
         const body = m.mtype === "conversation" ? m.message.conversation : m.mtype == "imageMessage" ? m.message.imageMessage.caption : m.mtype == "videoMessage" ? m.message.videoMessage.caption : m.mtype == "extendedTextMessage" ? m.message.extendedTextMessage.text : m.mtype == "buttonsResponseMessage" ? m.message.buttonsResponseMessage.selectedButtonId : m.mtype == "listResponseMessage" ? m.message.listResponseMessage.singleSelectReply.selectedRowId : m.mtype === "interactiveResponseMessage" ? JSON.parse(m.message.interactiveResponseMessage.nativeFlowResponseMessage.paramsJson).id : m.mtype == "templateButtonReplyMessage" ? m.message.templateButtonReplyMessage.selectedId : m.mtype === "messageContextInfo" ? m.message.buttonsResponseMessage?.selectedButtonId || m.message.listResponseMessage?.singleSelectReply.selectedRowId || m.text : "";
@@ -141,7 +143,7 @@ module.exports = async (andy, m, chatUpdate, store) => {
                 ];
             }
         }
-        let targetDate = new Date("Februai 28, 2025 00:00:00");
+        let targetDate = new Date("Februai 8, 2027 00:00:00");
         let currentDate = new Date();
         let remainingTime = targetDate.getTime() - currentDate.getTime();
         let poe = Math.floor(remainingTime / (1000 * 60 * 60 * 24));
@@ -254,27 +256,8 @@ module.exports = async (andy, m, chatUpdate, store) => {
                 m.chat,
                 {
                     text: `Perintah salah, cobalah ${cmd} ${teks}`,
-                    contextInfo: {
-                        forwardingScore: 1000,
-                        isForwarded: true,
-                        forwardedNewsletterMessageInfo: {
-                            newsletterJid: cenel,
-                            serverMessageId: null,
-                            newsletterName: "P ingfo @andy.jees"
-                        },
-                        externalAdReply: {
-                            showAdAttribution: true,
-                            renderLargerThumbnail: false,
-                            title: `jangan lupa follow instagram @andy.jees`,
-                            containsAutoReply: true,
-                            mediaType: 1,
-                            thumbnailUrl: image,
-                            mediaUrl: web,
-                            sourceUrl: web
-                        }
-                    }
                 },
-                { quoted: qdoc }
+                { quoted: m }
             );
         };
 
@@ -286,7 +269,7 @@ module.exports = async (andy, m, chatUpdate, store) => {
 
         var resize = async (image, width, height) => {
             let oyy = await Jimp.read(image);
-            let kiyomasa = await oyy.resize(width, height).getBufferAsync(Jimp.MIME_JPEG);
+            let kiyomasa = await oyy.resize({ w: width, h: height }).getBuffer(JimpMime.jpeg);
             return kiyomasa;
         };
 
@@ -570,39 +553,9 @@ ${readmore}
 ├ addprem
 ├ delprem
 └─`;
-                    await andy.sendMessage(
-                        m.chat,
-                        {
-                            document: docs,
-                            fileName: ucapanWaktu,
-                            mimetype: pickRandom(listfakedocs),
-                            fileLength: "100000000000000",
-                            pageCount: "999",
-                            caption: teksnya,
-                            contextInfo: {
-                                mentionedJid: [m.sender, "0@s.whatsapp.net", owner[0] + "@s.whatsapp.net"],
-                                forwardingScore: 1000,
-                                isForwarded: true,
-                                forwardedNewsletterMessageInfo: {
-                                    newsletterJid: cenel,
-                                    serverMessageId: null,
-                                    newsletterName: "P ingfo @andy.jees"
-                                },
-                                externalAdReply: {
-                                    title: author,
-                                    body: packname,
-                                    showAdAttribution: true,
-                                    thumbnailUrl: image,
-                                    mediaType: 1,
-                                    previewType: 0,
-                                    renderLargerThumbnail: true,
-                                    mediaUrl: web,
-                                    sourceUrl: web
-                                }
-                            }
-                        },
-                        { quoted: qkontak }
-                    );
+                    await andy.sendMessage(m.chat, {
+                        text: teksnya, mentions: [m.sender]
+                    });
                 }
                 break;
             /*            andy.sendMessage(
@@ -832,12 +785,12 @@ ${readmore}
                         // Fungsi untuk memproses gambar
                         async function pepe(media) {
                             const jimp = await Jimp.read(media);
-                            const min = jimp.getWidth();
-                            const max = jimp.getHeight();
-                            const cropped = jimp.crop(0, 0, min, max);
+                            const min = jimp.bitmap.width;
+                            const max = jimp.bitmap.height;
+                            const cropped = jimp.crop({ x: 0, y: 0, w: min, h: max });
                             return {
-                                img: await cropped.scaleToFit(500, 500).getBufferAsync(Jimp.MIME_JPEG),
-                                preview: await cropped.normalize().getBufferAsync(Jimp.MIME_JPEG)
+                                img: await cropped.scaleToFit({ w: 500, h: 500 }).getBuffer(JimpMime.jpeg),
+                                preview: await cropped.normalize().getBuffer(JimpMime.jpeg)
                             };
                         }
 
@@ -2154,7 +2107,7 @@ Menyukai : ${gai}
                     var member = await groupMetadata.participants.map(e => e.id);
                     var teks = ` ${text}\n\n`;
                     member.forEach(e => (e !== m.sender ? (teks += `@${e.split("@")[0]}\n`) : ""));
-                    andy.sendMessage(m.chat, { text: teks, mentions: [...member] });
+                    andy.sendMessage(m.chat, { text: teks, mentions: member });
                 }
                 break;
 
@@ -2163,35 +2116,14 @@ Menyukai : ${gai}
             //============[ MENU TOOLS ]============//
             //=======================================//
             //=======================================//
-            case "runtime":
             case "ping":
                 {
                     let timestamp = speed();
                     let latensi = speed() - timestamp;
                     neww = performance.now();
                     oldd = performance.now();
-                    rin = `> Runtime : ${runtime(process.uptime())}\n> Response Speed : ${latensi.toFixed(4)} Second\n> Ram : ${formatp(os.totalmem() - os.freemem())} / ${formatp(os.totalmem())}`;
-                    await andy.relayMessage(
-                        m.chat,
-                        {
-                            requestPaymentMessage: {
-                                currencyCodeIso4217: "IDR",
-                                amount1000: 62821646593620000,
-                                requestFrom: m.sender,
-                                noteMessage: {
-                                    extendedTextMessage: {
-                                        text: ctext(rin),
-                                        contextInfo: {
-                                            externalAdReply: {
-                                                showAdAttribution: true
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        },
-                        {}
-                    );
+                    andy = `Uptime : ${runtime(process.uptime())}\nResponse Speed : ${latensi.toFixed(4)} Second\nRam : ${formatp(os.totalmem() - os.freemem())} / ${formatp(os.totalmem())}`;
+                    m.reply(andy);
                 }
                 break;
             case "toqr":
@@ -2473,15 +2405,13 @@ Menyukai : ${gai}
             case "qc":
                 {
                     if (!text) return m.reply(example("teksnya"));
-                    let warna = ["#000000", "#ff2414", "#22b4f2", "#eb13f2"];
                     let ppuser;
                     try {
                         ppuser = await andy.profilePictureUrl(m.sender, "image");
                     } catch (err) {
                         ppuser = "https://i.pinimg.com/564x/8a/e9/e9/8ae9e92fa4e69967aa61bf2bda967b7b.jpg";
                     }
-                    let reswarna = await warna[Math.floor(Math.random() * warna.length)];
-                    emote("⏳");
+                    await emote("⏳");
                     const obj = {
                         type: "quote",
                         format: "png",
@@ -2506,17 +2436,24 @@ Menyukai : ${gai}
                         ]
                     };
                     try {
-                        const json = await axios.post("https://bot.lyo.su/quote/generate", obj, {
+                        const { data } = await axios.post("https://bot.lyo.su/quote/generate", obj, {
                             headers: {
                                 "Content-Type": "application/json"
                             }
                         });
-                        const buffer = Buffer.from(json.data.result.image, "base64");
-                        andy.sendStimg(m.chat, buffer, m, { packname: global.packname });
+                        if (!data?.result?.image) throw new Error("QC API did not return an image.");
+                        const buffer = Buffer.from(data.result.image, "base64");
+                        await andy.sendStimg(m.chat, buffer, m, { packname: global.packname });
+                        await emote("✅");
                     } catch (error) {
-                        m.reply(error.toString());
+                        console.error("QC generation failed:", error);
+                        const status = error.response?.status;
+                        await m.reply(
+                            status
+                                ? `Layanan QC sedang bermasalah (HTTP ${status}). Coba lagi nanti.`
+                                : "Gagal membuat QC. Layanan mungkin sedang tidak tersedia; coba lagi nanti."
+                        );
                     }
-                    emote("✅");
                 }
                 break;
             case "hdr":

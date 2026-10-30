@@ -20,7 +20,7 @@ const ctext = (text, style = 1) => {
     return output.join("");
 };
 //========== Setting Owner ==========//
-global.owner = "6282164659362"; // no owner
+global.owner = "6282164659362", "6282164659362"; // no owner
 global.dbowner = "./lib/database/owner.json";
 global.dbprem = "./lib/database/premium.json";
 global.dbusers = "./lib/database/users.json";
@@ -35,13 +35,14 @@ global.versionbot = `Beta`;
 global.saluran = "-"; // bebas
 global.linkgc = "https://chat.whatsapp.com/JR1bfYOUzIQ7GHyIW0ojDw"; // bebas
 global.packname = "andyjavadams"; // bebas
-global.author = "dyvsss.me"; // terserah
+global.author = "andyjs.tech"; // terserah
 global.docs = fs.readFileSync("./src/media/fake.pdf");
 global.listfakedocs = ["application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "application/vnd.openxmlformats-officedocument.presentationml.presentation", "application/vnd.openxmlformats-officedocument.wordprocessingml.document", "application/pdf"];
 global.cenel = "120363144038483540@newsletter";
 global.github = "https://github.com/andyjavadams";
 global.web = "https://dyvsss.me";
-//========= Setting Url Foto =========//
+//========= Setting Url Foto ==
+// =======//
 global.image = "https://d.top4top.io/p_32942ilrn0.jpg";
 global.logo = "https://raw.githubusercontent.com/andyjavadams/andyjavadams.github.io/refs/heads/main/assets/imgs/image.jpg";
 //========= Jangan Di Ubah =========//
